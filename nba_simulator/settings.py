@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'nba_fans.urls'
+ROOT_URLCONF = 'nba_simulator.urls'
 
 TEMPLATES = [
     {
@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'nba_fans.wsgi.application'
+WSGI_APPLICATION = 'nba_simulator.wsgi.application'
 
 
 # Database
