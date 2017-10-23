@@ -1,8 +1,9 @@
 import json
-import nba_simulator.Constants as Constants
 import math
-from os.path import join
 from enum import Enum
+from os.path import join
+from nba_py import player
+from data_retriever import Main
 
 """
 Rating Mechanism
@@ -40,18 +41,18 @@ class Stats(Enum):
 
 
 PLAYER_RATING = {
-    Position.GUARD: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    Position.FORWARD: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    Position.CENTER: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    Position.GUARD: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    Position.FORWARD: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    Position.CENTER: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 }
 
 
 class RatingMachine:
     def __init__(self, player_id):
         self.player_rating = 0
-        self.player_dict = Constants.PLAYER_DICT
-        self.player_stat = prepare_data(player_id)
-        self.position = None
+        self.data = prepare_data(player_id)
+        self.player_stat = self.data[0]
+        self.position = self.data[1]
 
         self.rate()
 
@@ -60,6 +61,9 @@ class RatingMachine:
         result += str(self.player_stat) + '\n'
         result += str(self.player_rating)
         return result
+
+    def get_rating(self):
+        return self.player_rating
 
     def rate(self):
         self.player_rating = math.ceil(self.points() + self.rebounds() + self.assists() + self.steals() +
@@ -108,18 +112,32 @@ class RatingMachine:
 
 
 def prepare_data(player_id):
-    player_name = Constants.PLAYER_DICT[player_id]
+    """
+    Prepare the data needed to be used to calculate player ratings
+
+    :param player_id: the ID of a specific player
+    :return: a list containing player stats and a string for player position
+    """
+    # load the season stats for the player
+    player_name = Main.player_dict[player_id]
     player_stat = {}
-    path = join(Constants.PLAYER_BASE_PATH + 'season_stats/', player_name + '.json')
-    data = json.load(open(path))
+    path = join(Main.PLAYER_BASE_PATH + 'season_stats/', player_name + '.json')
+    with open(path) as season_file:
+        data = json.load(season_file)
 
     for stat in Stats:
         player_stat[str(stat.name)] = data[-1][str(stat.name)]
 
-    return player_stat
+    # determine the position of the player
+    player_summary = player.PlayerSummary(player_id).info()
+    if player_summary[0]['POSITION'] == 'G':
+        position = Position.GUARD
+    elif player_summary[0]['POSITION'] == 'C':
+        position = Position.CENTER
+    else:
+        position = Position.FORWARD
 
-print(RatingMachine(201166))  # Aaron Brooks
-print(RatingMachine(201935))  # James Harden
-print(RatingMachine(201142))  # Kevin Durant
-print(RatingMachine(204001))  # Porzingis
-print(RatingMachine(201566))  # Russell Westbrook
+    return player_stat, position
+
+
+

@@ -33,7 +33,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'simulator',
     'data_display',
-    'data_grabber',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
