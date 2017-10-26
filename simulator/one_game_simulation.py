@@ -33,7 +33,10 @@ class TeamScoringMachine:
         self.team_two_games = []
         self.team_one_score = 0
         self.team_two_score = 0
-        self.team_dict = Main.team_dict
+
+        # set up team dict data
+        with open(Main.TEAM_DICT_PATH, 'r') as team_dict_file:
+            self.team_dict = json.load(team_dict_file)
 
         # prepare data for simulation
         self.prepare_data()
@@ -153,4 +156,3 @@ def point_difference_scoring_machine(team_one_points, team_two_points):
             return 0, 3
         elif difference >= 30:
             return 0, 4
-

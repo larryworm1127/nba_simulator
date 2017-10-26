@@ -1,7 +1,11 @@
 from unittest import TestCase
-import data_retriever.Main as Main
+from data_retriever import Main
+from data_retriever import file_check
 
 
 class TestMain(TestCase):
-    def test_sort_player_into_team(self):
-        self.assertEqual(Main.sort_player_into_team(), "done")
+    def test1(self):
+        #self.assertEqual(Main.sort_player_into_team(), "done")
+        #file_check.init()
+        Main.create_player_dict()
+        self.assertEqual(1,1)

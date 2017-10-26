@@ -3,7 +3,7 @@ import math
 from enum import Enum
 from os.path import join
 from nba_py import player
-from data_retriever import Main
+from data_retriever import Main, file_check
 
 """
 Rating Mechanism
@@ -118,10 +118,14 @@ def prepare_data(player_id):
     :param player_id: the ID of a specific player
     :return: a list containing player stats and a string for player position
     """
+    # prepare player dict data
+    with open(Main.PLAYER_DICT_PATH, 'r') as player_dict_file:
+        player_dict = dict(json.load(player_dict_file))
+
     # load the season stats for the player
-    player_name = Main.player_dict[player_id]
+    player_name = player_dict[player_id]
     player_stat = {}
-    path = join(Main.PLAYER_BASE_PATH + 'season_stats/', player_name + '.json')
+    path = join(Main.SEASON_STAT_PATH, player_name + '.json')
     with open(path) as season_file:
         data = json.load(season_file)
 
