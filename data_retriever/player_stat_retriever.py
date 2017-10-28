@@ -18,6 +18,7 @@ def create_game_log_profile(player_id):
 
     :param player_id: the ID of the player
     """
+    print("Retrieving player game log data and creating files ... Please wait.")
     new_path = join(Main.PLAYER_BASE_PATH, player_dict[player_id] + '.json')
     game_log = player.PlayerGameLogs(player_id).json
     with open(new_path, 'w') as player_file:
@@ -30,6 +31,7 @@ def create_player_profile(player_id):
 
     :param player_id:
     """
+    print("Retrieving player season stats data and creating files ... Please wait.")
     new_path = join(Main.PLAYER_BASE_PATH, 'season_stats/' + player_dict[player_id] + '.json')
     season_stats = player.PlayerCareer(player_id).regular_season_totals()
     with open(new_path, 'w') as season_file:
@@ -44,3 +46,4 @@ def init():
         create_game_log_profile(player_id)
         create_player_profile(player_id)
 
+init()

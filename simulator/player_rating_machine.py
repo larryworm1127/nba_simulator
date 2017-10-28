@@ -1,9 +1,11 @@
 import json
 import math
+import random
+
 from enum import Enum
 from os.path import join
 from nba_py import player
-from data_retriever import Main, file_check
+from data_retriever import Main
 
 """
 Rating Mechanism
@@ -133,13 +135,14 @@ def prepare_data(player_id):
         player_stat[str(stat.name)] = data[-1][str(stat.name)]
 
     # determine the position of the player
-    player_summary = player.PlayerSummary(player_id).info()
-    if player_summary[0]['POSITION'] == 'G':
-        position = Position.GUARD
-    elif player_summary[0]['POSITION'] == 'C':
-        position = Position.CENTER
-    else:
-        position = Position.FORWARD
+    #player_summary = player.PlayerSummary(player_id).info()
+    #if player_summary[0]['POSITION'] == 'G':
+    #    position = Position.GUARD
+    #elif player_summary[0]['POSITION'] == 'C':
+    #    position = Position.CENTER
+    #else:
+    #    position = Position.FORWARD
+    position = random.choice([Position.FORWARD, Position.GUARD, Position.CENTER])
 
     return player_stat, position
 

@@ -2,7 +2,7 @@
 import json
 from os.path import join
 from data_retriever import Main
-from nba_py import team
+from nba_py import team, constants
 from data_retriever import file_check
 
 # create preliminary files for teams
@@ -18,10 +18,16 @@ def create_game_logs_file(team_id):
 
     :param team_id: ID number of the team
     """
+    print("Retrieving team game log data and creating files ... Please wait.")
     path = join(Main.TEAM_BASE_PATH, team_dict[team_id] + '.json')
     game_logs = team.TeamGameLogs(team_id, '2016-17').json
     with open(path, 'w') as outfile:
         json.dump(game_logs, outfile)
+
+    playoff_path = join(Main.TEAM_PLAYOFF_PATH, team_dict[team_id] + '.json')
+    playoff_games = team.TeamGameLogs(team_id, '2016-17', constants.SeasonType.Playoffs).json
+    with open(playoff_path, 'w') as playoff_files:
+        json.dump(playoff_games, playoff_files)
 
 
 def init():

@@ -34,6 +34,12 @@ def check_assets_dir():
     if not exists(Main.SEASON_STAT_PATH):
         makedirs(Main.SEASON_STAT_PATH)
 
+    if not exists(Main.PLAYER_RATING_PATH):
+        makedirs(Main.PLAYER_RATING_PATH)
+
+    if not exists(Main.TEAM_PLAYOFF_PATH):
+        makedirs(Main.TEAM_PLAYOFF_PATH)
+
 
 # init
 def init():
