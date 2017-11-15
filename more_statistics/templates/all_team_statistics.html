@@ -1,0 +1,32 @@
+{% extends "main_template.html" %}
+
+{% block title %}Display All Team Stats 2016-2017{% endblock %}
+
+{% block content %}
+  <div class="container">          
+	  <table class="table table-bordered">
+		<thead>
+		  <tr>
+			{% for header in headers %} 
+				<th>{{header}} </th>
+			{% endfor %} 
+		  </tr>
+		</thead>
+		<tbody>
+			{% for row in rows %} 
+		  <tr>
+			  {% for column in row %} 
+				<td>{{column}}</td>
+			   {% endfor %}
+		  </tr>
+		  {% endfor %}
+		</tbody>
+	  </table>
+</div>
+  
+  
+{% endblock %}
+
+
+
+

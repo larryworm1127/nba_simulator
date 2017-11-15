@@ -10,12 +10,14 @@ ASSET_BASE = join(BASE, 'assets')
 TEAM_BASE_PATH = join(ASSET_BASE, 'team_stats')
 PLAYER_BASE_PATH = join(ASSET_BASE, 'player_stats')
 OTHER_BASE_PATH = join(ASSET_BASE, 'other_files')
+GAME_BASE_PATH = join(ASSET_BASE, 'game_stats')
 PLAYER_DICT_PATH = join(OTHER_BASE_PATH, 'player_dict.json')
 TEAM_DICT_PATH = join(OTHER_BASE_PATH, 'team_dict.json')
 PLAYER_LIST_PATH = join(OTHER_BASE_PATH, 'player_list.json')
 SEASON_STAT_PATH = join(ASSET_BASE, 'player_stats', 'season_stats')
 PLAYER_RATING_PATH = join(ASSET_BASE, 'player_ratings')
 TEAM_PLAYOFF_PATH = join(TEAM_BASE_PATH, 'playoff_stats')
+TEAM_SEASON_PATH = join(TEAM_BASE_PATH, 'season_stats')
 
 
 # main functions

@@ -40,6 +40,11 @@ def check_assets_dir():
     if not exists(Main.TEAM_PLAYOFF_PATH):
         makedirs(Main.TEAM_PLAYOFF_PATH)
 
+    if not exists(Main.TEAM_SEASON_PATH):
+        makedirs(Main.TEAM_SEASON_PATH)
+
+    if not exists(Main.GAME_BASE_PATH):
+        makedirs(Main.GAME_BASE_PATH)
 
 # init
 def init():

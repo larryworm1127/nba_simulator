@@ -16,8 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from more_statistics import views
+#from game_statistics import views
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^data_display/', include('data_display.urls')),
-    url(r'^tournament/', include('tournament.urls'))
+    url(r'^tournament/', include('tournament.urls')),
+    #url(r'^game_statistics/', include('game_statistics.urls')),
+    url(r'^more_statistics/', include('more_statistics.urls'))
 ]
