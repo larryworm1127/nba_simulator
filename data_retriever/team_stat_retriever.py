@@ -18,7 +18,7 @@ def create_game_logs_file(team_id):
 
     :param team_id: ID number of the team
     """
-    print("Retrieving team game log data and creating files ... Please wait.")
+    print("Retrieving team " + team_dict[team_id] + " game log data + season stats and creating files ... Please wait.")
     path = join(Main.TEAM_BASE_PATH, team_dict[team_id] + '.json')
     game_logs = team.TeamGameLogs(team_id, '2016-17').json
     with open(path, 'w') as outfile:
@@ -26,8 +26,14 @@ def create_game_logs_file(team_id):
 
     playoff_path = join(Main.TEAM_PLAYOFF_PATH, team_dict[team_id] + '.json')
     playoff_games = team.TeamGameLogs(team_id, '2016-17', constants.SeasonType.Playoffs).json
-    with open(playoff_path, 'w') as playoff_files:
-        json.dump(playoff_games, playoff_files)
+    if len(playoff_games['resultSets'][0]['rowSet']):
+        with open(playoff_path, 'w') as playoff_files:
+            json.dump(playoff_games, playoff_files)
+
+    season_path = join(Main.TEAM_SEASON_PATH, team_dict[team_id] + '.json')
+    season_stats = team.TeamSeasons(team_id).json
+    with open(season_path, 'w') as season_files:
+        json.dump(season_stats, season_files)
 
 def create_season_stats_file(team_id):
 

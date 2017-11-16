@@ -11,20 +11,24 @@
     <body>
         <H1>Tournament {{ season }}</H1>
     	<div id="main">
-            <div id="save" class="demo" style="display: inline-block;">
+            <div id="west" style="display: inline-block;">
+                <div class="demo"></div>
             </div>
+
             <div id="final" style="display: inline-block;">
-
-            </div>
-            <div id="save1" style="display: inline-block;float: right">
-
+                <div class="demo"></div>
             </div>
 
+            <div id="east" style="display: inline-block;float: right">
+                <div class="demo"></div>
+            </div>
         </div>
 
     	<script type="text/javascript">
             $.get( "../api/{{ season }}", function( data ) {
-			    $('#save.demo').bracket({init: data})
+			    $('#west .demo').bracket({init: data['west']})
+			    $('#east .demo').bracket({init: data['east'], dir: 'rl'})
+			    $('#final .demo').bracket({init: data['final']})
 			  })
     	</script>
     </body>

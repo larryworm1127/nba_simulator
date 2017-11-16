@@ -20,6 +20,11 @@ def player_list():
         Main.create_player_list()
 
 
+def team_list():
+    if not exists(Main.TEAM_LIST_PATH):
+        Main.create_team_list()
+
+
 # directory check functions
 def check_assets_dir():
     if not exists(Main.PLAYER_BASE_PATH):
@@ -45,6 +50,9 @@ def check_assets_dir():
 
     if not exists(Main.GAME_BASE_PATH):
         makedirs(Main.GAME_BASE_PATH)
+    if not exists(Main.SIMULATE_RESULT_PATH):
+        makedirs(Main.SIMULATE_RESULT_PATH)
+
 
 # init
 def init():
@@ -52,3 +60,4 @@ def init():
     player_list()
     team_dict()
     player_dict()
+    team_list()

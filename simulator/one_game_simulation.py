@@ -67,7 +67,6 @@ class TeamScoringMachine:
         return self.team2_score
 
     def get_winner(self):
-        print(self.team_dict[self.winner])
         return self.winner
 
     def prepare_game_log_data(self):
@@ -146,7 +145,9 @@ class TeamScoringMachine:
     def player_rating(self):
         team1_total = sum([rating for rating in self.team1_ratings])
         team2_total = sum([rating for rating in self.team2_ratings])
+        #print(team1_total, team2_total)
         difference = point_difference_scoring_machine(team1_total, team2_total)
+        #print(difference)
         score1 = difference[0]
         score2 = difference[1]
         return score1, score2
@@ -182,7 +183,7 @@ class TeamScoringMachine:
                 else:
                     self.winner = self.team_two
 
-        if self.team1_score < self.team2_score:
+        elif self.team1_score < self.team2_score:
             if difference <= 5:
                 if random_num <= 5 + 1:
                     self.winner = self.team_two
@@ -203,6 +204,11 @@ class TeamScoringMachine:
                     self.winner = self.team_two
                 else:
                     self.winner = self.team_one
+        else:
+            if random_num <= 5:
+                self.winner = self.team_one
+            else:
+                self.winner = self.team_two
 
 
 def string_processor(string):
@@ -232,3 +238,6 @@ def point_difference_scoring_machine(team_one_points, team_two_points):
             return 0, 3
         elif difference >= 30:
             return 0, 4
+
+    if team_one_points == team_two_points:
+        return 1, 1

@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from tournament import data_manipulate
+from tournament.data_manipulate import format_data, second_third_round_data, conf_final_teams
 
 
 class Tournament(APIView):
@@ -14,50 +16,56 @@ class Tournament(APIView):
 # @api_view(['GET', 'POST'])
 @csrf_exempt
 def tournament(request, season):
-    if season == '2017':
+    if season == '2016-17':
         data = {
-            "teams": [
-                ["Team 1", "Team 2"],
-                ["Team 3", "Team 4"]
-            ],
-            "results": [[
-                [[1, 2], [3, 4]],
-                [[5, 6]]
-            ],
-                [
-                    [[7, 8]],
-                    [[9, 10]]
+            'west':
+                {"teams": [
+                    ["GSW", "POR"],
+                    ["LAC", "UTA"],
+                    ["HOU", "OKC"],
+                    ["SAS", "MEM"]
                 ],
-                [
-                    [
-                        [11, 12],
-                        [13, 14]
-                    ],
-                    [
-                        [15, 16]
-                    ]
-                ]
-            ]
+                    "results": [
+                        [
+                            [[4, 0], [3, 4], [4, 1], [4, 2]],  # First round
+                            [[4, 0], [2, 4]],  # Second round
+                            [[4, 0]]  # Conference final
+                        ]
+                    ]},
+
+            'east':
+                {"teams": [
+                    ["BOS", "CHI"],
+                    ["WAS", "ATL"],
+                    ["TOR", "MIL"],
+                    ["CLE", "IND"]
+                ],
+                    "results": [
+                        [
+                            [[4, 2], [4, 2], [4, 2], [4, 0]],  # First round
+                            [[4, 3], [0, 4]],  # Second round
+                            [[1, 4]]  # Conference final
+                        ]
+                    ]},
+
+            'final':
+                {"teams": [['GSW', 'CLE']],
+                 "results": [[[4, 1]]]}
         }
+
     else:
-        data = {
-            "teams": [
-                ["Team 1", "Team 2"],
-                ["Team 3", "Team 4"]
-            ],
-            "results": [
-                [
-                    [
-                        [1, 2],
-                        [3, 4]
-                    ],
-                    [
-                        [5, 6],
-                        [7, 8]
-                    ]
-                ]
-            ]
-        }
+        for div in ['east', 'west']:
+            for idx in range(2):
+                format_data(div, idx)
+
+        final_teams = []
+        for div in ['east', 'west']:
+            final_team = second_third_round_data(conf_final_teams[div], div, 3)
+            final_teams.append(final_team)
+
+        second_third_round_data(final_teams, 'final', 1)
+        data = data_manipulate.final_data
+
     return JsonResponse(data)
 
 
