@@ -13,14 +13,15 @@ def all_team_statistics(request):
     parsed_json = json.loads(d)
     resource = parsed_json['resource']
     parameters = parsed_json['parameters']
-    result_sets = parsed_json['resultSets']
-    headers = ['Team City', 'Team Name', 'W', 'L', 'PPG', 'FG%', '3P%', 'DREB', 'OREB', 'AST', 'TOV', 'STL', 'BLK',
-               'PF']
+
+    resultSets = parsed_json['resultSets']
+    headers=['Rank','Team City','Team Name','W','L','PPG','FG%','3P%','DREB','OREB','AST','TOV','STL','BLK','PF']
     rows = []
     indexes = []
     new_row = []
-    for result in result_sets:
-        for k, v in result.items():
+    rank = 1
+    for result in resultSets:        
+        for k,v in result.items():
             if k == 'headers':
                 indexes.append(v.index('TEAM_CITY'))
                 indexes.append(v.index('TEAM_NAME'))
@@ -38,6 +39,8 @@ def all_team_statistics(request):
                 indexes.append(v.index('PF'))
             elif k == 'rowSet':
                 for row in v:
+                    new_row.append(rank)
+                    rank += 1
                     for i in range(len(indexes)):
                         new_row.append(row[indexes[i]])
                     rows.append(new_row)

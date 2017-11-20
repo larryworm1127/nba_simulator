@@ -21,7 +21,7 @@ def create_game_log_profile():
         team_path = join(Main.TEAM_BASE_PATH, team + '.json')
         with open(team_path, 'r') as game_log_path:
             data = json.load(game_log_path)
-
+a
         for index in range(len(data['resultSets'][0]['rowSet'])):
             game_id_list.append(data['resultSets'][0]['rowSet'][index][1])
 
