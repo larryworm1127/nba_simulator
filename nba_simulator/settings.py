@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
+    'more_statistics.apps.MoreStatisticConfig',
+    #'game_statistics',
     'data_display.apps.DataDisplayConfig',
     'tournament.apps.TournamentConfig',
     'django.contrib.admin',
@@ -39,9 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'more_statistics',
-    #'game_statistics',
+    'django.contrib.staticfiles'
 ]
 
 MIDDLEWARE = [

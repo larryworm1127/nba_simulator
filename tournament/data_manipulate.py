@@ -81,3 +81,6 @@ def second_third_round_data(team_list, division, round_num):
     final_data[division]['results'][round_num - 1].append([team_points, opponent_points])
     return team_abb if team_points > opponent_points else opponent
 
+
+
+

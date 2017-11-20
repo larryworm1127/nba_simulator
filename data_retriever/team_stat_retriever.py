@@ -35,10 +35,10 @@ def create_game_logs_file(team_id):
     with open(season_path, 'w') as season_files:
         json.dump(season_stats, season_files)
 
-def create_season_stats_file(team_id):
 
+def create_season_stats_file(team_id):
     print("Retrieving team season log data and creating files ... Please wait.")
-    path= join(Main.TEAM_SEASON_PATH, team_dict[team_id] + '.json')
+    path = join(Main.TEAM_SEASON_PATH, team_dict[team_id] + '.json')
     season_logs = team.TeamSeasons(team_id).json
     with open(path, 'w') as outfile:
         json.dump(season_logs, outfile)
@@ -49,7 +49,8 @@ def init():
     Loop through every single team ID and create a file
     """
     for team_id in team_dict.keys():
-        #create_game_logs_file(team_id)
+        # create_game_logs_file(team_id)
         create_season_stats_file(team_id)
+
 
 init()
