@@ -2,3 +2,4 @@
 *.pyc
 assets
 run.bat
+db.sqlite3

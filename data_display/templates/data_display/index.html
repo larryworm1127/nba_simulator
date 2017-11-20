@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Loads the path to your static files -->
+    {% load staticfiles %}
+
+    <link rel="stylesheet" href="{% static 'data_display/style.css' %}"/>
+
+    {% if title %}
+    <center><h1 style="font-size:90px;"><font color="white">Welcome</font></h1></center>
+    {% endif %}
+
+    <style>
+    body {
+        background-image: url("https://avante.biz/wp-content/uploads/Nba-Wallpapers/Nba-Wallpapers-011.jpg");
+        overflow: auto;
+        background-repeat: no repeat;
+
+    }.
+
+    #bg {
+        background-repeat: no repeat;
+    }
+
+    </style>
+
+</head>
+
+<body>
+
+<div id="bg"></div>
+<div id="trapezoid"></div>
+
+<button class="parallelogram_sim_button">Simulate</button>
+<button class="parallelogram_view_button">View Stats</button>
+
+<center><img src="http://www.dimensionsinfo.com/wp-content/uploads/2009/12/NBA-Trophy.png" alt="NBA Championship Trophy"
+             class="trophy" style="width: 120px; height: 120px;"></center>
++
+<center><img src="https://upload.wikimedia.org/wikipedia/en/0/02/Western_Conference_%28NBA%29_logo.gif"
+             alt="NBA Western Conference Logo"
+             class="west" style="width: 115px; height: 115px;"></center>
+
+<center><img src="https://s-media-cache-ak0.pinimg.com/originals/01/41/16/0141166a90aa673e552a1472badcd8cb.gif"
+             alt="NBA Eastern Conference Logo"
+             class="east" style="width: 115px; height: 115px;"></center>
+
+<center><img src="http://oi66.tinypic.com/f40cnb.jpg" alt="The team's logo" class="logo"></center>
+
+</body>
+
+</html>
