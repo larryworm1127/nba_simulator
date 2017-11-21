@@ -151,3 +151,5 @@ def sort_player_into_team():
             json.dump(sorted_player_ratings, outfile)
 
     print("Sorting complete.")
+
+create_division_list()

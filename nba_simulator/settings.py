@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'rest_framework',
     'more_statistics.apps.MoreStatisticConfig',
-    #'game_statistics',
+    'game_statistics',
     'data_display.apps.DataDisplayConfig',
     'tournament.apps.TournamentConfig',
     'django.contrib.admin',
