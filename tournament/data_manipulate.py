@@ -8,6 +8,7 @@ from os.path import join
 TEAM_MATCH_LIST = [[1, 8, 4, 5], [3, 6, 2, 7]]
 TEAM_OPPONENT = {1: 8, 2: 7, 3: 6, 4: 5, 5: 4, 6: 3, 7: 2, 8: 1}
 
+# create other variables and access data from files
 final_data = {'east': {'teams': [], 'results': [[], [], []]}, 'west': {'teams': [], 'results': [[], [], []]},
               'final': {'teams': [], 'results': [[]]}}
 
@@ -80,7 +81,3 @@ def second_third_round_data(team_list, division, round_num):
 
     final_data[division]['results'][round_num - 1].append([team_points, opponent_points])
     return team_abb if team_points > opponent_points else opponent
-
-
-
-

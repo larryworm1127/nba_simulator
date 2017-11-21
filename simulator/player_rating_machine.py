@@ -127,7 +127,7 @@ def prepare_data(player_id):
     # load the season stats for the player
     player_name = player_dict[player_id]
     player_stat = {}
-    path = join(Main.SEASON_STAT_PATH, player_name + '.json')
+    path = join(Main.PLAYER_SEASON_PATH, player_name + '.json')
     with open(path) as season_file:
         data = json.load(season_file)
 

@@ -3,27 +3,34 @@ import json
 from os.path import join, expanduser
 from nba_py import player, team
 from simulator import player_rating_machine
-from data_retriever import file_check
 
-# constant for the software
+# constant for the data paths
+# asset base paths
 BASE = expanduser('~')
 ASSET_BASE = join(BASE, 'assets')
+
+# other base paths
 TEAM_BASE_PATH = join(ASSET_BASE, 'team_stats')
 PLAYER_BASE_PATH = join(ASSET_BASE, 'player_stats')
 OTHER_BASE_PATH = join(ASSET_BASE, 'other_files')
 GAME_BASE_PATH = join(ASSET_BASE, 'game_stats')
-PLAYER_DICT_PATH = join(OTHER_BASE_PATH, 'player_dict.json')
+PLAYER_RATING_PATH = join(ASSET_BASE, 'player_ratings')
+SIMULATE_RESULT_PATH = join(ASSET_BASE, 'simulated_results')
+
+# directory paths within base paths
+TEAM_PLAYOFF_PATH = join(TEAM_BASE_PATH, 'playoff_stats')
+PLAYER_SEASON_PATH = join(PLAYER_BASE_PATH, 'season_stats')
+TEAM_SEASON_PATH = join(TEAM_BASE_PATH, 'season_stats')
 TEAM_DICT_PATH = join(OTHER_BASE_PATH, 'team_dict.json')
+
+# file paths
+PLAYER_DICT_PATH = join(OTHER_BASE_PATH, 'player_dict.json')
 PLAYER_LIST_PATH = join(OTHER_BASE_PATH, 'player_list.json')
 TEAM_LIST_PATH = join(OTHER_BASE_PATH, 'team_list.json')
-SEASON_STAT_PATH = join(ASSET_BASE, 'player_stats', 'season_stats')
-PLAYER_RATING_PATH = join(ASSET_BASE, 'player_ratings')
-TEAM_PLAYOFF_PATH = join(TEAM_BASE_PATH, 'playoff_stats')
-SIMULATE_RESULT_PATH = join(ASSET_BASE, 'simulated_results')
 GAME_LIST_PATH = join(OTHER_BASE_PATH, 'game_list.json')
 DIVISION_LIST_PATH = join(OTHER_BASE_PATH, 'division_list.json')
-TEAM_SEASON_PATH = join(TEAM_BASE_PATH, 'season_stats')
-COMBINE_FILE_PATH = join(SEASON_STAT_PATH, 'Combined.json')
+COMBINE_FILE_PATH = join(TEAM_SEASON_PATH, 'Combined.json')
+SIMULATE_RANKING_PATH = join(SIMULATE_RESULT_PATH, 'ranking.json')
 
 
 # main functions
@@ -111,6 +118,12 @@ def create_combine_file():
         with open(join(TEAM_SEASON_PATH, team_abb + '.json')) as team_season_file:
             data = json.load(team_season_file)
 
+        final_data['resultSets'][0]['rowSet'].append(data['resultSets'][0]['rowSet'][-2])
+
+    with open(COMBINE_FILE_PATH, 'w') as combine_file:
+        json.dump(final_data, combine_file)
+    print(final_data)
+
 
 def sort_player_into_team():
     """
@@ -137,7 +150,7 @@ def sort_player_into_team():
         sorted_player_ratings = []
         for index in player_dict.keys():
             player_name = player_dict[index]
-            player_path = join(SEASON_STAT_PATH, player_name + '.json')
+            player_path = join(PLAYER_SEASON_PATH, player_name + '.json')
             with open(player_path, 'r') as player_file:
                 file = json.load(player_file)
 

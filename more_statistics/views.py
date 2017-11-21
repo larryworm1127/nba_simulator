@@ -5,12 +5,12 @@ import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template.loader import get_template
-from nba_simulator.settings import BASE_DIR
+from data_retriever import Main
 
 
 def all_team_statistics(request):
-    d = load_file(os.path.join(BASE_DIR, 'assets/team_stats/season_stats/Combined.json'))
-    parsed_json = json.loads(d)
+    with open(Main.COMBINE_FILE_PATH) as combine_file:
+        parsed_json = json.load(combine_file)
     resource = parsed_json['resource']
     parameters = parsed_json['parameters']
 
@@ -46,7 +46,6 @@ def all_team_statistics(request):
                     rows.append(new_row)
                     new_row = []
 
-    print(BASE_DIR)
     t = get_template('all_team_statistics.html')
     html = t.render(
         {'resource': resource, 'parameters': parameters, 'resultSets': result_sets, 'headers': headers, 'rows': rows})
