@@ -25,6 +25,16 @@ def team_list():
         Main.create_team_list()
 
 
+def combine_file():
+    if not exists(Main.COMBINE_FILE_PATH):
+        Main.create_combine_file()
+
+
+def division_list():
+    if not exists(Main.DIVISION_LIST_PATH):
+        Main.create_division_list()
+
+
 # directory check functions
 def check_assets_dir():
     if not exists(Main.PLAYER_BASE_PATH):
@@ -50,6 +60,7 @@ def check_assets_dir():
 
     if not exists(Main.GAME_BASE_PATH):
         makedirs(Main.GAME_BASE_PATH)
+
     if not exists(Main.SIMULATE_RESULT_PATH):
         makedirs(Main.SIMULATE_RESULT_PATH)
 
@@ -61,3 +72,5 @@ def init():
     team_dict()
     player_dict()
     team_list()
+    combine_file()
+    division_list()

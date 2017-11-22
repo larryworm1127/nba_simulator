@@ -1,6 +1,4 @@
 import json
-import os
-import datetime
 
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -15,13 +13,14 @@ def all_team_statistics(request):
     parameters = parsed_json['parameters']
 
     result_sets = parsed_json['resultSets']
-    headers=['Rank','Team City','Team Name','W','L','PPG','FG%','3P%','DREB','OREB','AST','TOV','STL','BLK','PF']
+    headers = ['Rank', 'Team City', 'Team Name', 'W', 'L', 'PPG', 'FG%', '3P%', 'DREB', 'OREB', 'AST', 'TOV', 'STL',
+               'BLK', 'PF']
     rows = []
     indexes = []
     new_row = []
     rank = 1
-    for result in result_sets:        
-        for k,v in result.items():
+    for result in result_sets:
+        for k, v in result.items():
             if k == 'headers':
                 indexes.append(v.index('TEAM_CITY'))
                 indexes.append(v.index('TEAM_NAME'))

@@ -26,10 +26,10 @@ for team_name in playoff_teams_list:
 
     playoff_dict[team_division][data['resultSets'][0]['rowSet'][-2][8]] = team_name
 
-print(playoff_dict)
 conf_final_teams = {'east': [], 'west': []}
 
 
+# format first round data
 def format_data(division, index):
     team_check_list = TEAM_MATCH_LIST[index].copy()
     next_round_teams = []
@@ -60,6 +60,7 @@ def format_data(division, index):
     conf_final_teams[division].append(next_round_team)
 
 
+# format second and third round data
 def second_third_round_data(team_list, division, round_num):
     team_abb = team_list[0]
     opponent = team_list[1]
