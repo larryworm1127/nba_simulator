@@ -145,9 +145,7 @@ class TeamScoringMachine:
     def player_rating(self):
         team1_total = sum([rating for rating in self.team1_ratings])
         team2_total = sum([rating for rating in self.team2_ratings])
-        #print(team1_total, team2_total)
         difference = point_difference_scoring_machine(team1_total, team2_total)
-        #print(difference)
         score1 = difference[0]
         score2 = difference[1]
         return score1, score2

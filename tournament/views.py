@@ -4,7 +4,9 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from tournament import data_manipulate
-from tournament.data_manipulate import format_data, second_third_round_data, conf_final_teams
+from simulator import run_playoff_simulation
+from data_retriever import Main
+from json import load
 
 
 class Tournament(APIView):
@@ -16,31 +18,18 @@ class Tournament(APIView):
 # @api_view(['GET', 'POST'])
 @csrf_exempt
 def tournament(request, season):
-    """if season == "simulated":
-        for div in ['east', 'west']:
-            for idx in range(2):
-                format_data(div, idx)
+    data = None
+    if season == "2018":
+        run_playoff_simulation.run_whole_simulation()
+        with open(Main.SIMULATE_PLAYOFF_PATH) as playoff_file:
+            data = load(playoff_file)
 
-        final_teams = []
-        for div in ['east', 'west']:
-            final_team = second_third_round_data(conf_final_teams[div], div, 3)
-            final_teams.append(final_team)
-
-        second_third_round_data(final_teams, 'final', 1)
+    else:
+        data_manipulate.final_data = {'east': {'teams': [], 'results': [[], [], []]},
+                                      'west': {'teams': [], 'results': [[], [], []]},
+                                      'final': {'teams': [], 'results': [[]]}}
+        data_manipulate.create_playoff_data()
         data = data_manipulate.final_data
-
-    else:"""
-    for div in ['east', 'west']:
-        for idx in range(2):
-            format_data(div, idx)
-
-    final_teams = []
-    for div in ['east', 'west']:
-        final_team = second_third_round_data(conf_final_teams[div], div, 3)
-        final_teams.append(final_team)
-
-    second_third_round_data(final_teams, 'final', 1)
-    data = data_manipulate.final_data
 
     return JsonResponse(data)
 

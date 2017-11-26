@@ -42,19 +42,14 @@ class Stats(Enum):
     MIN = 10
 
 
-PLAYER_RATING = {
-    Position.GUARD: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    Position.FORWARD: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    Position.CENTER: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-}
+MULTIPLY_FACTOR = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 
 class RatingMachine:
     def __init__(self, player_id):
         self.player_rating = 0
         self.data = prepare_data(player_id)
-        self.player_stat = self.data[0]
-        self.position = self.data[1]
+        self.player_stat = self.data
 
         self.rate()
 
@@ -73,43 +68,43 @@ class RatingMachine:
                                        self.field_goal_percentage() + self.free_throw_percentage())
 
     def points(self):
-        result = self.player_stat['PTS'] * PLAYER_RATING[self.position][0]
+        result = self.player_stat['PTS'] * MULTIPLY_FACTOR[0]
         return result
 
     def rebounds(self):
-        result = self.player_stat['REB'] * PLAYER_RATING[self.position][1]
+        result = self.player_stat['REB'] * MULTIPLY_FACTOR[1]
         return result
 
     def assists(self):
-        result = self.player_stat['AST'] * PLAYER_RATING[self.position][2]
+        result = self.player_stat['AST'] * MULTIPLY_FACTOR[2]
         return result
 
     def steals(self):
-        result = self.player_stat['STL'] * PLAYER_RATING[self.position][3]
+        result = self.player_stat['STL'] * MULTIPLY_FACTOR[3]
         return result
 
     def blocks(self):
-        result = self.player_stat['BLK'] * PLAYER_RATING[self.position][4]
+        result = self.player_stat['BLK'] * MULTIPLY_FACTOR[4]
         return result
 
     def turnover(self):
-        result = self.player_stat['TOV'] * PLAYER_RATING[self.position][5]
+        result = self.player_stat['TOV'] * MULTIPLY_FACTOR[5]
         return result
 
     def fouls(self):
-        result = self.player_stat['PF'] * PLAYER_RATING[self.position][6]
+        result = self.player_stat['PF'] * MULTIPLY_FACTOR[6]
         return result
 
     def field_goal_percentage(self):
-        result = self.player_stat['FG_PCT'] * PLAYER_RATING[self.position][7]
+        result = self.player_stat['FG_PCT'] * MULTIPLY_FACTOR[7]
         return result
 
     def free_throw_percentage(self):
-        result = self.player_stat['FT_PCT'] * PLAYER_RATING[self.position][8]
+        result = self.player_stat['FT_PCT'] * MULTIPLY_FACTOR[8]
         return result
 
     def minutes(self):
-        result = self.player_stat['MIN'] * PLAYER_RATING[self.position][9]
+        result = self.player_stat['MIN'] * MULTIPLY_FACTOR[9]
         return result
 
 
@@ -134,17 +129,7 @@ def prepare_data(player_id):
     for stat in Stats:
         player_stat[str(stat.name)] = data[-1][str(stat.name)]
 
-    # determine the position of the player
-    #player_summary = player.PlayerSummary(player_id).info()
-    #if player_summary[0]['POSITION'] == 'G':
-    #    position = Position.GUARD
-    #elif player_summary[0]['POSITION'] == 'C':
-    #    position = Position.CENTER
-    #else:
-    #    position = Position.FORWARD
-    position = random.choice([Position.FORWARD, Position.GUARD, Position.CENTER])
-
-    return player_stat, position
+    return player_stat
 
 
 

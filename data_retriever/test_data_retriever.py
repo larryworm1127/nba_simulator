@@ -4,7 +4,10 @@ from data_retriever import Main, create_player_rating
 
 class TestMain(TestCase):
     def test_create_team_list(self):
-        Main.create_team_list()
+        self.assertTrue(Main.create_team_list())
+
+    def test_get_id_from_abb(self):
+        self.assertEqual(Main.get_id_from_abb('GSW'), '1610612744')
 
 
 class TestCreatePlayerRating(TestCase):

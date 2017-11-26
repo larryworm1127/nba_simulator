@@ -1,5 +1,5 @@
 # general import
-import json
+from json import load
 from data_retriever import Main
 from os import listdir
 from os.path import join
@@ -13,14 +13,14 @@ final_data = {'east': {'teams': [], 'results': [[], [], []]}, 'west': {'teams': 
               'final': {'teams': [], 'results': [[]]}}
 
 with open(Main.DIVISION_LIST_PATH, 'r') as division_file:
-    division_dict = eval(division_file.read())
+    division_dict = load(division_file)
 
 playoff_teams_list = [file.split('.')[0] for file in listdir(Main.TEAM_PLAYOFF_PATH)]
 playoff_dict = {'east': {}, 'west': {}}
 div_list = {}
 for team_name in playoff_teams_list:
     with open(join(Main.TEAM_SEASON_PATH, team_name + '.json'), 'r') as season_file:
-        data = json.load(season_file)
+        data = load(season_file)
         team_division = 'east' if team_name in division_dict['east'] else 'west'
         div_list[team_name] = team_division
 
@@ -37,7 +37,7 @@ def format_data(division, index):
         team_abb = playoff_dict[division][team]
 
         with open(join(Main.TEAM_PLAYOFF_PATH, team_abb + '.json')) as playoff_file:
-            team_data = json.load(playoff_file)
+            team_data = load(playoff_file)
 
         opponent = playoff_dict[division][TEAM_OPPONENT[team]]
         team_check_list.remove(TEAM_OPPONENT[team])
@@ -66,7 +66,7 @@ def second_third_round_data(team_list, division, round_num):
     opponent = team_list[1]
 
     with open(join(Main.TEAM_PLAYOFF_PATH, team_abb + '.json')) as playoff_file:
-        team_data = json.load(playoff_file)
+        team_data = load(playoff_file)
 
     if division == 'final':
         final_data[division]['teams'].append([team_abb, opponent])
@@ -82,3 +82,16 @@ def second_third_round_data(team_list, division, round_num):
 
     final_data[division]['results'][round_num - 1].append([team_points, opponent_points])
     return team_abb if team_points > opponent_points else opponent
+
+
+def create_playoff_data():
+    for div in ['east', 'west']:
+        for idx in range(2):
+            format_data(div, idx)
+
+    final_teams = []
+    for div in ['east', 'west']:
+        final_team = second_third_round_data(conf_final_teams[div], div, 3)
+        final_teams.append(final_team)
+
+    second_third_round_data(final_teams, 'final', 1)

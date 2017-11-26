@@ -31,6 +31,7 @@ GAME_LIST_PATH = join(OTHER_BASE_PATH, 'game_list.json')
 DIVISION_LIST_PATH = join(OTHER_BASE_PATH, 'division_list.json')
 COMBINE_FILE_PATH = join(TEAM_SEASON_PATH, 'Combined.json')
 SIMULATE_RANKING_PATH = join(SIMULATE_RESULT_PATH, 'ranking.json')
+SIMULATE_PLAYOFF_PATH = join(SIMULATE_RESULT_PATH, 'playoff_result.json')
 
 
 # main functions
@@ -123,3 +124,11 @@ def create_combine_file():
     with open(COMBINE_FILE_PATH, 'w') as combine_file:
         json.dump(final_data, combine_file)
 
+
+def get_id_from_abb(team_abb):
+    with open(TEAM_DICT_PATH) as team_dict_file:
+        team_dict = dict(json.load(team_dict_file))
+
+    for team_id, abb in team_dict.items():
+        if team_abb == abb:
+            return team_id

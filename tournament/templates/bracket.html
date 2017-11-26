@@ -24,6 +24,14 @@
             </div>
         </div>
 
+        <select class="form-control">
+            <option>GSW</option>
+            <option>OKC</option>
+            <option>CLE</option>
+            <option>BOS</option>
+            <option>MEM</option>
+        </select>
+
     	<script type="text/javascript">
             $.get( "../api/{{ season }}", function( data ) {
 			    $('#west .demo').bracket({init: data['west']})
