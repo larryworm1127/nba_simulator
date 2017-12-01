@@ -4,51 +4,92 @@
     <!-- Loads the path to your static files -->
     {% load staticfiles %}
 
+    <title>NBA Simulator</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
     <link rel="stylesheet" href="{% static 'data_display/style.css' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    {% if title %}
-    <center><h1 style="font-size:90px;"><font color="white">Welcome</font></h1></center>
-    {% endif %}
-
-    <style>
-    body {
-        background-image: url("https://avante.biz/wp-content/uploads/Nba-Wallpapers/Nba-Wallpapers-011.jpg");
-        overflow: auto;
-        background-repeat: no repeat;
-
-    }.
-
-    #bg {
-        background-repeat: no repeat;
-    }
-
-
-
+    <style type="text/css">
+        body {
+            background-image: url("{% static 'images/background.png' static %}");
+            overflow: auto;
+            z-index: 1
+        }
     </style>
-
 </head>
 
 <body>
+    <div id="background"></div>
+    <div class="container" style="width: 51%">
+        <center>
+            <H1 style="font-size: 90px; color: White; font-family: Lato">NBA Simulator</H1>
+        </center>
+        <br>
+        <br>
 
-<div id="bg"></div>
-<div id="trapezoid"></div>
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
 
-<button class="parallelogram_sim_button">Simulate</button>
-<button class="parallelogram_view_button">View Stats</button>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <center>
+                        <img src="{% static 'images/slide1.png' static %}" alt="Lebron and Curry" style="width: 90%; height: 50%">
+                    </center>
+                    <div class="carousel-caption">
+                        <h3>The Ultimate Matchup</h3>
+                        <p>Golden State Worrior vs. Cleveland Cavalier</p>
+                    </div>
+                </div>
 
-<center><img src="http://www.dimensionsinfo.com/wp-content/uploads/2009/12/NBA-Trophy.png" alt="NBA Championship Trophy"
-             class="trophy" style="width: 120px; height: 120px;"></center>
-+
-<center><img src="https://upload.wikimedia.org/wikipedia/en/0/02/Western_Conference_%28NBA%29_logo.gif"
-             alt="NBA Western Conference Logo"
-             class="west" style="width: 115px; height: 115px;"></center>
+                <div class="item">
+                    <center>
+                        <img src="{% static 'images/slide2.png' static %}" alt="Map of NBA" style="width: 90%; height: 50%">
+                    </center>
+                        
+                    <div class="carousel-caption">
+                        <h3>Map of NBA</h3>
+                        <p>All NBA Team on a Map!</p>
+                    </div>
+                </div>
 
-<center><img src="https://s-media-cache-ak0.pinimg.com/originals/01/41/16/0141166a90aa673e552a1472badcd8cb.gif"
-             alt="NBA Eastern Conference Logo"
-             class="east" style="width: 115px; height: 115px;"></center>
+                <div class="item">
+                    <center>
+                        <img src="{% static 'images/slide3.png' static%}" alt="NBA Draft 2018" style="width: 90%; height: 50%">
+                    </center>
 
-<center><img src="http://oi66.tinypic.com/f40cnb.jpg" alt="The team's logo" class="logo"></center>
+                    <div class="carousel-caption">
+                        <h3>2018 Draft</h3>
+                        <p>So Many New Talents!</p>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>        
+
+        <br>
+        <br>
+        <a href="#"><button class="button sim_button">Simulate</button></a>
+        <a href="/tournament/bracket/2017"><button class="button view_button">View Stats</button></a>
+        <img src="{% static 'images/logo.png' static %}" alt="The team's logo" class="logo">
+    </div>
 </body>
-
 </html>

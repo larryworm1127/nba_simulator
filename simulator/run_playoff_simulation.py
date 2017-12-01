@@ -1,7 +1,6 @@
 # general imports
 from data_retriever import Main
 from simulator import one_game_simulation
-from os.path import join
 from json import dump, load
 
 # constants
@@ -44,28 +43,43 @@ def run_single_series(team1, team2):
     return result
 
 
-def run_round_simulation(teams, round_num, index=None):
+def run_round_simulation(teams, round_num, single_simulation, index=None):
     """
     Takes a list of teams and run a round of
     series depending on the round number
 
+    :param single_simulation: a function that runs the single series
     :param teams: a list of teams in format of {1: 'GSW', 2: 'SAS', etc}
     :param round_num: the round number
     :param index: index used for first round simulation
     :return: the result of the simulation and the teams that made into next round
     """
+    # create variables
     result = []
     next_round_teams = []
+
+    # round_num 3 and 4 will commit same actions
     if round_num == 3 or round_num == 4:
         team1_abb = list(teams.values())[0] if round_num == 3 else teams[0]
         team2_abb = list(teams.values())[1] if round_num == 3 else teams[1]
         team1_id = Main.get_id_from_abb(team1_abb)
         team2_id = Main.get_id_from_abb(team2_abb)
-        series_result = run_single_series(team1_id, team2_id)
-        result.append(series_result)
-        next_round_teams.append(team_dict[team1_id]) if series_result[1][1] > series_result[0][
-            1] else next_round_teams.append(team_dict[team2_id])
 
+        print("round number: " + str(round_num))
+        print(team1_abb, team2_abb)
+
+        series_result = single_simulation(team1_id, team2_id)
+        result.append(series_result)
+
+        if series_result[1][1] > series_result[0][1]:
+            next_round_teams.append(team_dict[team2_id])
+        else:
+            next_round_teams.append(team_dict[team1_id])
+
+        print(series_result)
+        print("next round teams: " + str(next_round_teams) + '\n')
+
+    # other round numbers will commit same actions
     else:
         loop = []
         if round_num == 1:
@@ -75,74 +89,103 @@ def run_round_simulation(teams, round_num, index=None):
             team_check_list = list(teams.keys())
             loop = list(teams.keys())
 
+        # loop through the team list
         for team_rank in loop:
             if team_rank in team_check_list:
+                # create pre-simulation variables
                 team_abb = teams[team_rank]
                 opponent_rank = TEAM_OPPONENT[team_rank] if round_num == 1 else loop[loop.index(team_rank) + 1]
                 opponent = teams[opponent_rank]
                 team_id = Main.get_id_from_abb(team_abb)
                 opponent_id = Main.get_id_from_abb(opponent)
-                series_result = run_single_series(team_id, opponent_id)
+
+                print("round number: " + str(round_num))
+                print(team_abb, opponent)
+                # run single series simulation
+                series_result = single_simulation(team_id, opponent_id)
                 team_check_list.remove(opponent_rank)
-                next_round_teams.append(team_rank) if series_result[0][1] > series_result[1][
-                    1] else next_round_teams.append(TEAM_OPPONENT[team_rank])
+
+                print("series result: " + str(series_result))
+                # update next round teams
+                if series_result[0][1] > series_result[1][1]:
+                    next_round_teams.append(team_rank)
+                else:
+                    next_round_teams.append(opponent_rank)
+
                 result.append(series_result)
 
+                print("next round teams: " + str(next_round_teams) + '\n')
+
+    # return the simulated result and the teams that made into the next round
     return result, next_round_teams
 
 
 def run_whole_simulation():
+    """
+    Controls the whole playoff simulation
+
+    :return: a test case use result in the format that can be accepted by Bracket.js
+    """
+    # create variables
     playoff_teams = get_playoff_teams()
-    result = {'east': {'teams': [], 'results': [[], [], []]}, 'west': {'teams': [], 'results': [[], [], []]},
-              'final': {'teams': [], 'results': []}}
+    final_result = {'east': {'teams': [], 'results': [[], [], []]}, 'west': {'teams': [], 'results': [[], [], []]},
+                    'final': {'teams': [], 'results': []}}
     final_teams = []
 
+    # start running simulations
     for division in ['east', 'west']:
         next_round_teams = []
 
         # first round simulation
         for index in range(2):
             teams = playoff_teams[division]
-            round_one_result = run_round_simulation(teams, 1, index)
-            team_scores = round_one_result[0]
-            next_round_teams.extend(round_one_result[1])
+            round_one = run_round_simulation(teams, 1, run_single_series, index)
+            result = round_one[0]
+            next_round_teams.extend(round_one[1])
             for idx in range(2):
-                result[division]['teams'].append([team_dict[team_scores[idx][0][0]], team_dict[team_scores[idx][1][0]]])
-                result[division]['results'][0].append([team_scores[idx][0][1], team_scores[idx][1][1]])
+                final_result[division]['teams'].append([team_dict[result[idx][0][0]], team_dict[result[idx][1][0]]])
+                final_result[division]['results'][0].append([result[idx][0][1], result[idx][1][1]])
 
         # second round simulation
         teams = {}
         for rank in next_round_teams:
             teams[rank] = playoff_teams[division][rank]
-        round_two_result = run_round_simulation(teams, 2)
-        team_scores = round_two_result[0]
-        next_round_teams = round_two_result[1]
-        result[division]['results'][1].append([team_scores[0][0][1], team_scores[0][1][1]])
-        result[division]['results'][1].append([team_scores[1][0][1], team_scores[1][1][1]])
+        round_two = run_round_simulation(teams, 2, run_single_series)
+        result = round_two[0]
+        next_round_teams = round_two[1]
+        final_result[division]['results'][1].append([result[0][0][1], result[0][1][1]])
+        final_result[division]['results'][1].append([result[1][0][1], result[1][1][1]])
 
         # conference final simulation
         teams = {}
         for rank in next_round_teams:
             teams[rank] = playoff_teams[division][rank]
-        third_round_result = run_round_simulation(teams, 3)
-        team_scores = third_round_result[0]
-        final_teams.append(third_round_result[1][0])
-        result[division]['results'][2].append([team_scores[0][0][1], team_scores[0][1][1]])
+        round_three = run_round_simulation(teams, 3, run_single_series)
+        result = round_three[0]
+        final_teams.append(round_three[1][0])
+        final_result[division]['results'][2].append([result[0][0][1], result[0][1][1]])
 
     # final simulation
-    final_round_result = run_round_simulation(final_teams, 4)
-    team_scores = final_round_result[0]
-    result['final']['teams'].append(final_teams)
-    result['final']['results'].append([team_scores[0][0][1], team_scores[0][1][1]])
+    print(final_result)
+    print(final_teams)
+    final_round = run_round_simulation(final_teams, 4, run_single_series)
+    result = final_round[0]
+    final_result['final']['teams'].append(final_teams)
+    final_result['final']['results'].append([result[0][0][1], result[0][1][1]])
 
     # put the simulated results into file
     with open(Main.SIMULATE_PLAYOFF_PATH, 'w') as playoff_file:
-        dump(result, playoff_file)
+        dump(final_result, playoff_file)
 
-    return result  # test cases use only
+    return final_result  # test cases use only
 
 
 def get_playoff_teams():
+    """
+    Helper function that determine the teams who made into the playoff
+
+    :return: a dictionary containing the teams who made into the playoff
+    """
     result = {'east': {}, 'west': {}}
     for div in ['east', 'west']:
         for rank in range(1, 9):

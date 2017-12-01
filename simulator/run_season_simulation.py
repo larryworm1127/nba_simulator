@@ -25,10 +25,10 @@ def run_simulation():
     print("Running simulation ...")
 
     counter = 0
-    for day in range(len(game_list)):
-        for game in range(len(game_list[day])):
-            team1_id = str(game_list[day][game][0])
-            team2_id = str(game_list[day][game][1])
+    for day in game_list:
+        for game in day:
+            team1_id = str(game[0])
+            team2_id = str(game[1])
             simulator = one_game_simulation.TeamScoringMachine(team1_id, team2_id)
             team1_abb = team_dict[team1_id]
             team2_abb = team_dict[team2_id]

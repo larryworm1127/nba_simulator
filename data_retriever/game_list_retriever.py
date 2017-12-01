@@ -22,9 +22,8 @@ print("Create game list files ...")
 def create_game_list_files():
     game_list = []
 
-    for index in range(len(date_list)):
+    for day in date_list:
         games = []
-        day = date_list[index]
         score_board = nba_py.Scoreboard(month=int(day[1]), day=int(day[2]), year=int(day[0])).game_header()
 
         for item in score_board:

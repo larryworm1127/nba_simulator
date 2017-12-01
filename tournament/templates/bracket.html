@@ -1,43 +1,168 @@
-{% load static %}
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Tournament Bracket Generator</title>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script type="text/javascript" src="{% static 'jquery-bracket/jquery.bracket.min.js' %}"></script>
-        <link rel="stylesheet" type="text/css" href="{% static 'jquery-bracket/jquery.bracket.min.css' %}" />
+<html lang="en">
 
-    </head>
-    <body>
-        <H1>Playoff Bracket {{ season }}</H1>
-    	<div id="main">
-            <div id="west" style="display: inline-block;">
-                <div class="demo"></div>
+<head>
+    {% load staticfiles %}
+    <title>Tournament Bracket Generator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'jquery-bracket/jquery.bracket.min.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'jquery-bracket/jquery.bracket.min.css' %}"/>
+
+    <style>
+    h1 {
+        font-family: lato;
+    }
+
+    h2 {
+        font-family: lato;
+        font-size: 200%
+    }
+
+    h4 {
+        font-family: lato;
+    }
+
+    .label {
+        font-size: 16px;
+        color: Black;
+        font-family: lato;
+    }
+
+    .score {
+        font-size: 16px;
+    }
+</style>
+</head>
+
+<body class="body" style="background-color:#8FBC8F">
+    <div class="container">
+        <nav class="navbar navbar-inverse">
+            <div class="navbar-header">
+                <a class="navbar-brand">NBA Simulator</a>
             </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="#">View Team Comparisons</a></li>
+                <li><a href="/more_statistics/all_team_statistics/">View All Teams Statistics</a></li>
+                <li><a href="#">View Wins and Losses</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Season Games<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                        <li><a href="#">ATL</a></li>
+                        <li><a href="#">BOS</a></li>
+                        <li><a href="#">CLE</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
 
-            <div id="final" style="display: inline-block;">
-                <div class="demo"></div>
-            </div>
+        <center>
+            <H1>Playoff Bracket {{ season }}</H1>
+        </center>
 
-            <div id="east" style="display: inline-block;float: right">
-                <div class="demo"></div>
+        <div id="main">
+            <div class="container" style="width: 90%">
+                <div class="col-sm-5">
+                    <center>
+                        <img src="{% static 'images/western_conference_logo.png' static %}" alt="NBA Western Conference Logo" style="width: 115px; height: 115px;">
+                    </center>
+
+                    <div id="west" style="display: inline-block; position: absolute;">
+                        <div class="demo"></div>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <br>
+                    <br>
+                    <center>
+                        <H2>VS</H2>
+                    </center>
+                    <br>
+                    <br>
+
+                    <center>
+                        <img src="{% static 'images/trophy.png' static%}" alt="NBA Championship Trophy" style="width: 120px; height: 120px;">
+                    </center>
+
+                    <div id="final" style="display: inline-block; position: absolute; left: 17%">
+                        <div class="demo"></div>
+                    </div>
+                </div>
+
+                <div class="col-sm-5">
+                    <center>
+                        <img src="{% static 'images/eastern_conference_logo.png' static %}" alt="NBA Eastern Conference Logo" style="width: 115px; height: 115px;">
+                    </center>
+
+                    <div id="east" style="display: inline-block; position: absolute; left: 17%">
+                        <div class="demo"></div>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
 
-        <select class="form-control">
-            <option>GSW</option>
-            <option>OKC</option>
-            <option>CLE</option>
-            <option>BOS</option>
-            <option>MEM</option>
-        </select>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".dropdown-menu li").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
 
-    	<script type="text/javascript">
-            $.get( "../api/{{ season }}", function( data ) {
-			    $('#west .demo').bracket({init: data['west']})
-			    $('#east .demo').bracket({init: data['east'], dir: 'rl'})
-			    $('#final .demo').bracket({init: data['final']})
-			  })
-    	</script>
-    </body>
-</html>
+        function render_fn(container, data, score, state) {
+            console.log('rendering data');
+            switch(state) {
+                case "empty-bye":
+                container.append("No team")
+                return;
+                case "empty-tbd":
+                container.append("Upcoming")
+                return;
+                case "entry-no-score":
+                case "entry-default-win":
+                case "entry-complete":
+                container.append('<img src="static/images/rsz_1test.png"/>').append(data.name);
+                return;
+            }
+        }
+
+        $.get( "../api/{{ season }}", function( data ) {
+            $('#west .demo').bracket({
+                init: data['west'],
+                teamWidth: 62,
+                scoreWidth: 22,
+                matchMargin: 30,
+                roundMargin: 40,
+                skipConsolationRound: true,
+            })
+
+            $('#final .demo').bracket({
+                init: data['final'],
+                teamWidth: 62,
+                scoreWidth: 22,
+                matchMargin: 10,
+                roundMargin: 35,
+            })
+
+            $('#east .demo').bracket({
+                init: data['east'],
+                dir: 'rl',
+                teamWidth: 62,
+                scoreWidth: 22,
+                matchMargin: 30,
+                roundMargin: 40,
+                skipConsolationRound: true,
+            })
+        })
+    </script>
+</body>

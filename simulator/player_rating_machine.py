@@ -1,32 +1,9 @@
 import json
 import math
-import random
 
 from enum import Enum
 from os.path import join
-from nba_py import player
 from data_retriever import Main
-
-"""
-Rating Mechanism
-
-Points per game
-Rebounds per game
-Assists per game
-Steals per game
-Blocks per game
-Turnover per game
-Fouls per game
-Field goal percentage per game
-Free throw percentage per game
-Minute per game
-"""
-
-
-class Position(Enum):
-    GUARD = 1
-    FORWARD = 2
-    CENTER = 3
 
 
 class Stats(Enum):
@@ -130,6 +107,3 @@ def prepare_data(player_id):
         player_stat[str(stat.name)] = data[-1][str(stat.name)]
 
     return player_stat
-
-
-

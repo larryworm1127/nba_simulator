@@ -3,33 +3,77 @@
 {% block title %}Display All Team Stats 2016-2017{% endblock %}
 
 {% block content %}
-		<font size = "18">
-			<center style="font-family: Calibri;">All Team Statistics<center/>
-		</font>
+<font size = "18">
+	<center style="font-family: Calibri;">All Team Statistics<center/>
+</font>
 
-  <div class="container">          
-	  <table class="table table-bordered">
+<div class="container">
+	<nav class="navbar navbar-inverse">
+		<div class="navbar-header">
+			<a class="navbar-brand">NBA Simulator</a>
+		</div>
+		<ul class="nav navbar-nav">
+			<li class="active"><a href="/">Home</a></li>
+			<li><a href="#">View Team Comparisons</a></li>
+			<li><a href="/tournament/bracket/2017">View Playoff Bracket</a></li>
+			<li><a href="#">View Wins and Losses</a></li>
+			<li class="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">Season Games<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<input class="form-control" id="season_search" type="text" placeholder="Search..">
+					<li><a href="#">ATL</a></li>
+					<li><a href="#">BOS</a></li>
+					<li><a href="#">CLE</a></li>
+				</ul>
+			</li>
+		</ul>
+	</nav>
+
+	<input class="form-control" id="table_search" type="text" placeholder="Search..">
+	<br>
+
+	<table class="table table-bordered">
 		<thead>
-		  <tr>
-			{% for header in headers %} 
+			<tr>
+				{% for header in headers %} 
 				<th>{{header}} </th>
-			{% endfor %} 
-		  </tr>
+				{% endfor %} 
+			</tr>
 		</thead>
-		<tbody>
+		<tbody id="data_table">
 			{% for row in rows %} 
-		  <tr>
-			  {% for column in row %} 
+			<tr>
+				{% for column in row %} 
 				<td>{{column}}</td>
-			   {% endfor %}
-		  </tr>
-		  {% endfor %}
+				{% endfor %}
+			</tr>
+			{% endfor %}
 		</tbody>
-	  </table>
+	</table>
 </div>
-  
-  
-{% endblock %}
+
+<script>
+	$(document).ready(function(){
+  		$("#season_search").on("keyup", function() {
+    		var value = $(this).val().toLowerCase();
+    		$(".dropdown-menu li").filter(function() {
+      			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    		});
+  		});
+	});
+
+	$(document).ready(function(){
+  		$("#table_search").on("keyup", function() {
+    		var value = $(this).val().toLowerCase();
+    		$("#data_table tr").filter(function() {
+      			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    		});
+  		});
+	});
+</script>
+
+	
+	{% endblock %}
 
 
 

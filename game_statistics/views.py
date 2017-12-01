@@ -36,12 +36,12 @@ def boxscore_example(request):
     for k, v in player_result.items():
         if k == 'headers':
             all_player_headers = v
-            for i in range(len(player_headers)):
-                player_stats_index.append(all_player_headers.index(player_headers[i]))
+            for header in player_headers:
+                player_stats_index.append(all_player_headers.index(header))
         elif k == 'rowSet':
             for row in v:
-                for i in range(len(player_stats_index)):
-                    new_row.append(row[player_stats_index[i]])
+                for index in player_stats_index:
+                    new_row.append(row[index])
                 for i in range(len(new_row)):
                     if new_row[i] is None:
                         new_row[i] = 'DNP'
@@ -52,12 +52,12 @@ def boxscore_example(request):
     for k, v in team_result.items():
         if k == 'headers':
             all_team_headers = v
-            for i in range(len(team_headers)):
-                team_stats_index.append(all_team_headers.index(team_headers[i]))
+            for header in team_headers:
+                team_stats_index.append(all_team_headers.index(header))
         elif k == 'rowSet':
             for row in v:
-                for i in range(len(team_stats_index)):
-                    new_row.append(row[team_stats_index[i]])
+                for index in team_stats_index:
+                    new_row.append(row[index])
                 new_row[1] = 'N/A'
                 new_row[2] = 'TOTAL:'
                 rows.append(new_row)

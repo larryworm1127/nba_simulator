@@ -1,83 +1,37 @@
-body{
-    margin: 30px 150px;
-}
 
-#trapezoid {
-    position: relative;
-    width: 450 px;
-    height: 0;
-    width: 450px;
-    border-top: 360px solid white;
-    border-left: 100px solid transparent;
-    border-right: 100px solid transparent;
-    margin-left: auto;
-    margin-right: auto;
-    z-index: -1;
-    border-collapse: collapse;
-}
 
-.trophy {
-    position: relative;
-    z-index: 1;
-    top: -329px;
-    border-collapse: collapse;
-}
-
-.west {
-    position: relative;
-    z-index: 2;
-    top: -448px;
-    right: 130px;
-    border-collapse: collapse;
-}
-
-.east {
-    position: relative;
-    z-index: 3;
-    top: -566px;
-    left: 130px;
-    border-collapse: collapse;
-}
+#background {
+    size: 80%;
+} 
 
 .logo {
-    z-index: 4;
     position: relative;
     border-collapse: collapse;
     height: 200px;
     width: 200px;
     top: -920px;
+    z-index: 2
 }
 
-.parallelogram_sim_button {
-	width: 80px;
-	height: 200px;
-	-webkit-transform: skew(16deg);
-	background-color: transparent;
-	color: white;
-	position: relative;
-	top: -200px;
-	left: 260px;
-	text-align: center;
-	display: inline-block;
-    font-size: 16px;
-    border-width: 2px;
-    font-weight: 600;
+.button {
+    background-color: transparent;
+    border-width: 5px;
     border-color: white;
+    color: white;
+    padding: 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
 }
 
-.parallelogram_view_button {
-	width: 80px;
-	height: 200px;
-	-webkit-transform: skew(-16deg);
-	background: transparent;
-	color: white;
-	position: relative;
-	top: -206px;
-	left: 814px;
-	text-align: center;
-	display: inline-block;
-    font-size: 16px;
-    border-width: 2px;
-    font-weight: 600;
-    border-color: white;
+.sim_button {
+    border-radius: 50%;
+    float: left;
+}
+
+.view_button {
+    border-radius: 50%;
+    float: right;
 }

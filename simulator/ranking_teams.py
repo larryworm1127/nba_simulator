@@ -16,11 +16,10 @@ def ranking_teams():
     win_data_list = [(team_abb, num_win) for team_abb, num_win in win_data.items()]
 
     win_data_list.sort(key=lambda win: win[1], reverse=True)
-    print(win_data_list)
     east_counter = 1
     west_counter = 1
-    for index in range(len(win_data_list)):
-        team_abb = win_data_list[index][0]
+    for item in win_data_list:
+        team_abb = item[0]
         if team_abb in division_list['east']:
             result['east'][east_counter] = team_abb
             east_counter += 1

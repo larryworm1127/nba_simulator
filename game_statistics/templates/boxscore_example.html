@@ -3,32 +3,32 @@
 {% block title %}Boxscore Example{% endblock %}
 
 {% block content %}
-		<font size = "18">
-			<center style="font-family: Calibri;">Game Box Score<center/>
-		</font>
-  
-  <div class="container">          
-	  <table class="table table-bordered">
-		<thead>
-		  <tr>
-			{% for header in headers %} 
-				<th>{{header}} </th>
-			{% endfor %} 
-		  </tr>
-		</thead>
-		<tbody>
-			{% for row in rows %} 
-		  <tr>
-			  {% for column in row %} 
-				<td>{{column}}</td>
-			   {% endfor %}
-		  </tr>
-		  {% endfor %}
-		</tbody>
-	  </table>
+<font size="18">
+    <center style="font-family: Calibri;">Game Box Score</center>
+</font>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            {% for header in headers %}
+            <th>{{header}}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in rows %}
+        <tr>
+            {% for column in row %}
+            <td>{{column}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
-  
-  
+
+
 {% endblock %}
 
 

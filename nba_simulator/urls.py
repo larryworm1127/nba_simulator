@@ -1,8 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from more_statistics import views
-from game_statistics import views
 
 urlpatterns = [
     url(r'^', include('data_display.urls')),

@@ -54,7 +54,11 @@ def format_data(division, index):
                         opponent_points += 1
 
             final_data[division]['results'][0].append([team_points, opponent_points])
-            next_round_teams.append(team_abb) if team_points > opponent_points else next_round_teams.append(opponent)
+
+            if team_points > opponent_points:
+                next_round_teams.append(team_abb)
+            else:
+                next_round_teams.append(opponent)
 
     next_round_team = second_third_round_data(next_round_teams, division, 2)
     conf_final_teams[division].append(next_round_team)
