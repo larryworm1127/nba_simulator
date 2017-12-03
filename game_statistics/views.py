@@ -3,9 +3,6 @@ import json
 from django.shortcuts import render
 from os.path import join
 from data_retriever import Main
-from django.http import HttpResponse
-from django.template.loader import get_template
-from nba_simulator.settings import BASE_DIR
 
 
 def boxscore_example(request):
@@ -24,7 +21,7 @@ def boxscore_example(request):
     team_headers = ['TEAM_ABBREVIATION', 'GAME_ID', 'TEAM_ID', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
                     'STL', 'BLK', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'TO', 'PF',
                     'PLUS_MINUS']
-    headers = ['TEAM_INITIALS', 'INDIVIDUAL_PLAYER_NAMES', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL',
+    headers = ['Team', 'Player Names', 'Position', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL',
                'BLK', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%', 'FTM', 'FTA', 'FT%', 'TOV', 'PF', '+/-']
 
     player_stats_index = []
@@ -63,11 +60,7 @@ def boxscore_example(request):
                 rows.append(new_row)
                 new_row = []
 
-    print(BASE_DIR)
-    t = get_template('boxscore_example.html')
-    html = t.render(
-        {'resource': resource, 'parameters': parameters, 'resultSets': result_sets, 'headers': headers, 'rows': rows})
-    return HttpResponse(html)
+    return render(request, 'boxscore_example.html', {'headers': headers, 'rows': rows})
 
 
 def load_file(file_name):

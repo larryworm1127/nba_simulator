@@ -4,15 +4,6 @@
     size: 80%;
 } 
 
-.logo {
-    position: relative;
-    border-collapse: collapse;
-    height: 200px;
-    width: 200px;
-    top: -920px;
-    z-index: 2
-}
-
 .button {
     background-color: transparent;
     border-width: 5px;

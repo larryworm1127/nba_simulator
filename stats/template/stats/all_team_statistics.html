@@ -1,11 +1,10 @@
-{% extends "main_template.html" %}
+{% extends "stats/main_template.html" %}
 
 {% block title %}Display All Team Stats 2016-2017{% endblock %}
 
 {% block content %}
-
-<font size = "18">
-    <center><h1 style="font-family: Calibri;">All Team Statistics</h1></center>
+<font size="18">
+	<center style="font-family: Calibri;">All Team Statistics<center/>
 </font>
 
 <div class="container">
@@ -27,15 +26,15 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				{% for header in headers %}
+				{% for header in headers %} 
 				<th>{{header}} </th>
-				{% endfor %}
+				{% endfor %} 
 			</tr>
 		</thead>
 		<tbody id="data_table">
-			{% for row in rows %}
+			{% for row in rows %} 
 			<tr>
-				{% for column in row %}
+				{% for column in row %} 
 				<td>{{column}}</td>
 				{% endfor %}
 			</tr>
@@ -55,12 +54,7 @@
 	});
 </script>
 
-<<<<<<< HEAD
-
-	{% endblock %}
-=======
 {% endblock %}
->>>>>>> Start merging more statistic and game statistic
 
 
 

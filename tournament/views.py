@@ -6,7 +6,6 @@ from rest_framework.views import APIView
 from tournament import data_manipulate
 from data_retriever import Main
 from json import load
-from simulator import run_playoff_simulation
 
 
 class Tournament(APIView):
@@ -19,7 +18,6 @@ class Tournament(APIView):
 @csrf_exempt
 def tournament(request, season):
     if season == "2018":
-        #run_playoff_simulation.run_whole_simulation()
         with open(Main.SIMULATE_PLAYOFF_PATH) as playoff_file:
             data = load(playoff_file)
 
@@ -34,4 +32,4 @@ def tournament(request, season):
 
 
 def bracket(request, season):
-    return render(request, 'bracket.html', {'season': season})
+    return render(request, 'tournament/bracket.html', {'season': season})

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'rest_framework',
     'more_statistics.apps.MoreStatisticConfig',
+    'stats.apps.StatsConfig',
     'game_statistics',
     'data_display.apps.DataDisplayConfig',
     'tournament.apps.TournamentConfig',

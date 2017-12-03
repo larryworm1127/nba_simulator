@@ -1,8 +1,6 @@
 import json
 
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.template.loader import get_template
 from data_retriever import Main
 import os
 
@@ -31,9 +29,7 @@ def all_team_statistics(request):
         new_row = []
         indexes = []
 
-    t = get_template('all_team_statistics.html')
-    html = t.render({'resultSets': resultSets, 'headers': headers, 'rows': rows})
-    return HttpResponse(html)
+    return render(request, 'all_team_statistics.html', {'headers': headers, 'rows': rows})
 
 
 def findIndexes(resultSets):

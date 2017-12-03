@@ -24,13 +24,15 @@
 
 <body>
     <div id="background"></div>
+    <!--img src="{% static 'images/logo.png' static %}" alt="The team's logo" class="logo" style="width: 200px; height: 200px"-->
+    
     <div class="container" style="width: 51%">
         <center>
             <H1 style="font-size: 90px; color: White; font-family: Lato">NBA Simulator</H1>
         </center>
         <br>
         <br>
-
+        
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -83,13 +85,12 @@
                 <span class="glyphicon glyphicon-chevron-right"></span>
                 <span class="sr-only">Next</span>
             </a>
-        </div>        
+        </div>
 
         <br>
         <br>
-        <a href="#"><button class="button sim_button">Simulate</button></a>
+        <a href="/tournament/bracket/2018"><button class="button sim_button">Simulate</button></a>
         <a href="/tournament/bracket/2017"><button class="button view_button">View Stats</button></a>
-        <img src="{% static 'images/logo.png' static %}" alt="The team's logo" class="logo">
     </div>
 </body>
 </html>
