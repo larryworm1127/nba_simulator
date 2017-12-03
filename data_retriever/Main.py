@@ -2,7 +2,6 @@
 import json
 from os.path import join, expanduser
 from nba_py import player, team
-from simulator import player_rating_machine
 
 # constant for the data paths
 # asset base paths
@@ -132,3 +131,4 @@ def get_id_from_abb(team_abb):
     for team_id, abb in team_dict.items():
         if team_abb == abb:
             return team_id
+

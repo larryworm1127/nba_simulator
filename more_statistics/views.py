@@ -4,55 +4,76 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template.loader import get_template
 from data_retriever import Main
+import os
+
+tempList = []
 
 
 def all_team_statistics(request):
-    with open(Main.COMBINE_FILE_PATH) as combine_file:
-        parsed_json = json.load(combine_file)
-    resource = parsed_json['resource']
-    parameters = parsed_json['parameters']
-
-    result_sets = parsed_json['resultSets']
-    headers = ['Rank', 'Team City', 'Team Name', 'W', 'L', 'PPG', 'FG%', '3P%', 'DREB', 'OREB', 'AST', 'TOV', 'STL',
-               'BLK', 'PF']
+    headers = ['Team City', 'Team Name', 'W', 'L', 'PPG', 'FG%', '3P%', 'DREB', 'OREB', 'AST', 'TOV', 'STL', 'BLK',
+               'PF']
     rows = []
     indexes = []
     new_row = []
-    rank = 1
-    for result in result_sets:
-        for k, v in result.items():
-            if k == 'headers':
-                indexes.append(v.index('TEAM_CITY'))
-                indexes.append(v.index('TEAM_NAME'))
-                indexes.append(v.index('WINS'))
-                indexes.append(v.index('LOSSES'))
-                indexes.append(v.index('PTS'))
-                indexes.append(v.index('FG_PCT'))
-                indexes.append(v.index('FG3_PCT'))
-                indexes.append(v.index('DREB'))
-                indexes.append(v.index('OREB'))
-                indexes.append(v.index('AST'))
-                indexes.append(v.index('TOV'))
-                indexes.append(v.index('STL'))
-                indexes.append(v.index('BLK'))
-                indexes.append(v.index('PF'))
-            elif k == 'rowSet':
-                for row in v:
-                    new_row.append(rank)
-                    rank += 1
-                    for i in range(len(indexes)):
-                        new_row.append(row[indexes[i]])
-                    rows.append(new_row)
-                    new_row = []
+
+    d = loadFile(os.path.join(Main.TEAM_SEASON_PATH, 'ATL.json'))
+    parsed_json = json.loads(d)
+    resultSets = parsed_json['resultSets']
+
+    tempList = getData()
+    sortData(tempList)
+
+    for row in tempList:
+        indexes = findIndexes(resultSets)
+        for i in range(len(indexes)):
+            new_row.append(row[indexes[i]])
+        rows.append(new_row)
+        new_row = []
+        indexes = []
 
     t = get_template('all_team_statistics.html')
-    html = t.render(
-        {'resource': resource, 'parameters': parameters, 'resultSets': result_sets, 'headers': headers, 'rows': rows})
+    html = t.render({'resultSets': resultSets, 'headers': headers, 'rows': rows})
     return HttpResponse(html)
 
 
-def load_file(file_name):
-    file = open(file_name)
+def findIndexes(resultSets):
+    headers = ['TEAM_CITY', 'TEAM_NAME', 'WINS', 'LOSSES', 'PTS', 'FG_PCT', 'FG3_PCT', 'DREB', 'OREB', 'AST', 'TOV',
+               'STL', 'BLK', 'PF']
+    indexes = []
+    for result in resultSets:
+        for k, v in result.items():
+            if k == 'headers':
+                for h in range(len(headers)):
+                    indexes.append(v.index(headers[h]))
+    return (indexes)
+
+
+def getData():
+    allTeamLists = []
+    for eachFile in os.listdir(Main.TEAM_SEASON_PATH):
+        d = loadFile(os.path.join(Main.TEAM_SEASON_PATH, eachFile))
+        parsed_json = json.loads(d)
+        resultSets = parsed_json['resultSets']
+        for result in resultSets:
+            for k, v in result.items():
+                if k == 'rowSet':
+                    for row in v:
+                        if row[3] == "2016-17":
+                            allTeamLists.append(row)
+    return allTeamLists
+
+
+def sortData(l):
+    for i in range(len(l) - 1, 0, -1):
+        for j in range(i):
+            if (l[j])[5] < (l[j + 1])[5]:
+                temp = l[j]
+                l[j] = l[j + 1]
+                l[j + 1] = temp
+
+
+def loadFile(fileName):
+    file = open(fileName)
     data = file.read()
     file.close()
     return data
