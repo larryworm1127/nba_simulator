@@ -8,6 +8,7 @@ def create_data(game_id):
     path = join(Main.GAME_BASE_PATH, str(game_id) + '.json')
     with open(path) as boxscore_file:
         parsed_json = load(boxscore_file)
+
     result_sets = parsed_json['resultSets']
 
     player_headers = ['TEAM_ABBREVIATION', 'PLAYER_NAME', 'START_POSITION', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
@@ -21,8 +22,11 @@ def create_data(game_id):
 
     player_stats_index = []
     team_stats_index = []
-    rows = []
+    rows1 = []
+    rows2 = []
     new_row = []
+    counter1 = 0
+    counter2 = 0
 
     player_result = find_player_result(result_sets)
     for k, v in player_result.items():
@@ -37,8 +41,16 @@ def create_data(game_id):
                 for i in range(len(new_row)):
                     if new_row[i] is None:
                         new_row[i] = 'DNP'
-                rows.append(new_row)
+                rows1.append(new_row)
+                rows2.append(new_row)
                 new_row = []
+    for each_row in rows1:
+        if (rows1[0])[0] != (rows1[counter2])[0]:
+            while counter1 < counter2:
+                rows1.remove(rows1[counter2])
+                rows2.remove(rows2[0])
+                counter1 += 1
+        counter2 += 1
 
     team_result = find_team_result(result_sets)
     for k, v in team_result.items():
@@ -52,10 +64,16 @@ def create_data(game_id):
                     new_row.append(row[index])
                 new_row[1] = 'N/A'
                 new_row[2] = 'TOTAL:'
-                rows.append(new_row)
+                rows1.append(new_row)
                 new_row = []
+    if (rows1[len(rows1) - 2][0]) != rows1[0][0]:
+        rows2.append(rows1[len(rows1) - 2])
+        rows1.remove(rows1[len(rows1) - 2])
+    else:
+        rows2.append(rows1[counter2])
+        rows1.remove(rows1[counter2])
 
-    return headers, rows
+    return headers, rows1, rows2
 
 
 def load_file(file_name):
