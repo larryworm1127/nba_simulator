@@ -8,7 +8,7 @@ def boxscore(request):
     data = create_data(game_id)
     headers = data[0]
     rows1 = data[1]
-    rows2 = data[1]
+    rows2 = data[2]
 
     return render(request, 'stats/boxscore.html', {'headers': headers, 'rows1': rows1, 'rows2': rows2})
 
