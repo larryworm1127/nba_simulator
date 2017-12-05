@@ -1,5 +1,6 @@
 from unittest import TestCase
 from tournament.data_manipulate import format_data, second_third_round_data, conf_final_teams, final_data
+from tournament.team_record_data import create_team_record_data
 
 
 class TestFormat_data(TestCase):
@@ -17,3 +18,8 @@ class TestFormat_data(TestCase):
 
         print(final_data)
         self.assertTrue(final_data)
+
+
+class Test_Team_Record_Data(TestCase):
+    def test_create_team_record_data(self):
+        self.assertTrue(create_team_record_data('2017'))

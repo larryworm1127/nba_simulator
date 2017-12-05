@@ -40,6 +40,14 @@
         .space {
             margin-top: 200px;
         }
+
+        .space2 {
+            margin-top: 50px;
+        }
+
+        .space3 {
+            margin-top: 30px;
+        }
     </style>
 </head>
 
@@ -52,7 +60,7 @@
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="#">View Team Comparisons</a></li>
-                <li><a href="/more_statistics/all_team_statistics/">View All Teams Statistics</a></li>
+                <li><a href="/stats/all_team_statistics/">View All Teams Statistics</a></li>
                 <li><a href="#">View Wins and Losses</a></li>
             </ul>
         </nav>
@@ -106,39 +114,34 @@
         <div class="space"></div>
         <hr>
 
-        <div class="space"></div>
-        <div class="container">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>
+        <div class="space2"></div>
+        <center><H1>{{ season }} Team Links</H1></center>
+        <div class="space3"></div>
 
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                    </div>
-
-                    <div class="item">
-                    </div>
-
-                    <div class="item">
-                    </div>
+        <div class="container" style="width: 80%">
+            <center>
+                <div class="col-sm-6">
+                    {% for team, img_path in west_teams.items %}
+                        <a href="#" class="list-group-item" style="float: left; background-color: #FFFFF0">
+                            <h4 class="list-group-item-heading">{{ team }}</h4>
+                            <img src="{% static img_path %}" alt="Team Logo" style="width: 150px; height: 100px">
+                        </a>
+                    {% endfor %}
                 </div>
+            </center>
 
-                <!-- Left and right controls -->
-                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>            
+            <div class="col-sm-6">
+                <center>
+                    {% for team, img_path in east_teams.items %}
+                        <a href="#" class="list-group-item" style="float: right; background-color:  #FFFFF0">
+                            <h4 class="list-group-item-heading">{{ team }}</h4>
+                            <img src="{% static img_path %}" alt="Team Logo" style="width: 150px; height: 100px">
+                        </a>
+                    {% endfor %}
+                </center>
+            </div>
         </div>
+        <div class="space2"></div>
     </div>
 
     <script type="text/javascript">
