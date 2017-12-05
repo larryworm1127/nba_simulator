@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^tournament/', include('tournament.urls')),
     url(r'^stats/', include('stats.urls')),
     url(r'^season_games/', include('season_games.urls'))
+    url(r'^simple_comparisons/', include('bar_graphs.urls')),
 ]

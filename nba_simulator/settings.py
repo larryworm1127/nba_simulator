@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'bar_graphs.apps.BarGraphsConfig',
     'rest_framework',
     'season_games.apps.SeasonGamesConfig',
     'stats.apps.StatsConfig',
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'chartjs',
 ]
 
 MIDDLEWARE = [

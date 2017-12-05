@@ -1,0 +1,109 @@
+#rectangle {
+	width: 90px;
+	height: 40px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	font-weight: 600;
+	text-align: center;
+	font-size: 16px;
+	border-radius: 6px;
+}
+
+#view_all_team {
+	width: 90px;
+	height: 40px;
+	position: absolute;
+	top: 200px;
+	right: 100px;
+	font-weight: 600;
+	font-size: 16px;
+	border-radius: 6px;
+	background: -webkit-linear-gradient(red, white, #6495ED); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(red, white, #6495ED); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(red, white, #6495ED); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(red, white, #6495ED); /* Standard syntax */
+}
+
+#view_all_team2 {
+	width: 90px;
+	height: 40px;
+	position: absolute;
+	top: 500px;
+	right: 100px;
+	font-weight: 600;
+	font-size: 16px;
+	border-radius: 6px;
+}
+
+#view_all_team3 {
+	width: 90px;
+	height: 40px;
+	position: absolute;
+	top: 800px;
+	right: 100px;
+	font-weight: 600;
+	font-size: 16px;
+	border-radius: 6px;
+}
+
+#view_all_team4 {
+	width: 90px;
+	height: 40px;
+	position: absolute;
+	top: 1100px;
+	right: 100px;
+	font-weight: 600;
+	font-size: 16px;
+	border-radius: 6px;
+}
+
+.outline {
+    color: #fff;
+    -webkit-font-smoothing: antialiased;
+    position: absolute;
+    font-size: 40px;
+    left: 100px;
+    top: 100px;
+    text-shadow: 0px 0px 4px black, 0px 0px 4px black, 0px 0px 4px black, 0px 0px 4px black;
+}
+
+.sub_title {
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-style: none;
+    border-top-style: none;
+    position: absolute;
+    top: 260px;
+    left: 135px;
+}
+
+.sub_title2 {
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-style: none;
+    border-top-style: none;
+    position: absolute;
+    top: 460px;
+    left: 135px;
+}
+
+.sub_title3 {
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-style: none;
+    border-top-style: none;
+    position: absolute;
+    top: 660px;
+    left: 135px;
+}
+
+.sub_title4 {
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-style: none;
+    border-top-style: none;
+    position: absolute;
+    top: 860px;
+    left: 135px;
+}
