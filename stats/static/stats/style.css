@@ -18,9 +18,26 @@
 .sim_button {
     border-radius: 50%;
     float: left;
+    color: black;
+    background: -webkit-linear-gradient(left, red, white, #6495ED); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(left, red, white, #6495ED); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, red, white, #6495ED); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(left, red, white, #6495ED); /* Standard syntax */
 }
 
 .view_button {
     border-radius: 50%;
     float: right;
+    color: black;
+    background: -webkit-linear-gradient(right, red, white, #6495ED); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, red, white, #6495ED); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, red, white, #6495ED); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(right, red, white, #6495ED); /* Standard syntax */
+}
+
+.team_logo {
+    height: 20%;
+    position: absolute;
+    top: 100px;
+    left: 200px;
 }
