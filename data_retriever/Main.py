@@ -28,7 +28,6 @@ PLAYER_LIST_PATH = join(OTHER_BASE_PATH, 'player_list.json')
 TEAM_LIST_PATH = join(OTHER_BASE_PATH, 'team_list.json')
 GAME_LIST_PATH = join(OTHER_BASE_PATH, 'game_list.json')
 DIVISION_LIST_PATH = join(OTHER_BASE_PATH, 'division_list.json')
-COMBINE_FILE_PATH = join(TEAM_SEASON_PATH, 'Combined.json')
 SIMULATE_RANKING_PATH = join(SIMULATE_RESULT_PATH, 'ranking.json')
 SIMULATE_PLAYOFF_PATH = join(SIMULATE_RESULT_PATH, 'playoff_result.json')
 
@@ -89,39 +88,6 @@ def create_division_list():
 
     with open(DIVISION_LIST_PATH, 'w') as division_file:
         json.dump(data, division_file)
-
-
-def create_combine_file():
-    """
-    create a file combining all team season data 2016-17 season
-    """
-    final_data = {"resource": "allteamstats",
-                  "parameters": {
-                      "LeagueID": "00",
-                      "SeasonType": "Regular Season",
-                      "PerMode": "PerGame"
-                  },
-                  "resultSets": [{
-                      "name": "TeamStats",
-                      "headers": ["TEAM_ID", "TEAM_CITY", "TEAM_NAME", "YEAR", "GP", "WINS", "LOSSES", "WIN_PCT",
-                                  "CONF_RANK", "DIV_RANK", "PO_WINS", "PO_LOSSES", "CONF_COUNT", "DIV_COUNT",
-                                  "NBA_FINALS_APPEARANCE", "FGM", "FGA", "FG_PCT", "FG3M", "FG3A", "FG3_PCT", "FTM",
-                                  "FTA", "FT_PCT", "OREB", "DREB", "REB", "AST", "PF", "STL", "TOV", "BLK", "PTS",
-                                  "PTS_RANK"],
-                      "rowSet": []}
-                  ]}
-
-    with open(TEAM_DICT_PATH) as team_dict_file:
-        team_dict = json.load(team_dict_file)
-
-    for team_abb in team_dict.values():
-        with open(join(TEAM_SEASON_PATH, team_abb + '.json')) as team_season_file:
-            data = json.load(team_season_file)
-
-        final_data['resultSets'][0]['rowSet'].append(data['resultSets'][0]['rowSet'][-2])
-
-    with open(COMBINE_FILE_PATH, 'w') as combine_file:
-        json.dump(final_data, combine_file)
 
 
 def get_id_from_abb(team_abb):
