@@ -27,8 +27,8 @@
     <br>
 
     <ul class="nav nav-pills" style="margin: auto; padding: 0; width: 147px;">
-        <li class="active"><a data-toggle="pill" href="#team1">Home</a></li>
-        <li><a data-toggle="pill" href="#team2">Menu 1</a></li>
+        <li class="active"><a data-toggle="pill" href="#team1">{{team1}}</a></li>
+        <li><a data-toggle="pill" href="#team2">{{team2}}</a></li>
     </ul>
 
     <div class="tab-content">
@@ -37,7 +37,7 @@
                 <thead>
                     <tr>
                         {% for header in headers %}
-                            <th>{{header}}</th>
+                            <th align="center">{{header}}</th>
                         {% endfor %}
                     </tr>
                 </thead>

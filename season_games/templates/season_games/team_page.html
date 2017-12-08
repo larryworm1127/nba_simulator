@@ -1,0 +1,59 @@
+{% extends "stats/main_template.html" %}
+
+{% block title %}{{ team }}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand">NBA Simulator</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="#">View Team Comparisons</a></li>
+            <li><a href="/stats/all_team_statistics">View All Teams Statistics</a></li>
+            <li><a href="/tournament/bracket/2017">View Playoff Bracket</a>
+            <li><a href="#">View Standing</a></li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid" style="min-height:95%; ">
+        <div class="row">
+            <div class="col-sm-2">
+                <br>
+              
+            </div>
+            <div class="col-sm-10">
+                <br>
+                <center>
+                    <h2>{{ team }}</h2>
+                </center>
+            </div>
+        </div><hr>
+
+        <div class="row">
+            <div class="col-sm-2">
+                <br>
+                <img src="{% static }">
+                <br>
+                <!-- Great, til you resize. -->
+                <!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
+                <div class="well bs-sidebar" id="sidebar" style="background-color:#fff">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href='/'>Home</a></li>
+                        <li><a href='/blog/'>Blog</a></li>
+                        <li><a href='/contact/'>Contact</a></li>
+                    </ul>
+                </div> <!--well bs-sidebar affix-->
+            </div> <!--col-sm-2-->
+            <div class="col-sm-10">
+                <div class='container-fluid'>
+                    <br><br>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>
+
+{% endblock %}

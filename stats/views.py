@@ -9,13 +9,15 @@ def boxscore(request):
     headers = data[0]
     rows1 = data[1]
     rows2 = data[2]
+    team1 = data[3]
+    team2 = data[4]
 
-    return render(request, 'stats/boxscore.html', {'headers': headers, 'rows1': rows1, 'rows2': rows2})
+    return render(request, 'stats/boxscore.html', {'headers': headers, 'rows1': rows1, 'rows2': rows2, 'team1': team1, 'team2': team2})
 
 
 def all_team_stats(request):
     data = create_team_data()
     headers = data[0]
-    rows1 = data[1]
+    rows = data[1]
 
     return render(request, 'stats/all_team_statistics.html', {'headers': headers, 'rows': rows})

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from os.path import join
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
+    'season_games.apps.SeasonGamesConfig',
     'stats.apps.StatsConfig',
     'data_display.apps.DataDisplayConfig',
     'tournament.apps.TournamentConfig',
@@ -54,6 +56,10 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'nba_simulator.urls'
+
+STATICFILES_DIRS = [
+    join(BASE_DIR, 'static')
+]
 
 TEMPLATES = [
     {

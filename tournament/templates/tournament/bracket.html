@@ -12,43 +12,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{% static 'jquery-bracket/jquery.bracket.min.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'jquery-bracket/jquery.bracket.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'tournament/style.css' %}">
 
-    <style>
-        h1 {
-            font-family: lato;
-        }
-
-        h2 {
-            font-family: lato;
-            font-size: 200%
-        }
-
-        h4 {
-            font-family: lato;
-        }
-
-        .label {
-            font-size: 16px;
-            color: Black;
-            font-family: lato;
-        }
-
-        .score {
-            font-size: 16px;
-        }
-
-        .space {
-            margin-top: 200px;
-        }
-
-        .space2 {
-            margin-top: 50px;
-        }
-
-        .space3 {
-            margin-top: 30px;
-        }
-    </style>
 </head>
 
 <body class="body" style="background-color:#8FBC8F">
@@ -61,7 +26,7 @@
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="#">View Team Comparisons</a></li>
                 <li><a href="/stats/all_team_statistics/">View All Teams Statistics</a></li>
-                <li><a href="#">View Wins and Losses</a></li>
+                <li><a href="#">View Standing</a></li>
             </ul>
         </nav>
 
@@ -82,13 +47,11 @@
                 </div>
 
                 <div class="col-sm-2">
-                    <br>
-                    <br>
+                    <div class="space2"></div>
                     <center>
                         <H2>VS</H2>
                     </center>
-                    <br>
-                    <br>
+                    <div class="space2"></div>
 
                     <center>
                         <img src="{% static 'images/trophy.png' static%}" alt="NBA Championship Trophy" style="width: 120px; height: 120px;">
@@ -115,16 +78,16 @@
         <hr>
 
         <div class="space2"></div>
-        <center><H1>{{ season }} Team Links</H1></center>
+        <center><H1>{{ season }} Teams</H1></center>
         <div class="space3"></div>
 
         <div class="container" style="width: 80%">
             <center>
                 <div class="col-sm-6">
-                    {% for team, img_path in west_teams.items %}
-                        <a href="#" class="list-group-item" style="float: left; background-color: #FFFFF0">
+                    {% for team, data in west_teams.items %}
+                        <a href="/season_games/{{ team }}" class="list-group-item" style="float: left; background-color: #FFFFF0">
                             <h4 class="list-group-item-heading">{{ team }}</h4>
-                            <img src="{% static img_path %}" alt="Team Logo" style="width: 150px; height: 100px">
+                            <img src="{% static data %}" alt="Team Logo" style="width: 150px; height: 100px">
                         </a>
                     {% endfor %}
                 </div>
@@ -132,10 +95,10 @@
 
             <div class="col-sm-6">
                 <center>
-                    {% for team, img_path in east_teams.items %}
-                        <a href="#" class="list-group-item" style="float: right; background-color:  #FFFFF0">
+                    {% for team, data in east_teams.items %}
+                        <a href="/season_games/{{ team }}" class="list-group-item" style="float: right; background-color:  #FFFFF0">
                             <h4 class="list-group-item-heading">{{ team }}</h4>
-                            <img src="{% static img_path %}" alt="Team Logo" style="width: 150px; height: 100px">
+                            <img src="{% static data %}" alt="Team Logo" style="width: 150px; height: 100px">
                         </a>
                     {% endfor %}
                 </center>
@@ -145,23 +108,6 @@
     </div>
 
     <script type="text/javascript">
-        function render_fn(container, data, score, state) {
-            console.log('rendering data');
-            switch(state) {
-                case "empty-bye":
-                container.append("No team")
-                return;
-                case "empty-tbd":
-                container.append("Upcoming")
-                return;
-                case "entry-no-score":
-                case "entry-default-win":
-                case "entry-complete":
-                container.append('<img src="static/images/rsz_1test.png"/>').append(data.name);
-                return;
-            }
-        }
-
         $.get( "../api/{{ season }}", function( data ) {
             $('#west .demo').bracket({
                 init: data['west'],

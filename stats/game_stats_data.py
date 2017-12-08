@@ -11,13 +11,13 @@ def create_data(game_id):
 
     result_sets = parsed_json['resultSets']
 
-    player_headers = ['TEAM_ABBREVIATION', 'PLAYER_NAME', 'START_POSITION', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
+    player_headers = ['PLAYER_NAME', 'START_POSITION', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
                       'STL', 'BLK', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'TO',
                       'PF', 'PLUS_MINUS']
-    team_headers = ['TEAM_ABBREVIATION', 'GAME_ID', 'TEAM_ID', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
+    team_headers = ['MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
                     'STL', 'BLK', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'TO', 'PF',
                     'PLUS_MINUS']
-    headers = ['Team', 'Player Names', 'Position', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL',
+    headers = ['Player Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL',
                'BLK', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%', 'FTM', 'FTA', 'FT%', 'TOV', 'PF', '+/-']
 
     player_stats_index = []
@@ -27,6 +27,8 @@ def create_data(game_id):
     new_row = []
     counter1 = 0
     counter2 = 0
+    team1 = result_sets[1]['rowSet'][0][3]
+    team2 = result_sets[1]['rowSet'][1][3]
 
     player_result = find_player_result(result_sets)
     for k, v in player_result.items():
@@ -62,8 +64,8 @@ def create_data(game_id):
             for row in v:
                 for index in team_stats_index:
                     new_row.append(row[index])
-                new_row[1] = 'N/A'
-                new_row[2] = 'TOTAL:'
+                new_row.insert(0, 'TOTAL:')
+                new_row.insert(1, '')
                 rows1.append(new_row)
                 new_row = []
     if (rows1[len(rows1) - 2][0]) != rows1[0][0]:
@@ -73,14 +75,7 @@ def create_data(game_id):
         rows2.append(rows1[counter2])
         rows1.remove(rows1[counter2])
 
-    return headers, rows1, rows2
-
-
-def load_file(file_name):
-    file = open(file_name)
-    data = file.read()
-    file.close()
-    return data
+    return headers, rows1, rows2, team1, team2
 
 
 def find_player_result(result_sets):

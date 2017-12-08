@@ -1,6 +1,6 @@
 # general import
 from json import load
-from data_retriever import Main
+from data_retriever import Main, file_check
 from os import listdir
 from os.path import join
 
@@ -11,6 +11,8 @@ TEAM_OPPONENT = {1: 8, 2: 7, 3: 6, 4: 5, 5: 4, 6: 3, 7: 2, 8: 1}
 # create other variables and access data from files
 final_data = {'east': {'teams': [], 'results': [[], [], []]}, 'west': {'teams': [], 'results': [[], [], []]},
               'final': {'teams': [], 'results': [[]]}}
+
+file_check.init()
 
 with open(Main.DIVISION_LIST_PATH, 'r') as division_file:
     division_dict = load(division_file)
