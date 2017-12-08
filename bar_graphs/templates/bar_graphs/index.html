@@ -2,6 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+
+  <nav class="navbar navbar-inverse">
+
+      <div class="collapse navbar-collapse" id="topNavBar">
+          <form class="navbar-form navbar-left" role="search" method="get" action="#">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="q" value="">
+                </div>
+                <button type="submit" class="btn btn-default">View All Teams</button>
+          </form>
+      </div>
+
+  </nav>
+
+
   {% load staticfiles %}
   <link rel="stylesheet" href="{% static 'bar_graphs/style.css' %}"/>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,7 +52,7 @@
     </div>
 
 <!-- Four buttons -->
-<button id="rectangle">Back</button>
+<!--<button id="rectangle">Back</button>-->
 <a href="https://www.youtube.com/?gl=CA" target="_blank"><button id="view_all_team">View All Teams</button></a>
 <!--
 <a href="https://www.google.ca/maps" target="_blank"><button id="view_all_team2">View All Teams</button></a>
