@@ -17,7 +17,7 @@ def create_data(game_id):
     team_headers = ['MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
                     'STL', 'BLK', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'TO', 'PF',
                     'PLUS_MINUS']
-    headers = ['Player Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL',
+    headers = ['Team', 'Player________Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL',
                'BLK', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%', 'FTM', 'FTA', 'FT%', 'TOV', 'PF', '+/-']
 
     player_stats_index = []

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from stats.game_stats_data import create_data
 from stats.all_team_data import create_team_data
+from stats.wins_losses import create_wl_data
 
 
 def boxscore(request):
@@ -21,3 +22,12 @@ def all_team_stats(request):
     rows = data[1]
 
     return render(request, 'stats/all_team_statistics.html', {'headers': headers, 'rows': rows})
+
+
+def wins_and_losses(request):
+    data = create_wl_data()
+    headers = data[0]
+    rows = data[1]
+    logo_list = data[2]
+
+    return render(request, 'stats/wins_losses.html', {'headers': headers, 'rows': rows, 'logo_list': logo_list})

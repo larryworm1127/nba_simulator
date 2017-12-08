@@ -3,14 +3,18 @@ from json import load
 from os.path import join
 from data_retriever import Main
 from os import listdir
+from nba_simulator.settings import BASE_DIR
+
+import os
 
 
-def create_team_data():
-    headers = ['Rank', 'Team City', 'Team Name', 'W', 'L', 'PPG', 'FG%', '3P%', 'DREB', 'OREB', 'AST', 'TOV', 'STL', 'BLK',
-               'PF']
+def create_wl_data():
+    headers = ['Logo','Rank','Team City','Team Name','Wins','Losses']
+
     rows = []
     new_row = []
     rank = 1
+    logo_list = get_logos()
 
     with open(join(Main.TEAM_SEASON_PATH, 'ATL.json')) as data_file:
         parsed_json = load(data_file)
@@ -29,19 +33,17 @@ def create_team_data():
         new_row = []
         rank += 1
 
-    return headers, rows
+    return headers, rows, logo_list
 
 
 def find_indexes(result_sets):
-    headers = ['TEAM_CITY', 'TEAM_NAME', 'WINS', 'LOSSES', 'PTS', 'FG_PCT', 'FG3_PCT', 'DREB', 'OREB', 'AST', 'TOV',
-               'STL', 'BLK', 'PF']
+    headers = ['TEAM_CITY', 'TEAM_NAME', 'WINS', 'LOSSES']
     indexes = []
     for result in result_sets:
         for k, v in result.items():
             if k == 'headers':
-                for header in headers:
-                    indexes.append(v.index(header))
-
+                for h in range(len(headers)):
+                    indexes.append(v.index(headers[h]))
     return indexes
 
 
@@ -69,3 +71,11 @@ def sort_data(l):
                 temp = l[j]
                 l[j] = l[j + 1]
                 l[j + 1] = temp
+
+
+def get_logos():
+    logo_list = []
+    for each_logo in listdir(os.path.join(BASE_DIR,'stats/static/images')):
+        logo_list.append(each_logo)
+
+    return logo_list
