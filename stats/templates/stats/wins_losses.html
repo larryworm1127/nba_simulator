@@ -1,4 +1,5 @@
 {% extends "stats/main_template.html" %}
+{% load static %}
 
 {% block title %}Display Wins and Losses 2016-2017{% endblock %}
 
@@ -27,7 +28,7 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				{% for header in headers %} 
+			        {% for header in headers %} 
 				<th>{{header}} </th>
 				{% endfor %} 
 			</tr>
@@ -36,7 +37,7 @@
 			{% for row in rows %} 
 			<tr>
 				<td>
-					<img src="{% static 'images/ATL.png' static %}" alt="Image" style="width: 70px; height: 40px">
+					<img src="{% static 'images/ATL.png' static %}" alt="Image" style="width: 30px; height: 20px">
 				</td>
 				{% for column in row %}
 					<td>{{column}}</td>

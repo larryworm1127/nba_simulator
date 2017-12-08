@@ -75,7 +75,7 @@ def sort_data(l):
 
 def get_logos():
     logo_list = []
-    for each_logo in listdir(os.path.join(BASE_DIR,'stats/static/images')):
+    for each_logo in listdir(os.path.join(BASE_DIR,'static/images')):
         logo_list.append(each_logo)
 
     return logo_list
