@@ -1,0 +1,19 @@
+h1 {
+    font-family: lato;
+}
+
+h4 {
+    font-family: lato;
+}
+
+.btn {
+    float: right;
+    position: relative;
+    bottom: 35px;
+}
+
+#top_button {
+	position: fixed;
+  	bottom: 20px;
+  	left: 20px;
+}

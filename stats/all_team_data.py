@@ -21,8 +21,8 @@ def create_team_data():
 
     for row in temp_list:
         indexes = find_indexes(result_sets)
-        for i in range(len(indexes)):
-            new_row.append(row[indexes[i]])
+        for index in indexes:
+            new_row.append(row[index])
         rows.append(new_row)
         new_row = []
 
@@ -36,8 +36,9 @@ def find_indexes(result_sets):
     for result in result_sets:
         for k, v in result.items():
             if k == 'headers':
-                for h in range(len(headers)):
-                    indexes.append(v.index(headers[h]))
+                for header in headers:
+                    indexes.append(v.index(header))
+
     return indexes
 
 

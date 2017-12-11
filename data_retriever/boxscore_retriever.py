@@ -27,10 +27,10 @@ def create_game_log_profile():
 
     print(game_id_list)
     print("Retrieving boxscore data and creating files ... Please wait.")
-    for game_id in range(len(game_id_list)):
-        print("Retrieving " + game_id_list[game_id] + " data")
-        boxscore_data = game.Boxscore(game_id_list[game_id]).json
-        path = join(Main.GAME_BASE_PATH, game_id_list[game_id] + '.json')
+    for game_id in game_id_list:
+        print("Retrieving " + game_id + " data")
+        boxscore_data = game.Boxscore(game_id).json
+        path = join(Main.GAME_BASE_PATH, game_id + '.json')
         with open(path, 'w') as boxscore_file:
             json.dump(boxscore_data, boxscore_file)
 

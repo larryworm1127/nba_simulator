@@ -35,5 +35,9 @@ def tournament(request, season):
 def bracket(request, season):
     east_teams = {team: 'images/' + team + '.png' for team in division_dict['east']}
     west_teams = {team: 'images/' + team + '.png' for team in division_dict['west']}
-    
-    return render(request, 'tournament/bracket.html', {'season': season, 'east_teams': east_teams, 'west_teams': west_teams})
+
+    return render(request, 'tournament/bracket.html',
+                  {'season': season,
+                   'east_teams': east_teams,
+                   'west_teams': west_teams,
+                   })

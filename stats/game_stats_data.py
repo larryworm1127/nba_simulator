@@ -46,7 +46,7 @@ def create_data(game_id):
                 rows1.append(new_row)
                 rows2.append(new_row)
                 new_row = []
-    for each_row in rows1:
+    for _ in rows1:
         if (rows1[0])[0] != (rows1[counter2])[0]:
             while counter1 < counter2:
                 rows1.remove(rows1[counter2])
@@ -80,13 +80,13 @@ def create_data(game_id):
 
 def find_player_result(result_sets):
     for result in result_sets:
-        for k, v in result.items():
+        for _, v in result.items():
             if v == 'PlayerStats':
                 return result
 
 
 def find_team_result(result_sets):
     for result in result_sets:
-        for k, v in result.items():
+        for _, v in result.items():
             if v == 'TeamStats':
                 return result

@@ -9,9 +9,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'season_games/style.css' %}">
 </head>
 
-<body>
+<body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
 
 <div class="container">
     <nav class="navbar navbar-inverse">
@@ -27,41 +28,67 @@
         </ul>
     </nav>
 
-    <div class="container-fluid" style="min-height:95%; ">
-        <div class="row">
-            <div class="col-sm-2">
-                <br>
-                <img src="{% static team_logo static %}" alt="team logo">
-              
-            </div>
-            <div class="col-sm-10">
-                <br>
-                <center>
-                    <h2>{{ team }}</h2>
-                </center>
-            </div>
-        </div><hr>
+    <div class="container-fluid">
+        <div class="col-sm-2">
+            <br>
+            <center>
+                <img src="{% static team_logo %}" alt="team logo">
+            </center>
+        </div>
+        <div class="col-sm-10">
+            <br>
+            <center>
+                <h1>{{ team_name }}</h1>
+            </center>
+        </div>
+    </div>
+    <hr>
 
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-2">
-                <br>
-                <br>
-                <!-- Great, til you resize. -->
-                <!--<div class="well bs-sidebar affix" id="sidebar" style="background-color:#fff">-->
-                <div class="well bs-sidebar" id="sidebar" style="background-color:#fff">
-                    <ul class="nav nav-pills nav-stacked">
-                        <li><a href='/'>Home</a></li>
-                        <li><a href='/blog/'>Blog</a></li>
-                        <li><a href='/contact/'>Contact</a></li>
-                    </ul>
-                </div> <!--well bs-sidebar affix-->
-            </div> <!--col-sm-2-->
+            <nav class="col-sm-2" id="myScrollspy">
+                <ul class="nav nav-pills nav-stacked">
+                    {% for other_team in team_list %}
+                    <li><a href="#{{ other_team }}">{{other_team}}</a></li>
+                    {% endfor %}
+                    <hr>
+                </ul>
+                <a href="#" class="btn btn-info" role="button" id="top_button">Back to Top</a>
+            </nav>
+
             <div class="col-sm-10">
-                <div class='container-fluid'>
-                    <br><br>
+                {% for other_team, games in game_dict.items %}
+                <div id="{{ other_team }}">
+                    {% for game in games %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>{{ game.HEADER }}</h4>
+                            <a href="{{ game.url }}" class="btn btn-info" role="button">More Details</a>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    {% for header in game.TAB_HEADERS %}
+                                    <th>{{ header }}</th>
+                                    {% endfor %}
+                                </tr>
+                                </thead>
+                                <tbody id="data_table">
+                                <tr>
+                                    {% for column in game.DISPLAY %}
+                                    <td>{{ column }}</td>
+                                    {% endfor %}
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
+                {% endfor %}
             </div>
-        </div> 
+        </div>
     </div>
 </div>
 
