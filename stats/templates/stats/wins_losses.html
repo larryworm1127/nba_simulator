@@ -28,20 +28,22 @@
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-			        {% for header in headers %} 
+				{% for header in headers %}
 				<th>{{header}} </th>
 				{% endfor %} 
 			</tr>
 		</thead>
 		<tbody id="data_table">
-			{% for row in rows %} 
+			{% for row in rows %}
 			<tr>
-				<td>
-					<img src="{% static 'images/ATL.png' static %}" alt="Image" style="width: 30px; height: 20px">
-				</td>
-				{% for column in row %}
-					<td>{{column}}</td>
-				{% endfor %}
+                <td>
+                    <img src="{% static row.0 static %}" alt="Team Logo" style="width: 45px; height: 30px">
+                </td>
+                <td>{{row.1}}</td>
+                <td>{{row.2}}</td>
+                <td>{{row.3}}</td>
+                <td>{{row.4}}</td>
+                <td>{{row.5}}</td>
 			</tr>
 			{% endfor %}
 		</tbody>

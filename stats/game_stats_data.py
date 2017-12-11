@@ -11,10 +11,10 @@ def create_data(game_id):
 
     result_sets = parsed_json['resultSets']
 
-    player_headers = ['PLAYER_NAME', 'START_POSITION', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
+    player_headers = ['TEAM_ABBREVIATION', 'PLAYER_NAME', 'START_POSITION', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
                       'STL', 'BLK', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'TO',
                       'PF', 'PLUS_MINUS']
-    team_headers = ['MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
+    team_headers = ['TEAM_ABBREVIATION', 'GAME_ID', 'TEAM_ID', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
                     'STL', 'BLK', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'TO', 'PF',
                     'PLUS_MINUS']
     headers = ['Team', 'Player________Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL',
@@ -27,8 +27,6 @@ def create_data(game_id):
     new_row = []
     counter1 = 0
     counter2 = 0
-    team1 = result_sets[1]['rowSet'][0][3]
-    team2 = result_sets[1]['rowSet'][1][3]
 
     player_result = find_player_result(result_sets)
     for k, v in player_result.items():
@@ -64,8 +62,9 @@ def create_data(game_id):
             for row in v:
                 for index in team_stats_index:
                     new_row.append(row[index])
-                new_row.insert(0, 'TOTAL:')
-                new_row.insert(1, '')
+                new_row[0] = ''
+                new_row[1] = 'TOTAL:'
+                new_row[2] = ''
                 rows1.append(new_row)
                 new_row = []
     if (rows1[len(rows1) - 2][0]) != rows1[0][0]:
@@ -74,6 +73,14 @@ def create_data(game_id):
     else:
         rows2.append(rows1[counter2])
         rows1.remove(rows1[counter2])
+    team1 = (rows1[0])[0]
+    team2 = (rows2[0])[0]
+
+    for row in rows1:
+        row.remove(row[0])
+    for row in rows2:
+        row.remove(row[0])
+    headers.remove(headers[0])
 
     return headers, rows1, rows2, team1, team2
 

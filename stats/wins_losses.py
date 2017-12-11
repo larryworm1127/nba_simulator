@@ -10,11 +10,14 @@ import os
 
 def create_wl_data():
     headers = ['Logo','Rank','Team City','Team Name','Wins','Losses']
-
     rows = []
     new_row = []
     rank = 1
-    logo_list = get_logos()
+    order = ['images/GSW.png','images/SAS.png','images/HOU.png','images/BOS.png','images/CLE.png','images/LAC.png',
+             'images/TOR.png','images/UTA.png','images/WAS.png','images/OKC.png','images/ATL.png','images/MEM.png',
+             'images/IND.png','images/MIL.png','images/CHI.png','images/MIA.png','images/POR.png','images/DEN.png',
+             'images/DET.png','images/CHA.png','images/NOP.png','images/DAL.png','images/SAC.png','images/MIN.png',
+             'images/NYK.png','images/ORL.png','images/PHI.png','images/LAL.png','images/PHX.png','images/BKN.png']
 
     with open(join(Main.TEAM_SEASON_PATH, 'ATL.json')) as data_file:
         parsed_json = load(data_file)
@@ -26,6 +29,7 @@ def create_wl_data():
 
     for row in temp_list:
         indexes = find_indexes(result_sets)
+        new_row.append(order[rank-1])
         new_row.append(rank)
         for i in range(len(indexes)):
             new_row.append(row[indexes[i]])
@@ -33,7 +37,7 @@ def create_wl_data():
         new_row = []
         rank += 1
 
-    return headers, rows, logo_list
+    return headers, rows
 
 
 def find_indexes(result_sets):
@@ -71,11 +75,3 @@ def sort_data(l):
                 temp = l[j]
                 l[j] = l[j + 1]
                 l[j + 1] = temp
-
-
-def get_logos():
-    logo_list = []
-    for each_logo in listdir(os.path.join(BASE_DIR,'static/images')):
-        logo_list.append(each_logo)
-
-    return logo_list

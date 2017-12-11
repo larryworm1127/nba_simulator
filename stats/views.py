@@ -28,6 +28,5 @@ def wins_and_losses(request):
     data = create_wl_data()
     headers = data[0]
     rows = data[1]
-    logo_list = data[2]
 
-    return render(request, 'stats/wins_losses.html', {'headers': headers, 'rows': rows, 'logo_list': logo_list})
+    return render(request, 'stats/wins_losses.html', {'headers': headers, 'rows': rows})
