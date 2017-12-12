@@ -44,7 +44,7 @@ def get_games(team_abb):
 
                 game_url = "/stats/boxscore/?gameID=" + game[1]
                 single_game['url'] = game_url
-                single_game['HEADER'] = data_list[3] + '    ' + data_list[2]
+                single_game['HEADER'] = data_list[3] + ' ---- ' + data_list[2]
                 data = data_cleanup(headers, data_list)
                 single_game['TAB_HEADERS'] = data[1]
                 single_game['DISPLAY'] = data[0]

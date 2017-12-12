@@ -26,7 +26,9 @@ def create_data(game_id):
     rows2 = []
     new_row = []
     counter1 = 0
-    counter2 = 0
+    counter2 = []
+    counter3 = 0
+    counter4 = 0
 
     player_result = find_player_result(result_sets)
     for k, v in player_result.items():
@@ -45,12 +47,15 @@ def create_data(game_id):
                 rows2.append(new_row)
                 new_row = []
     for _ in rows1:
-        if (rows1[0])[0] != (rows1[counter2])[0]:
-            while counter1 < counter2:
-                rows1.remove(rows1[counter2])
-                rows2.remove(rows2[0])
-                counter1 += 1
-        counter2 += 1
+        if (rows1[0])[0] != (rows1[counter1])[0]:
+            counter2.append(counter1)
+        counter1 += 1
+    for row in counter2:
+        rows1.remove(rows1[row-counter3])
+        counter3 += 1
+    while counter4 < counter2[0]:
+        rows2.remove(rows2[0])
+        counter4 += 1
 
     team_result = find_team_result(result_sets)
     for k, v in team_result.items():
@@ -62,7 +67,6 @@ def create_data(game_id):
             for row in v:
                 for index in team_stats_index:
                     new_row.append(row[index])
-                new_row[0] = ''
                 new_row[1] = 'TOTAL:'
                 new_row[2] = ''
                 rows1.append(new_row)
@@ -71,8 +75,8 @@ def create_data(game_id):
         rows2.append(rows1[len(rows1) - 2])
         rows1.remove(rows1[len(rows1) - 2])
     else:
-        rows2.append(rows1[counter2])
-        rows1.remove(rows1[counter2])
+        rows2.append(rows1[len(rows1)-1])
+        rows1.remove(rows1[len(rows1)-1])
     team1 = (rows1[0])[0]
     team2 = (rows2[0])[0]
 
