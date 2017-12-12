@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <title>{% block title %}Page Title{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'season_games/style.css' %}">
+</head>
+
+<body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
+
+<div class="container">
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand">NBA Simulator</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="#">View Team Comparisons</a></li>
+            <li><a href="/stats/all_team_statistics">View All Teams Statistics</a></li>
+            <li><a href="/tournament/bracket/2017">View Playoff Bracket</a>
+            <li><a href="#">View Standing</a></li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="col-sm-2">
+            <br>
+            <center>
+                <img src="{% static team_logo %}" alt="team logo">
+            </center>
+        </div>
+        <div class="col-sm-10">
+            <br>
+            <center>
+                <h1>{{ team_name }}</h1>
+            </center>
+        </div>
+    </div>
+    <hr>
+
+    <div class="container-fluid">
+        <div class="row">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

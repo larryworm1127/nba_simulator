@@ -77,3 +77,22 @@ def data_cleanup(header, data_list):
         result_list.pop(3)
 
     return result_list, result_header
+
+
+def get_simulated_games(team_abb):
+    with open(join(Main.SIMULATE_RESULT_PATH, team_abb + '.json')) as data_file:
+        team_data = load(data_file)
+
+    other_teams = get_other_teams(team_abb)
+    game_dict = {}
+
+    for team in other_teams:
+        single_team = {}
+        tab_headers = ['Game ' + str(num + 1) for num in range(len(team_data[team]))]
+        panel_header = team_abb + ' vs. ' + team
+        single_team['TAB_HEADERS'] = tab_headers
+        single_team['DISPLAY'] = team_data[team]
+        single_team['HEADER'] = panel_header
+        game_dict[team] = single_team
+
+    return game_dict

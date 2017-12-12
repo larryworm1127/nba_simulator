@@ -1,5 +1,5 @@
 from unittest import TestCase
-from season_games.create_team_page_data import get_games, data_cleanup
+from season_games.create_team_page_data import get_games, data_cleanup, get_simulated_games
 
 
 class TestCreateTeamPageData(TestCase):
@@ -17,3 +17,7 @@ class TestCreateTeamPageData(TestCase):
                         ['WL', 'W', 'L', 'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK', 'TOV', 'PF', 'PTS'])
 
         self.assertEqual(data_cleanup(ori_header, ori_data), shorten_data)
+
+    def test_get_simulated_game(self):
+        print(get_simulated_games('ATL'))
+        self.assertTrue(get_simulated_games('ATL'))
