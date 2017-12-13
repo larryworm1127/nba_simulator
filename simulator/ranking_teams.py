@@ -44,3 +44,4 @@ def rank_team_all():
         result[rank + 1] = win_data_list[rank][0]
 
     return result
+

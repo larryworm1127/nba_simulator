@@ -3,19 +3,17 @@
 <head>
   <meta charset="UTF-8">
 
-  <nav class="navbar navbar-inverse">
-
-      <div class="collapse navbar-collapse" id="topNavBar">
-          <form class="navbar-form navbar-left" role="search" method="get" action="#">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="q" value="">
-                </div>
-                <button type="submit" class="btn btn-default">View All Teams</button>
-          </form>
-      </div>
-
-  </nav>
-
+  <div class="container">
+        <nav class="navbar navbar-inverse">
+            <div class="navbar-header">
+                <a class="navbar-brand">NBA Simulator</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/stats/all_team_statistics/">View All Teams Statistics</a></li>
+            </ul>
+        </nav>
+  </div>
 
   {% load staticfiles %}
   <link rel="stylesheet" href="{% static 'bar_graphs/style.css' %}"/>
@@ -27,10 +25,10 @@
 
   {% if bar_title %}
   <center><h1>Simple Comparisons</h1></center>
-  <center><h3 style="top: 60px;">Regular Season</h3></center>
+  <center><h4 style="top: 60px;">Regular Season</h4></center>
   {% endif %}
 
-  <title>django-chartjs line chart demo</title>
+  <title>Simple Comparisons</title>
     <!--[if lte IE 8]>
         <script src="{% static 'js/excanvas.js' %}"></script>
     <![endif]-->
@@ -38,12 +36,11 @@
 </head>
 
 <body>
-    <div class="container">
-        <canvas id="myChart" >width="200" height="100"></canvas>
-
+    <div class="container" style="position: absolute; height: 200px; width: 500px; top: 200px; left: 300px;">
+        <canvas id="WLR" >width="200" height="100"></canvas>
         <script type="text/javascript">
             $.get('{% url "line_chart_json" %}', function(data) {
-                var ctx = $("#myChart").get(0).getContext("2d");
+                var ctx = $("#WLR").get(0).getContext("2d");
                 new Chart(ctx, {
                     type: 'bar', data: data
                 });
@@ -51,21 +48,48 @@
         </script>
     </div>
 
-<!-- Four buttons -->
-<!--<button id="rectangle">Back</button>-->
-<a href="https://www.youtube.com/?gl=CA" target="_blank"><button id="view_all_team">View All Teams</button></a>
-<!--
-<a href="https://www.google.ca/maps" target="_blank"><button id="view_all_team2">View All Teams</button></a>
-<a href="https://www.w3schools.com/" target="_blank"><button id="view_all_team3">View All Teams</button></a>
-<a href="http://www.octranspo.com/splash" target="_blank"><button id="view_all_team4">View All Teams</button></a>-->
-<h2 class="outline">Top 5</h2>
+    <div class="container" style="position: absolute; height: 200px; width: 500px; top: 500px; left: 300px;">
+        <canvas id="PPG" >width="200" height="100"></canvas>
+        <script type="text/javascript">
+            $.get('{% url "line_chart_json2" %}', function(data) {
+                var ctx = $("#PPG").get(0).getContext("2d");
+                new Chart(ctx, {
+                    type: 'bar', data: data
+                });
+            });
+        </script>
+    </div>
 
-<!--
-<!-- Four Titles --
-<p class="sub_title">Win - Loss Ratio</p>
-<p class="sub_title2">Points Per Game</p>
-<p class="sub_title3">Rebounds Per Game</p>
-<p class="sub_title4">Assists Per Game</p>-->
+    <div class="container" style="position: absolute; height: 200px; width: 500px; top: 800px; left: 300px;">
+        <canvas id="RPG" >width="200" height="100"></canvas>
+        <script type="text/javascript">
+            $.get('{% url "line_chart_json3" %}', function(data) {
+                var ctx = $("#RPG").get(0).getContext("2d");
+                new Chart(ctx, {
+                    type: 'bar', data: data
+                });
+            });
+        </script>
+    </div>
+
+    <div class="container" style="position: absolute; height: 200px; width: 500px; top: 1100px; left: 300px;">
+        <canvas id="APG" >width="200" height="100"></canvas>
+        <script type="text/javascript">
+            $.get('{% url "line_chart_json4" %}', function(data) {
+                var ctx = $("#APG").get(0).getContext("2d");
+                new Chart(ctx, {
+                    type: 'bar', data: data
+                });
+            });
+        </script>
+    </div>
+
+<h2 class="outline">Top 10</h2>
+
+    <div class="sub_title"><strong>Win - Loss Ratios</strong></div>
+    <div class="sub_title2"><strong>Points Per Game</strong></div>
+    <div class="sub_title3"><strong>Rebounds Per Game</strong></div>
+    <div class="sub_title4"><strong>Assists Per Game</strong></div>
 
 </body>
 </html>
