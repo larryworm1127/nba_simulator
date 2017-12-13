@@ -13,7 +13,13 @@ def boxscore(request):
     team1 = data[3]
     team2 = data[4]
 
-    return render(request, 'stats/boxscore.html', {'headers': headers, 'rows1': rows1, 'rows2': rows2, 'team1': team1, 'team2': team2})
+    return render(request, 'stats/boxscore.html',
+                  {'headers': headers,
+                   'rows1': rows1,
+                   'rows2': rows2,
+                   'team1': team1,
+                   'team2': team2
+                   })
 
 
 def all_team_stats(request):
@@ -30,3 +36,8 @@ def wins_and_losses(request):
     rows = data[1]
 
     return render(request, 'stats/wins_losses.html', {'headers': headers, 'rows': rows})
+
+
+def simulated_standing(request):
+
+    pass

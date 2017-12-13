@@ -5,17 +5,11 @@ from os.path import join
 
 
 def ranking_teams():
-    win_count_path = join(Main.SIMULATE_RESULT_PATH, 'win_count.json')
-    with open(win_count_path) as win_count_file:
-        win_data = dict(json.load(win_count_file))
-
     with open(Main.DIVISION_LIST_PATH) as division_list_file:
         division_list = json.load(division_list_file)
 
     result = {'east': {}, 'west': {}}
-    win_data_list = [(team_abb, num_win) for team_abb, num_win in win_data.items()]
-
-    win_data_list.sort(key=lambda win: win[1], reverse=True)
+    win_data_list = sort_win_data()
     east_counter = 1
     west_counter = 1
     for item in win_data_list:
@@ -32,4 +26,21 @@ def ranking_teams():
 
     return result
 
-ranking_teams()
+
+def sort_win_data():
+    win_count_path = join(Main.SIMULATE_RESULT_PATH, 'win_count.json')
+    with open(win_count_path) as win_count_file:
+        win_data = dict(json.load(win_count_file))
+
+    win_data_list = [(team_abb, num_win) for team_abb, num_win in win_data.items()]
+    win_data_list.sort(key=lambda win: win[1], reverse=True)
+    return win_data_list
+
+
+def rank_team_all():
+    result = {}
+    win_data_list = sort_win_data()
+    for rank in range(30):
+        result[rank + 1] = win_data_list[rank][0]
+
+    return result

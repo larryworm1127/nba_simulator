@@ -23,8 +23,8 @@ def create_team_data():
     for row in temp_list:
         indexes = find_indexes(result_sets)
         new_row.append(rank)
-        for i in range(len(indexes)):
-            new_row.append(row[indexes[i]])
+        for index in indexes:
+            new_row.append(row[index])
         rows.append(new_row)
         new_row = []
         rank += 1

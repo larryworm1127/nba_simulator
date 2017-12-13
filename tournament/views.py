@@ -36,8 +36,14 @@ def bracket(request, season):
     east_teams = {team: 'images/' + team + '.png' for team in division_dict['east']}
     west_teams = {team: 'images/' + team + '.png' for team in division_dict['west']}
 
+    if season == '2018':
+        standing_url = "/stats/view_simulated_standing"
+    else:
+        standing_url = "/stats/view_wins_and_losses"
+
     return render(request, 'tournament/bracket.html',
                   {'season': season,
                    'east_teams': east_teams,
                    'west_teams': west_teams,
+                   'standing_url': standing_url
                    })
