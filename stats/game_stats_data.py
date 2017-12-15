@@ -14,7 +14,7 @@ def create_data(game_id):
     player_headers = ['TEAM_ABBREVIATION', 'PLAYER_NAME', 'START_POSITION', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
                       'STL', 'BLK', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'TO',
                       'PF', 'PLUS_MINUS']
-    team_headers = ['TEAM_ABBREVIATION', 'GAME_ID', 'TEAM_ID', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
+    team_headers = ['TEAM_ABBREVIATION', 'TEAM_CITY', 'TEAM_NAME', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
                     'STL', 'BLK', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'TO', 'PF',
                     'PLUS_MINUS']
     headers = ['Team', 'Player________Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL',
@@ -67,8 +67,6 @@ def create_data(game_id):
             for row in v:
                 for index in team_stats_index:
                     new_row.append(row[index])
-                new_row[1] = 'TOTAL:'
-                new_row[2] = ''
                 rows1.append(new_row)
                 new_row = []
     if (rows1[len(rows1) - 2][0]) != rows1[0][0]:
@@ -77,8 +75,11 @@ def create_data(game_id):
     else:
         rows2.append(rows1[len(rows1)-1])
         rows1.remove(rows1[len(rows1)-1])
-    team1 = (rows1[0])[0]
-    team2 = (rows2[0])[0]
+
+    team1_name = (rows1[len(rows1)-1])[1] + ' ' + (rows1[len(rows1)-1])[2]
+    team2_name = (rows2[len(rows2)-1])[1] + ' ' + (rows2[len(rows2)-1])[2]
+    team1 = rows1[0][0]
+    team2 = rows2[0][0]
 
     for row in rows1:
         row.remove(row[0])
@@ -86,7 +87,13 @@ def create_data(game_id):
         row.remove(row[0])
     headers.remove(headers[0])
 
-    return headers, rows1, rows2, team1, team2
+    rows1[len(rows1) - 1][0] = 'TOTAL:'
+    rows1[len(rows1) - 1][1] = ''
+    rows2[len(rows2) - 1][0] = 'TOTAL:'
+    rows2[len(rows2) - 1][1] = ''
+
+
+    return headers, rows1, rows2, team1_name, team2_name, team1, team2
 
 
 def find_player_result(result_sets):
