@@ -17,7 +17,7 @@ def create_data(game_id):
     team_headers = ['TEAM_ABBREVIATION', 'TEAM_CITY', 'TEAM_NAME', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
                     'STL', 'BLK', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'TO', 'PF',
                     'PLUS_MINUS']
-    headers = ['Team', 'Player________Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL',
+    headers = ['Team', 'Player Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL',
                'BLK', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%', 'FTM', 'FTA', 'FT%', 'TOV', 'PF', '+/-']
 
     player_stats_index = []
@@ -91,7 +91,6 @@ def create_data(game_id):
     rows1[len(rows1) - 1][1] = ''
     rows2[len(rows2) - 1][0] = 'TOTAL:'
     rows2[len(rows2) - 1][1] = ''
-
 
     return headers, rows1, rows2, team1_name, team2_name, team1, team2
 

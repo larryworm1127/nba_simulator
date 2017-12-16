@@ -19,13 +19,14 @@ def boxscore(request):
     team1 = data[5]
     team2 = data[6]
 
-    return render(request, 'stats/boxscore.html', {'headers': headers,
-                                                   'rows1': rows1,
-                                                   'rows2': rows2,
-                                                   'team1_name': team1_name,
-                                                   'team2_name': team2_name,
-                                                   'team1': team1,
-                                                   'team2': team2})
+    return render(request, 'stats/boxscore.html',
+                  {'headers': headers,
+                   'rows1': rows1,
+                   'rows2': rows2,
+                   'team1_name': team1_name,
+                   'team2_name': team2_name,
+                   'team1': team1,
+                   'team2': team2})
 
 
 def all_team_stats(request):
@@ -43,7 +44,6 @@ def standing(request, season):
     data = create_standing_data(season)
     headers = data[0]
     rows = data[1]
-    print(rows)
 
     if season == '2017-18':
         template = 'stats/simulated_standing.html'

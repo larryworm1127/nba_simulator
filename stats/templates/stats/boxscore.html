@@ -28,78 +28,74 @@
         </nav>
 
         <font size="18">
-            <center style="font-family: Calibri;">{{team1}} vs {{team2}}</center>
+            <center style="font-family: Calibri;">{{team1_name}} @ {{team2_name}}</center>
         </font>
-    </div>
 
-    <font size="18">
-        <center style="font-family: Calibri;">{{team1_name}} @ {{team2_name}}</center>
-    </font>
-
-    <div align="right">
-        <font style="font-family: impact;">
-            <a href="#" data-toggle="popover" data-trigger="hover" data-placement="left" title="Glossary"
-	        data-content="P: Start Position <br /> MIN: Minutes <br /> PTS: Points Per Game
-	        <br /> OREB: Offensive Rebounds <br /> DREB: Defensive Rebounds
-	        <br /> REB: Total Rebounds <br /> AST: Assists <br /> STL: Steals <br /> BLK: Blocks
-	        <br /> FGM: Field Goals Made <br /> FGA: Field Goals Attempted <br /> FG%: Field Goal Percentage
-	        <br /> 3PM: Three Pointers Made <br /> 3PA: Three Pointers Attempted
-	        <br /> 3P%: Three Pointer Percentage <br /> FTM: Free Throws Made
-	        <br /> FTA: Free Throws Attempted <br/ > FT%: Free Throw Percentage <br /> TOV: Turnovers
-	        <br /> PF: Personal Fouls <br /> +/-: Plus/Minus <br /> DNP: Did Not Play"
-            data-html="true">Glossary</a>
-         </font>
-    </div>
-
-    <input class="form-control" id="table_search" type="text" placeholder="Search..">
-    <br>
-
-    <ul class="nav nav-pills" style="margin: auto; padding: 0; width: 147px;">
-        <li class="active"><a data-toggle="pill" href="#team1">{{team1}}</a></li>
-        <li><a data-toggle="pill" href="#team2">{{team2}}</a></li>
-    </ul>
-
-    <div class="tab-content">
-        <div id="team1" class="tab-pane fade in active">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        {% for header in headers %}
-                            <th align="center">{{header}}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-            <tbody id="data_table1">
-                {% for row in rows1 %}
-                    <tr>
-                        {% for column in row %}
-                        <td>{{column}}</td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+        <div align="right">
+            <font style="font-family: impact;">
+                <a href="#" data-toggle="popover" data-trigger="hover" data-placement="left" title="Glossary"
+                data-content="P: Start Position <br /> MIN: Minutes <br /> PTS: Points Per Game
+                <br /> OREB: Offensive Rebounds <br /> DREB: Defensive Rebounds
+                <br /> REB: Total Rebounds <br /> AST: Assists <br /> STL: Steals <br /> BLK: Blocks
+                <br /> FGM: Field Goals Made <br /> FGA: Field Goals Attempted <br /> FG%: Field Goal Percentage
+                <br /> 3PM: Three Pointers Made <br /> 3PA: Three Pointers Attempted
+                <br /> 3P%: Three Pointer Percentage <br /> FTM: Free Throws Made
+                <br /> FTA: Free Throws Attempted <br/ > FT%: Free Throw Percentage <br /> TOV: Turnovers
+                <br /> PF: Personal Fouls <br /> +/-: Plus/Minus <br /> DNP: Did Not Play"
+                data-html="true">Glossary</a>
+             </font>
         </div>
 
-        <div id="team2" class="tab-pane fade">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        {% for header in headers %}
-                            <th>{{header}}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-            <tbody id="data_table2">
-                {% for row in rows2 %}
-                    <tr>
-                        {% for column in row %}
-                        <td>{{column}}</td>
-                        {% endfor %}
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+        <input class="form-control" id="table_search" type="text" placeholder="Search..">
+        <br>
+
+        <ul class="nav nav-pills" style="margin: auto; padding: 0; width: 147px;">
+            <li class="active"><a data-toggle="pill" href="#team1">{{team1}}</a></li>
+            <li><a data-toggle="pill" href="#team2">{{team2}}</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="team1" class="tab-pane fade in active">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            {% for header in headers %}
+                                <th align="center">{{header}}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                <tbody id="data_table1">
+                    {% for row in rows1 %}
+                        <tr>
+                            {% for column in row %}
+                            <td>{{column}}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="team2" class="tab-pane fade">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            {% for header in headers %}
+                                <th>{{header}}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                <tbody id="data_table2">
+                    {% for row in rows2 %}
+                        <tr>
+                            {% for column in row %}
+                            <td>{{column}}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
