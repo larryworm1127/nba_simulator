@@ -7,14 +7,12 @@ def season_games(request, team, season):
     team_name = get_team_from_abb(team)
     team_list = get_other_teams(team)
 
-    if season == '2018':
+    if season == '2017-18':
         template = 'season_games/simulated_team_page.html'
         game_dict = get_simulated_games(team)
-        standing_url = '/stats/view_simulated_standing'
     else:
         template = 'season_games/team_page.html'
         game_dict = get_games(team)
-        standing_url = '/stats/view_wins_and_losses'
 
     return render(request, template,
                   {'team': team,
@@ -22,5 +20,5 @@ def season_games(request, team, season):
                    'team_name': team_name,
                    'team_list': team_list,
                    'game_dict': game_dict,
-                   'standing_url': standing_url
+                   'season': season
                    })

@@ -1,5 +1,5 @@
 # general imports
-import json
+from json import load, dump
 from os.path import join, expanduser
 from nba_py import player, team
 
@@ -30,6 +30,7 @@ GAME_LIST_PATH = join(OTHER_BASE_PATH, 'game_list.json')
 DIVISION_LIST_PATH = join(OTHER_BASE_PATH, 'division_list.json')
 SIMULATE_RANKING_PATH = join(SIMULATE_RESULT_PATH, 'ranking.json')
 SIMULATE_PLAYOFF_PATH = join(SIMULATE_RESULT_PATH, 'playoff_result.json')
+TEAM_NAME_DICT_PATH = join(OTHER_BASE_PATH, 'team_name_dict.json')
 
 
 # main functions
@@ -39,7 +40,7 @@ def create_player_list():
     """
     player_list = player.PlayerList().json
     with open(PLAYER_LIST_PATH, 'w') as player_list_file:
-        json.dump(player_list, player_list_file)
+        dump(player_list, player_list_file)
 
 
 def create_team_list():
@@ -48,7 +49,7 @@ def create_team_list():
     """
     team_list = team.TeamList().json
     with open(TEAM_LIST_PATH, 'w') as team_list_file:
-        json.dump(team_list, team_list_file)
+        dump(team_list, team_list_file)
 
 
 def create_player_dict():
@@ -56,12 +57,11 @@ def create_player_dict():
     create a dictionary storing player ID and his name
     """
     with open(PLAYER_LIST_PATH, 'r') as player_list_file:
-        player_list = json.load(player_list_file)
-    player_dict = {player_list['resultSets'][0]['rowSet'][num][0]: player_list['resultSets'][0]['rowSet'][num][6] for
-                   num in range(len(player_list['resultSets'][0]['rowSet']))}
+        player_list = load(player_list_file)['resultSets'][0]['rowSet']
+    player_dict = {player_list[num][0]: player_list[num][6] for num in range(len(player_list))}
 
     with open(PLAYER_DICT_PATH, 'w') as player_dict_file:
-        json.dump(player_dict, player_dict_file)
+        dump(player_dict, player_dict_file)
 
 
 def create_team_dict():
@@ -69,12 +69,12 @@ def create_team_dict():
     create a dictionary storing team ID and its abbreviation
     """
     with open(TEAM_LIST_PATH, 'r') as team_list_file:
-        team_list = json.load(team_list_file)
+        team_list = load(team_list_file)['resultSets'][0]['rowSet']
 
-    team_dict = {team_list['resultSets'][0]['rowSet'][num][1]: team_list['resultSets'][0]['rowSet'][num][-1] for num in
+    team_dict = {team_list[num][1]: team_list[num][-1] for num in
                  range(30)}
     with open(TEAM_DICT_PATH, 'w') as team_dict_file:
-        json.dump(team_dict, team_dict_file)
+        dump(team_dict, team_dict_file)
 
 
 def create_division_list():
@@ -87,14 +87,43 @@ def create_division_list():
                      "UTA"]}
 
     with open(DIVISION_LIST_PATH, 'w') as division_file:
-        json.dump(data, division_file)
+        dump(data, division_file)
+
+
+def create_team_name_dict():
+    """
+    create a file containing dictionary where the key is the
+    team abbreviation and the value is the team name
+    """
+    with open(TEAM_DICT_PATH) as team_dict_file:
+        team_list = load(team_dict_file).values()
+
+    final_result = {}
+    for team_abb in team_list:
+        with open(join(TEAM_SEASON_PATH, team_abb + '.json')) as data_file:
+            data = load(data_file)['resultSets'][0]['rowSet'][-1]
+
+        value = [data[1], data[2]]
+        final_result[team_abb] = value
+
+    print(final_result)
+    with open(TEAM_NAME_DICT_PATH, 'w') as outfile:
+        dump(final_result, outfile)
 
 
 def get_id_from_abb(team_abb):
     with open(TEAM_DICT_PATH) as team_dict_file:
-        team_dict = dict(json.load(team_dict_file))
+        team_dict = dict(load(team_dict_file))
 
     for team_id, abb in team_dict.items():
         if team_abb == abb:
             return team_id
 
+
+def get_abb_from_name(team_name):
+    with open(TEAM_NAME_DICT_PATH) as team_name_file:
+        team_data = dict(load(team_name_file))
+
+    for team_abb, name in team_data.items():
+        if team_name == name[1]:
+            return team_abb

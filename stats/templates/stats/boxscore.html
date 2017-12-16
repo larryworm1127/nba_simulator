@@ -1,23 +1,36 @@
-{% extends "stats/main_template.html" %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}Boxscore{% endblock %}
+<head>
+    {% load static %}
+	<title>Game Boxscore</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 
-{% block content %}
+<body>
+    <div class="container" style="width: 90%">
+        <nav class="navbar navbar-inverse">
+            <div class="navbar-header">
+                <a class="navbar-brand">NBA Simulator</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="#">View Team Comparisons</a></li>
+                <li><a href="/tournament/bracket/2016-17">View Playoff Bracket</a></li>
+                <li><a href="/stats/all_team_statistics/">View All Teams Statistics</a></li>
+                <li><a href="/stats/view_standing/2016-17">View Standing</a></li>
+                <li><a href="/tournament/bracket/2016-17">View Previous Year Stats</a></li>
+            </ul>
+        </nav>
 
-
-<div class="container" style="width: 90%">
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <a class="navbar-brand">NBA Simulator</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="#">View Team Comparisons</a></li>
-            <li><a href="/tournament/bracket/2017">View Playoff Bracket</a></li>
-            <li><a href="/stats/all_team_statistics/">View All Teams Statistics</a></li>
-            <li><a href="/stats/view_wins_and_losses">View Standing</a></li>
-        </ul>
-    </nav>
+        <font size="18">
+            <center style="font-family: Calibri;">{{team1}} vs {{team2}}</center>
+        </font>
+    </div>
 
     <font size="18">
         <center style="font-family: Calibri;">{{team1_name}} @ {{team2_name}}</center>
@@ -89,35 +102,29 @@
             </table>
         </div>
     </div>
-</div>
 
-<script>
-    $(document).ready(function(){
-        $("#table_search").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#data_table1 tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    <script>
+        $(document).ready(function(){
+            $("#table_search").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#data_table1 tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
         });
-    });
 
-    $(document).ready(function(){
-        $("#table_search").on("keyup", function() {
-            var value = $(this).val().toLowerCase();
-            $("#data_table2 tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        $(document).ready(function(){
+            $("#table_search").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#data_table2 tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
         });
-    });
-</script>
-<script>
-    $(document).ready(function(){
-        $('[data-toggle="popover"]').popover();
-    });
-</script>
 
-{% endblock %}
-
-
-
-
+        $(document).ready(function(){
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+</body>
+</html>

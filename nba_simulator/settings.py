@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'season_games.apps.SeasonGamesConfig',
     'stats.apps.StatsConfig',
-    'data_display.apps.DataDisplayConfig',
     'tournament.apps.TournamentConfig',
     'django.contrib.admin',
     'django.contrib.auth',

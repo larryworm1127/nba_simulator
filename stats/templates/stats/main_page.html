@@ -8,14 +8,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.5">
-    <link rel="stylesheet" href="{% static 'data_display/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'stats/style.css' %}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <style type="text/css">
         body {
-            background-image: url("{% static 'images/background.png' static %}");
+            background-image: url("{% static 'stats/images/background.png' static %}");
             overflow: auto;
             z-index: 1
         }
@@ -45,7 +45,7 @@
             <div class="carousel-inner">
                 <div class="item active">
                     <center>
-                        <img src="{% static 'images/slide1.png' static %}" alt="Lebron and Curry" style="width: 90%; height: 50%">
+                        <img src="{% static 'stats/images/slide1.png' static %}" alt="Lebron and Curry" style="width: 90%; height: 50%">
                     </center>
                     <div class="carousel-caption">
                         <h3>The Ultimate Matchup</h3>
@@ -55,7 +55,7 @@
 
                 <div class="item">
                     <center>
-                        <img src="{% static 'images/slide2.png' static %}" alt="Map of NBA" style="width: 90%; height: 50%">
+                        <img src="{% static 'stats/images/slide2.png' static %}" alt="Map of NBA" style="width: 90%; height: 50%">
                     </center>
                         
                     <div class="carousel-caption">
@@ -66,7 +66,7 @@
 
                 <div class="item">
                     <center>
-                        <img src="{% static 'images/slide3.png' static%}" alt="NBA Draft 2018" style="width: 90%; height: 50%">
+                        <img src="{% static 'stats/images/slide3.png' static%}" alt="NBA Draft 2018" style="width: 90%; height: 50%">
                     </center>
 
                     <div class="carousel-caption">
@@ -87,10 +87,9 @@
             </a>
         </div>
 
-        <br>
-        <br>
-        <a href="/tournament/bracket/2018"><button class="button sim_button">Simulate</button></a>
-        <a href="/tournament/bracket/2017"><button class="button view_button">View Stats</button></a>
+        <br><br>
+        <a href="/tournament/bracket/2017-18"><button class="button sim_button">Simulate</button></a>
+        <a href="/tournament/bracket/2016-17"><button class="button view_button">View Stats</button></a>
     </div>
 </body>
 </html>

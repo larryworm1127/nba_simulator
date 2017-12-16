@@ -18,11 +18,12 @@ class Tournament(APIView):
 # @api_view(['GET', 'POST'])
 @csrf_exempt
 def tournament(request, season):
-    if season == "2018":
+    data = None
+    if season == "2017-18":
         with open(Main.SIMULATE_PLAYOFF_PATH) as playoff_file:
             data = load(playoff_file)
 
-    else:
+    elif season == "2016-17":
         data_manipulate.final_data = {'east': {'teams': [], 'results': [[], [], []]},
                                       'west': {'teams': [], 'results': [[], [], []]},
                                       'final': {'teams': [], 'results': [[]]}}
@@ -36,14 +37,8 @@ def bracket(request, season):
     east_teams = {team: 'images/' + team + '.png' for team in division_dict['east']}
     west_teams = {team: 'images/' + team + '.png' for team in division_dict['west']}
 
-    if season == '2018':
-        standing_url = "/stats/view_simulated_standing"
-    else:
-        standing_url = "/stats/view_wins_and_losses"
-
     return render(request, 'tournament/bracket.html',
                   {'season': season,
                    'east_teams': east_teams,
                    'west_teams': west_teams,
-                   'standing_url': standing_url
                    })

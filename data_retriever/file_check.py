@@ -30,6 +30,11 @@ def division_list():
         Main.create_division_list()
 
 
+def team_name_dict():
+    if not exists(Main.TEAM_NAME_DICT_PATH):
+        Main.create_team_name_dict()
+
+
 # directory check functions
 def check_assets_dir():
     if not exists(Main.PLAYER_BASE_PATH):
@@ -68,3 +73,4 @@ def init():
     player_dict()
     team_list()
     division_list()
+    team_name_dict()

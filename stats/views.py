@@ -1,7 +1,11 @@
 from django.shortcuts import render
 from stats.game_stats_data import create_data
 from stats.all_team_data import create_team_data
-from stats.wins_losses import create_wl_data
+from stats.standing_data import create_standing_data
+
+
+def main_page(request):
+    return render(request, 'stats/main_page.html')
 
 
 def boxscore(request):
@@ -29,17 +33,25 @@ def all_team_stats(request):
     headers = data[0]
     rows = data[1]
 
-    return render(request, 'stats/all_team_statistics.html', {'headers': headers, 'rows': rows})
+    return render(request, 'stats/all_team_statistics.html',
+                  {'headers': headers,
+                   'rows': rows
+                   })
 
 
-def wins_and_losses(request):
-    data = create_wl_data()
+def standing(request, season):
+    data = create_standing_data(season)
     headers = data[0]
     rows = data[1]
+    print(rows)
 
-    return render(request, 'stats/wins_losses.html', {'headers': headers, 'rows': rows})
+    if season == '2017-18':
+        template = 'stats/simulated_standing.html'
+    else:
+        template = 'stats/standing.html'
 
-
-def simulated_standing(request):
-
-    pass
+    return render(request, template,
+                  {'headers': headers,
+                   'rows': rows,
+                   'season': season
+                   })
