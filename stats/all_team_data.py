@@ -5,7 +5,7 @@ from data_retriever import Main
 from os import listdir
 
 
-def create_team_data():
+def create_team_data(sort):
     with open(join(Main.TEAM_SEASON_PATH, 'ATL.json')) as data_file:
         parsed_json = load(data_file)
 
@@ -27,7 +27,12 @@ def create_team_data():
     result_headers = ['Team City', 'Team Name', 'W', 'L', 'PPG', 'FG%', '3P%', 'DREB', 'OREB', 'AST', 'TOV', 'STL',
                       'BLK', 'PF']
 
-    return result_headers, result_row
+    if sort is not None and sort in result_headers:
+        result_row = sort_data_by_header(sort, result_row, result_headers)
+
+    display_data = {'headers': result_headers, 'rows': result_row}
+
+    return display_data
 
 
 def find_indexes(result_sets, headers):
@@ -51,3 +56,14 @@ def get_data():
             if row[3] == "2016-17":
                 all_team_lists.append(row)
     return all_team_lists
+
+
+def sort_data_by_header(header, result_rows, headers):
+    tuple_data = [tuple(row) for row in result_rows]
+    header_index = headers.index(header)
+
+    reverse = True
+    if header == 'Team City' or header == 'Team Name':
+        reverse = False
+    tuple_data.sort(key=lambda data: data[header_index], reverse=reverse)
+    return [list(row) for row in tuple_data]

@@ -1,7 +1,7 @@
 # general imports
 from data_retriever import Main
 from simulator import player_rating_machine
-from os.path import join
+from os.path import join, exists
 import json
 
 
@@ -27,22 +27,24 @@ def sort_player_into_team():
         team_dict = json.load(team_dict_file)
 
     for team_abb in team_dict.values():
-        # sort player ratings into teams directories
-        sorted_player_ratings = []
-        for index in player_dict.keys():
-            player_name = player_dict[index]
-            player_path = join(Main.PLAYER_SEASON_PATH, player_name + '.json')
-            with open(player_path, 'r') as player_file:
-                file = json.load(player_file)
-
-            # put all the player rating for the same team into a dictionary
-            if file[-1]["TEAM_ABBREVIATION"] == team_abb and file[-1]["SEASON_ID"] != '2016-17':
-                sorted_player_ratings.append(player_ratings[player_name])
-
-        # put each of the player dictionary inside the team dictionary into a single file
         sorted_dir = join(Main.PLAYER_RATING_PATH, team_abb + '.json')
-        with open(sorted_dir, 'w') as outfile:
-            json.dump(sorted_player_ratings, outfile)
+        if not exists(sorted_dir):
+            # sort player ratings into teams directories
+            sorted_player_ratings = []
+            for index in player_dict.keys():
+                player_name = player_dict[index]
+                player_path = join(Main.PLAYER_SEASON_PATH, player_name + '.json')
+                with open(player_path, 'r') as player_file:
+                    file = json.load(player_file)
+
+                # put all the player rating for the same team into a dictionary
+                if file[-1]["TEAM_ABBREVIATION"] == team_abb and file[-1]["SEASON_ID"] != '2016-17':
+                    sorted_player_ratings.append(player_ratings[player_name])
+
+            # put each of the player dictionary inside the team dictionary into a single file
+
+            with open(sorted_dir, 'w') as outfile:
+                json.dump(sorted_player_ratings, outfile)
 
     print("Sorting complete.")
     return True  # used in test cases

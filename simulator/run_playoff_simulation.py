@@ -2,13 +2,12 @@
 from data_retriever import Main
 from simulator import one_game_simulation
 from json import dump, load
+from os import remove
 
 # constants
 TEAM_MATCH_LIST = [[1, 8, 4, 5], [3, 6, 2, 7]]
 TEAM_OPPONENT = {1: 8, 2: 7, 3: 6, 4: 5, 5: 4, 6: 3, 7: 2, 8: 1}
 
-with open(Main.SIMULATE_RANKING_PATH) as ranking_file:
-    ranking_data = dict(load(ranking_file))
 
 with open(Main.TEAM_DICT_PATH) as team_dict_file:
     team_dict = load(team_dict_file)
@@ -65,9 +64,6 @@ def run_round_simulation(teams, round_num, single_simulation, index=None):
         team1_id = Main.get_id_from_abb(team1_abb)
         team2_id = Main.get_id_from_abb(team2_abb)
 
-        print("round number: " + str(round_num))
-        print(team1_abb, team2_abb)
-
         series_result = single_simulation(team1_id, team2_id)
         result.append(series_result)
 
@@ -75,9 +71,6 @@ def run_round_simulation(teams, round_num, single_simulation, index=None):
             next_round_teams.append(team_dict[team2_id])
         else:
             next_round_teams.append(team_dict[team1_id])
-
-        print(series_result)
-        print("next round teams: " + str(next_round_teams) + '\n')
 
     # other round numbers will commit same actions
     else:
@@ -99,13 +92,10 @@ def run_round_simulation(teams, round_num, single_simulation, index=None):
                 team_id = Main.get_id_from_abb(team_abb)
                 opponent_id = Main.get_id_from_abb(opponent)
 
-                print("round number: " + str(round_num))
-                print(team_abb, opponent)
                 # run single series simulation
                 series_result = single_simulation(team_id, opponent_id)
                 team_check_list.remove(opponent_rank)
 
-                print("series result: " + str(series_result))
                 # update next round teams
                 if series_result[0][1] > series_result[1][1]:
                     next_round_teams.append(team_rank)
@@ -113,8 +103,6 @@ def run_round_simulation(teams, round_num, single_simulation, index=None):
                     next_round_teams.append(opponent_rank)
 
                 result.append(series_result)
-
-                print("next round teams: " + str(next_round_teams) + '\n')
 
     # return the simulated result and the teams that made into the next round
     return result, next_round_teams
@@ -128,8 +116,9 @@ def run_whole_simulation():
     """
     # create variables
     playoff_teams = get_playoff_teams()
-    final_result = {'east': {'teams': [], 'results': [[], [], []]}, 'west': {'teams': [], 'results': [[], [], []]},
-                    'final': {'teams': [], 'results': []}}
+    with open(Main.SIMULATE_PLAYOFF_PATH) as data_file:
+        final_result = load(data_file)
+
     final_teams = []
 
     # start running simulations
@@ -143,7 +132,6 @@ def run_whole_simulation():
             result = round_one[0]
             next_round_teams.extend(round_one[1])
             for idx in range(2):
-                final_result[division]['teams'].append([team_dict[result[idx][0][0]], team_dict[result[idx][1][0]]])
                 final_result[division]['results'][0].append([result[idx][0][1], result[idx][1][1]])
 
         # second round simulation
@@ -166,8 +154,6 @@ def run_whole_simulation():
         final_result[division]['results'][2].append([result[0][0][1], result[0][1][1]])
 
     # final simulation
-    print(final_result)
-    print(final_teams)
     final_round = run_round_simulation(final_teams, 4, run_single_series)
     result = final_round[0]
     final_result['final']['teams'].append(final_teams)
@@ -186,6 +172,9 @@ def get_playoff_teams():
 
     :return: a dictionary containing the teams who made into the playoff
     """
+    with open(Main.SIMULATE_RANKING_PATH) as ranking_file:
+        ranking_data = dict(load(ranking_file))
+
     result = {'east': {}, 'west': {}}
     for div in ['east', 'west']:
         for rank in range(1, 9):

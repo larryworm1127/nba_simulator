@@ -69,8 +69,8 @@ def check_assets_dir():
 def init():
     check_assets_dir()
     player_list()
+    team_list()
     team_dict()
     player_dict()
-    team_list()
     division_list()
-    team_name_dict()
+

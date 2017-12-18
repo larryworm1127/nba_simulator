@@ -48,7 +48,7 @@
             <thead>
                 <tr>
                     {% for header in headers %}
-                    <th>{{header}} </th>
+                    <th><a href="?sort={{ header }}">{{ header }}</a></th>
                     {% endfor %}
                 </tr>
             </thead>

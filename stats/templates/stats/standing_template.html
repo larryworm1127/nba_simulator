@@ -21,12 +21,12 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a href="/">Home</a></li>
+            <li><a href="/tournament/bracket/{{ season }}">View Playoff Bracket</a></li>
             {% if season == '2016-17' %}
                 <li><a href="#">View Team Comparisons</a></li>
-                <li><a href="/stats/all_team_statistics/">View All Teams Statistics</a></li>
+                <li><a href="/stats/all_team_statistics/?sort=Team%20City">View All Teams Statistics</a></li>
                 <li><a href="/tournament/bracket/2017-18">View Simulated Results</a></li>
             {% endif %}
-            <li><a href="/tournament/bracket/{{ season }}">View Playoff Bracket</a></li>
             {% if season == '2017-18' %}
                 <li><a href="/tournament/bracket/2016-17">View Previous Year Stats</a></li>
             {% endif %}

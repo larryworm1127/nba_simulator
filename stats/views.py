@@ -1,4 +1,5 @@
 from django.shortcuts import render
+
 from stats.game_stats_data import create_data
 from stats.all_team_data import create_team_data
 from stats.standing_data import create_standing_data
@@ -30,13 +31,14 @@ def boxscore(request):
 
 
 def all_team_stats(request):
-    data = create_team_data()
-    headers = data[0]
-    rows = data[1]
+    sort = request.GET.get('sort')
+    data = create_team_data(sort)
+    headers = data['headers']
+    rows = data['rows']
 
     return render(request, 'stats/all_team_statistics.html',
                   {'headers': headers,
-                   'rows': rows
+                   'rows': rows,
                    })
 
 
@@ -55,3 +57,4 @@ def standing(request, season):
                    'rows': rows,
                    'season': season
                    })
+

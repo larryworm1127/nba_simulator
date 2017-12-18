@@ -21,7 +21,7 @@ playoff_teams_list = [file.split('.')[0] for file in listdir(Main.TEAM_PLAYOFF_P
 playoff_dict = {'east': {}, 'west': {}}
 div_list = {}
 for team_name in playoff_teams_list:
-    with open(join(Main.TEAM_SEASON_PATH, team_name + '.json'), 'r') as season_file:
+    with open(join(Main.TEAM_SEASON_PATH, team_name + '.json')) as season_file:
         data = load(season_file)
         team_division = 'east' if team_name in division_dict['east'] else 'west'
         div_list[team_name] = team_division

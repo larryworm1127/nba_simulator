@@ -24,21 +24,29 @@
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="/">Home</a></li>
+                <li><a href="/stats/view_standing/{{ season }}">View Standing</a></li>
                 {% if season == '2016-17' %}
                     <li><a href="#">View Team Comparisons</a></li>
-                    <li><a href="/stats/all_team_statistics/">View All Teams Statistics</a></li>
+                    <li><a href="/stats/all_team_statistics/?sort=Team%20City">View All Teams Statistics</a></li>
                     <li><a href="/tournament/bracket/2017-18">View Simulated Results</a></li>
                 {% endif %}
-                <li><a href="/stats/view_standing/{{ season }}">View Standing</a></li>
                 {% if season == '2017-18' %}
                     <li><a href="/tournament/bracket/2016-17">View Previous Year Stats</a></li>
                 {% endif %}
             </ul>
         </nav>
 
-        <center>
-            <H1>Playoff Bracket {{ season }}</H1>
-        </center>
+        <div class="row">
+            <div class="col-sm-12">
+                {% if season == '2017-18' %}
+                    <button type="button" class="btn btn-primary" id="simulate_playoff">Simulate Playoff</button>
+                    <button type="button" class="btn btn-primary" id="simulate_season" style="float: right;" data-toggle="tooltip" data-placement="bottom" title="May take up to 6 seconds">Re-Simulate Season</button>
+                {% endif %}
+                <center>
+                    <H1>Playoff Bracket {{ season }}</H1>
+                </center>
+            </div>
+        </div>        
 
         <div id="main">
             <div class="container" style="width: 90%">
@@ -119,34 +127,70 @@
     </div>
 
     <script type="text/javascript">
-            $.get( "../api/{{ season }}", function( data ) {
-                $('#west .demo').bracket({
-                    init: data['west'],
-                    teamWidth: 62,
-                    scoreWidth: 22,
-                    matchMargin: 30,
-                    roundMargin: 40,
-                    skipConsolationRound: true,
-                })
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
 
-                $('#final .demo').bracket({
-                    init: data['final'],
-                    teamWidth: 62,
-                    scoreWidth: 22,
-                    matchMargin: 10,
-                    roundMargin: 35,
-                })
+        function render_fn(container, data, score, state) {
+            switch(state) {
+                case "empty-bye":
+                    container.append("No team")
+                    return;
+                case "empty-tbd":
+                    container.append("Upcoming")
+                    return;
+         
+                case "entry-no-score":
+                case "entry-default-win":
+                case "entry-complete":
+            }
+        }
 
-                $('#east .demo').bracket({
-                    init: data['east'],
-                    dir: 'rl',
-                    teamWidth: 62,
-                    scoreWidth: 22,
-                    matchMargin: 30,
-                    roundMargin: 40,
-                    skipConsolationRound: true,
-                })
+        $("#simulate_playoff").click(function() {
+            console.log("Simulate");
+            $.get("simulate_playoff", function(data, status){
+                console.log("" + status);
+                location.reload();
             })
+        });
+
+        $("#simulate_season").click(function() {
+            console.log("Simulate");
+            $.get("simulate_season", function(data, status){
+                console.log("" + status);
+                location.reload();
+            })
+        });
+
+
+        $.get( "../api/{{ season }}", function( data ) {
+            $('#west .demo').bracket({
+                init: data['west'],
+                teamWidth: 62,
+                scoreWidth: 22,
+                matchMargin: 30,
+                roundMargin: 40,
+                skipConsolationRound: true,
+            })
+
+            $('#final .demo').bracket({
+                init: data['final'],
+                teamWidth: 62,
+                scoreWidth: 22,
+                matchMargin: 10,
+                roundMargin: 35,
+            })
+
+            $('#east .demo').bracket({
+                init: data['east'],
+                dir: 'rl',
+                teamWidth: 62,
+                scoreWidth: 22,
+                matchMargin: 30,
+                roundMargin: 40,
+                skipConsolationRound: true,
+            })
+        })
     </script>
 </body>
 </html>

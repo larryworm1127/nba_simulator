@@ -7,6 +7,8 @@ from tournament import data_manipulate
 from tournament.data_manipulate import division_dict
 from data_retriever import Main
 from json import load
+from simulator.run_playoff_simulation import run_whole_simulation
+from simulator.run_season_simulation import init
 
 
 class Tournament(APIView):
@@ -42,3 +44,11 @@ def bracket(request, season):
                    'east_teams': east_teams,
                    'west_teams': west_teams,
                    })
+
+
+def simulate_playoff(request):
+    return JsonResponse(run_whole_simulation())
+
+
+def simulate_season(request):
+    return JsonResponse(init())

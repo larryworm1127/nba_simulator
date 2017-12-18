@@ -21,14 +21,14 @@
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="#">View Team Comparisons</a></li>
                 <li><a href="/tournament/bracket/2016-17">View Playoff Bracket</a></li>
-                <li><a href="/stats/all_team_statistics/">View All Teams Statistics</a></li>
+                <li><a href="/stats/all_team_statistics/?sort=Team%20City">View All Teams Statistics</a></li>
                 <li><a href="/stats/view_standing/2016-17">View Standing</a></li>
-                <li><a href="/tournament/bracket/2016-17">View Previous Year Stats</a></li>
+                <li><a href="/tournament/bracket/2017-18">View Simulated Results</a></li>
             </ul>
         </nav>
 
         <font size="18">
-            <center style="font-family: Calibri;">{{team1_name}} @ {{team2_name}}</center>
+            <center style="font-family: Calibri;">{{ team1_name }} @ {{ team2_name }}</center>
         </font>
 
         <div align="right">
@@ -50,8 +50,8 @@
         <br>
 
         <ul class="nav nav-pills" style="margin: auto; padding: 0; width: 147px;">
-            <li class="active"><a data-toggle="pill" href="#team1">{{team1}}</a></li>
-            <li><a data-toggle="pill" href="#team2">{{team2}}</a></li>
+            <li class="active"><a data-toggle="pill" href="#team1">{{ team1 }}</a></li>
+            <li><a data-toggle="pill" href="#team2">{{ team2 }}</a></li>
         </ul>
 
         <div class="tab-content">
@@ -60,7 +60,7 @@
                     <thead>
                         <tr>
                             {% for header in headers %}
-                                <th align="center">{{header}}</th>
+                                <th align="center">{{ header }}</th>
                             {% endfor %}
                         </tr>
                     </thead>
@@ -68,7 +68,7 @@
                     {% for row in rows1 %}
                         <tr>
                             {% for column in row %}
-                            <td>{{column}}</td>
+                            <td>{{ column }}</td>
                             {% endfor %}
                         </tr>
                     {% endfor %}
@@ -81,7 +81,7 @@
                     <thead>
                         <tr>
                             {% for header in headers %}
-                                <th>{{header}}</th>
+                                <th>{{ header }}</th>
                             {% endfor %}
                         </tr>
                     </thead>
@@ -89,7 +89,7 @@
                     {% for row in rows2 %}
                         <tr>
                             {% for column in row %}
-                            <td>{{column}}</td>
+                            <td>{{ column }}</td>
                             {% endfor %}
                         </tr>
                     {% endfor %}

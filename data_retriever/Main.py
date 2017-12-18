@@ -1,6 +1,6 @@
 # general imports
 from json import load, dump
-from os.path import join, expanduser
+from os.path import join, expanduser, exists
 from nba_py import player, team
 
 # constant for the data paths
@@ -42,6 +42,9 @@ def create_player_list():
     with open(PLAYER_LIST_PATH, 'w') as player_list_file:
         dump(player_list, player_list_file)
 
+    if exists(PLAYER_LIST_PATH):  # test case use only
+        return True
+
 
 def create_team_list():
     """
@@ -50,6 +53,9 @@ def create_team_list():
     team_list = team.TeamList().json
     with open(TEAM_LIST_PATH, 'w') as team_list_file:
         dump(team_list, team_list_file)
+
+    if exists(TEAM_LIST_PATH):  # test case use only
+        return True
 
 
 def create_player_dict():
@@ -62,6 +68,9 @@ def create_player_dict():
 
     with open(PLAYER_DICT_PATH, 'w') as player_dict_file:
         dump(player_dict, player_dict_file)
+
+    if exists(PLAYER_DICT_PATH):  # test case use only
+        return True
 
 
 def create_team_dict():
@@ -76,6 +85,9 @@ def create_team_dict():
     with open(TEAM_DICT_PATH, 'w') as team_dict_file:
         dump(team_dict, team_dict_file)
 
+    if exists(TEAM_DICT_PATH):  # test case use only
+        return True
+
 
 def create_division_list():
     """
@@ -88,6 +100,9 @@ def create_division_list():
 
     with open(DIVISION_LIST_PATH, 'w') as division_file:
         dump(data, division_file)
+
+    if exists(DIVISION_LIST_PATH):  # test case use only
+        return True
 
 
 def create_team_name_dict():
@@ -106,9 +121,11 @@ def create_team_name_dict():
         value = [data[1], data[2]]
         final_result[team_abb] = value
 
-    print(final_result)
     with open(TEAM_NAME_DICT_PATH, 'w') as outfile:
         dump(final_result, outfile)
+
+    if exists(TEAM_NAME_DICT_PATH):  # test case use only
+        return True
 
 
 def get_id_from_abb(team_abb):
