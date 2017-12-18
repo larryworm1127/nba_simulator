@@ -1,95 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-  <div class="container">
-        <nav class="navbar navbar-inverse">
-            <div class="navbar-header">
-                <a class="navbar-brand">NBA Simulator</a>
-            </div>
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/stats/all_team_statistics/">View All Teams Statistics</a></li>
-            </ul>
-        </nav>
-  </div>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'bar_graphs/style.css' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
 
-  {% load staticfiles %}
-  <link rel="stylesheet" href="{% static 'bar_graphs/style.css' %}"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
-
-  {% if bar_title %}
-  <center><h1>Simple Comparisons</h1></center>
-  <center><h4 style="top: 60px;">Regular Season</h4></center>
-  {% endif %}
-
-  <title>Simple Comparisons</title>
+    <title>Stats Graphs</title>
     <!--[if lte IE 8]>
-        <script src="{% static 'js/excanvas.js' %}"></script>
+    <script src="{% static 'js/excanvas.js' %}"></script>
     <![endif]-->
 
 </head>
 
 <body>
-    <div class="container" style="position: absolute; height: 200px; width: 500px; top: 200px; left: 300px;">
-        <canvas id="WLR" >width="200" height="100"></canvas>
-        <script type="text/javascript">
-            $.get('{% url "line_chart_json" %}', function(data) {
-                var ctx = $("#WLR").get(0).getContext("2d");
-                new Chart(ctx, {
-                    type: 'bar', data: data
-                });
-            });
-        </script>
+
+<div class="container">
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand">NBA Simulator</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+			<li><a href="#">View Team Comparisons</a></li>
+			<li><a href="/tournament/bracket/2017">View Playoff Bracket</a></li>
+			<li><a href="/stats/view_wins_and_losses">View Standing</a></li>
+			<li><a href="/stats_graphs">View All Teams Statistics</a></li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="col-sm-12">
+            <center><h1>Stats Graphs</h1></center>
+            <center><h4>Regular Season</h4></center>
+        </div>
+    </div><hr>
+
+    <div class="row">
+        <nav class="col-sm-2" id="myScrollspy">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="#WLR">Win - Loss Ratios</a></li>
+                <li><a href="#PPG">Points Per Game</a></li>
+                <li><a href="#RPG">Rebounds Per Game</a></li>
+                <li><a href="#APG">Assists Per Game</a></li>
+                <hr>
+            </ul>
+        </nav>
+
+        <div class="container-fluid">
+            <div class="col-sm-10">
+                <canvas id="WLR"></canvas>
+                <script type="text/javascript">
+                    $.get('{% url "bar_wlr_chart" %}', function(data) {
+                        var ctx = $("#WLR").get(0).getContext("2d");
+                        new Chart(ctx, {
+                            type: 'bar', data: data
+                        });
+                    });
+                </script>
+                <br><hr>
+
+                <canvas id="PPG"></canvas>
+                <script type="text/javascript">
+                    $.get('{% url "bar_points_chart" %}', function(data) {
+                        var ctx = $("#PPG").get(0).getContext("2d");
+                        new Chart(ctx, {
+                            type: 'bar', data: data
+                        });
+                    });
+                </script>
+                <br><hr>
+
+                <canvas id="RPG"></canvas>
+                <script type="text/javascript">
+                    $.get('{% url "bar_rebounds_chart" %}', function(data) {
+                        var ctx = $("#RPG").get(0).getContext("2d");
+                        new Chart(ctx, {
+                            type: 'bar', data: data
+                        });
+                    });
+                </script>
+                <br><hr>
+
+                <canvas id="APG"></canvas>
+                <script type="text/javascript">
+                    $.get('{% url "bar_assists_chart" %}', function(data) {
+                        var ctx = $("#APG").get(0).getContext("2d");
+                        new Chart(ctx, {
+                            type: 'bar', data: data
+                        });
+                    });
+                </script>
+                <br><hr>
+            </div>
+        </div>
     </div>
 
-    <div class="container" style="position: absolute; height: 200px; width: 500px; top: 500px; left: 300px;">
-        <canvas id="PPG" >width="200" height="100"></canvas>
-        <script type="text/javascript">
-            $.get('{% url "line_chart_json2" %}', function(data) {
-                var ctx = $("#PPG").get(0).getContext("2d");
-                new Chart(ctx, {
-                    type: 'bar', data: data
-                });
-            });
-        </script>
-    </div>
 
-    <div class="container" style="position: absolute; height: 200px; width: 500px; top: 800px; left: 300px;">
-        <canvas id="RPG" >width="200" height="100"></canvas>
-        <script type="text/javascript">
-            $.get('{% url "line_chart_json3" %}', function(data) {
-                var ctx = $("#RPG").get(0).getContext("2d");
-                new Chart(ctx, {
-                    type: 'bar', data: data
-                });
-            });
-        </script>
-    </div>
+    <!--<h2 class="outline">Top 10</h2>
 
-    <div class="container" style="position: absolute; height: 200px; width: 500px; top: 1100px; left: 300px;">
-        <canvas id="APG" >width="200" height="100"></canvas>
-        <script type="text/javascript">
-            $.get('{% url "line_chart_json4" %}', function(data) {
-                var ctx = $("#APG").get(0).getContext("2d");
-                new Chart(ctx, {
-                    type: 'bar', data: data
-                });
-            });
-        </script>
-    </div>
 
-<h2 class="outline">Top 10</h2>
-
-    <div class="sub_title"><strong>Win - Loss Ratios</strong></div>
-    <div class="sub_title2"><strong>Points Per Game</strong></div>
-    <div class="sub_title3"><strong>Rebounds Per Game</strong></div>
-    <div class="sub_title4"><strong>Assists Per Game</strong></div>
+        <div class="sub_title2"><strong>Points Per Game</strong></div>
+        <div class="sub_title3"><strong>Rebounds Per Game</strong></div>
+        <div class="sub_title4"><strong>Assists Per Game</strong></div>-->
+</div>
+<a href="#" class="btn btn-info" role="button" id="top_button">Back to Top</a>
 
 </body>
 </html>
