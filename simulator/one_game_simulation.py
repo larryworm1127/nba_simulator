@@ -5,23 +5,6 @@ from os.path import join
 
 import data_retriever.Main as Main
 
-"""
-Team match up histories:
-    home game:
-        win = +1
-        loss = 0
-    away game:
-        win = +2
-        loss = 0
-Team match up average points per game
-Team player ratings
-Team match up average points differential
-    between 0 and 10 = +1
-    between 10 and 20 = +2
-    between 20 and 30 = +3
-    30+ = +4
-"""
-
 
 class TeamScoringMachine:
     def __init__(self, team_one_id, team_two_id):

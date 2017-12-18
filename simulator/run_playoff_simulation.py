@@ -125,6 +125,8 @@ def run_whole_simulation():
     for division in ['east', 'west']:
         next_round_teams = []
 
+        final_result[division]['results'] = [[], [], []]
+
         # first round simulation
         for index in range(2):
             teams = playoff_teams[division]
@@ -156,7 +158,9 @@ def run_whole_simulation():
     # final simulation
     final_round = run_round_simulation(final_teams, 4, run_single_series)
     result = final_round[0]
+    final_result['final']['teams'] = []
     final_result['final']['teams'].append(final_teams)
+    final_result['final']['results'] = []
     final_result['final']['results'].append([result[0][0][1], result[0][1][1]])
 
     # put the simulated results into file

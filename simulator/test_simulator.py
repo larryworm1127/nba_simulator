@@ -138,7 +138,9 @@ class TestRunPlayoffSimulation(TestCase):
         self.assertEqual(run_round_simulation(teams['west'], 3, help_func_three), three_result_two)
 
     def test_run_whole_simulation(self):
-        self.assertTrue(run_whole_simulation())
+        result = run_whole_simulation()
+        print(result)
+        self.assertTrue(result)
 
     def test_get_playoff_teams(self):
         self.assertTrue(get_playoff_teams())

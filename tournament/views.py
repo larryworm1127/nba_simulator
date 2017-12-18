@@ -8,7 +8,7 @@ from tournament.data_manipulate import division_dict
 from data_retriever import Main
 from json import load
 from simulator.run_playoff_simulation import run_whole_simulation
-from simulator.run_season_simulation import init
+from simulator.run_season_simulation import init, initialize_playoff
 
 
 class Tournament(APIView):
@@ -22,8 +22,10 @@ class Tournament(APIView):
 def tournament(request, season):
     data = None
     if season == "2017-18":
-        with open(Main.SIMULATE_PLAYOFF_PATH) as playoff_file:
+        with open(Main.SIMULATE_PLAYOFF_PATH, 'r+') as playoff_file:
             data = load(playoff_file)
+
+        #initialize_playoff()
 
     elif season == "2016-17":
         data_manipulate.final_data = {'east': {'teams': [], 'results': [[], [], []]},
