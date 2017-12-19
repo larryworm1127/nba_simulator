@@ -73,4 +73,5 @@ def init():
     team_dict()
     player_dict()
     division_list()
+    team_name_dict()
 
