@@ -76,3 +76,4 @@ def sort_data(lst):
 def create_simulated_wl_data():
     with open(Main.SIMULATE_RESULT_PATH, 'win'):
         rankings = rank_team_all()
+

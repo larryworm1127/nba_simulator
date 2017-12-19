@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^graphs/bar_points_chart', views.bar_points_chart, name='bar_points_chart'),
     url(r'^graphs/bar_rebounds_chart', views.bar_rebounds_chart, name='bar_rebounds_chart'),
     url(r'^graphs/bar_assists_chart', views.bar_assists_chart, name='bar_assists_chart'),
+    url(r'^view_team_comparisons/$', views.team_comparisons),
 ]
