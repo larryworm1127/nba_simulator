@@ -2,7 +2,6 @@
 from data_retriever import Main
 from simulator import one_game_simulation
 from json import dump, load
-from os import remove
 
 # constants
 TEAM_MATCH_LIST = [[1, 8, 4, 5], [3, 6, 2, 7]]

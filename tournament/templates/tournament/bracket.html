@@ -20,17 +20,19 @@
     <div class="container">
         <nav class="navbar navbar-inverse">
             <div class="navbar-header">
-                <a class="navbar-brand">NBA Simulator</a>
+                <a class="navbar-brand" href="/">NBA Simulator</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home</a></li>
-                <li><a href="/stats/view_standing/{{ season }}">View Standing</a></li>
+                <li class="active"><a href="#">Home</a></li>
                 {% if season == '2016-17' %}
                     <li><a href="#">View Team Comparisons</a></li>
+                    <li><a href="/stats/view_standing/{{ season }}">View Standing</a></li>
                     <li><a href="/stats/all_team_statistics/?sort=Team%20City">View All Teams Statistics</a></li>
+                    <li><a href="/stats/graphs">View Stats Graph</a></li>
                     <li><a href="/tournament/bracket/2017-18">View Simulated Results</a></li>
                 {% endif %}
                 {% if season == '2017-18' %}
+                    <li><a href="/stats/view_standing/{{ season }}">View Standing</a></li>
                     <li><a href="/tournament/bracket/2016-17">View Previous Year Stats</a></li>
                 {% endif %}
             </ul>
@@ -40,13 +42,14 @@
             <div class="col-sm-12">
                 {% if season == '2017-18' %}
                     <button type="button" class="btn btn-primary" id="simulate_playoff">Simulate Playoff</button>
-                    <button type="button" class="btn btn-primary" id="simulate_season" style="float: right;" data-toggle="tooltip" data-placement="bottom" title="May take up to 6 seconds">Re-Simulate Season</button>
+                    <button type="button" class="btn btn-primary" id="simulate_season" style="float: right;" data-toggle="tooltip"
+                            data-placement="bottom" title="May take up to 6 seconds">Re-Simulate Season</button>
                 {% endif %}
                 <center>
                     <H1>Playoff Bracket {{ season }}</H1>
                 </center>
             </div>
-        </div>        
+        </div>
 
         <div id="main">
             <div class="container" style="width: 90%">

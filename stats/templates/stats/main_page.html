@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Loads the path to your static files -->
     {% load staticfiles %}
 
     <title>NBA Simulator</title>
@@ -19,33 +18,32 @@
             overflow: auto;
             z-index: 1
         }
+
     </style>
 </head>
 
 <body>
     <div id="background"></div>
-    <!--img src="{% static 'images/logo.png' static %}" alt="The team's logo" class="logo" style="width: 200px; height: 200px"-->
-    
+
     <div class="container" style="width: 51%">
         <center>
             <H1 style="font-size: 90px; color: White; font-family: Lato">NBA Simulator</H1>
         </center>
         <br>
         <br>
-        
+
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
                 <li data-target="#myCarousel" data-slide-to="2"></li>
             </ol>
 
-            <!-- Wrapper for slides -->
             <div class="carousel-inner">
                 <div class="item active">
                     <center>
-                        <img src="{% static 'stats/images/slide1.png' static %}" alt="Lebron and Curry" style="width: 90%; height: 50%">
+                        <img src="{% static 'stats/images/slide1.png' static %}" alt="Lebron and Curry"
+                             style="width: 90%; height: 50%">
                     </center>
                     <div class="carousel-caption">
                         <h3>The Ultimate Matchup</h3>
@@ -55,9 +53,10 @@
 
                 <div class="item">
                     <center>
-                        <img src="{% static 'stats/images/slide2.png' static %}" alt="Map of NBA" style="width: 90%; height: 50%">
+                        <img src="{% static 'stats/images/slide2.png' static %}" alt="Map of NBA"
+                             style="width: 90%; height: 50%">
                     </center>
-                        
+
                     <div class="carousel-caption">
                         <h3>Map of NBA</h3>
                         <p>All NBA Team on a Map!</p>
@@ -66,7 +65,8 @@
 
                 <div class="item">
                     <center>
-                        <img src="{% static 'stats/images/slide3.png' static%}" alt="NBA Draft 2018" style="width: 90%; height: 50%">
+                        <img src="{% static 'stats/images/slide3.png' static%}" alt="NBA Draft 2018"
+                             style="width: 90%; height: 50%">
                     </center>
 
                     <div class="carousel-caption">
@@ -76,7 +76,6 @@
                 </div>
             </div>
 
-            <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
                 <span class="sr-only">Previous</span>
@@ -88,8 +87,14 @@
         </div>
 
         <br><br>
-        <a href="/tournament/bracket/2017-18"><button class="button sim_button" id="simulate" data-toggle="tooltip" data-placement="bottom" title="May take up to 1 min to download data">Simulate</button></a>
-        <a href="/tournament/bracket/2016-17"><button class="button view_button">View Stats</button></a>
+        <a href="/tournament/bracket/2017-18">
+            <button class="button sim_button" id="simulate" data-toggle="tooltip" data-placement="bottom"
+                    title="May take up to 1 min to download data">Simulate
+            </button>
+        </a>
+        <a href="/tournament/bracket/2016-17">
+            <button class="button view_button">View Stats</button>
+        </a>
         <img src="{% static 'images/logo.png' static %}" alt="Project Team Logo" class="team_logo">
     </div>
 

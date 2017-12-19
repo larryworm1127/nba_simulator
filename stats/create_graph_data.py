@@ -1,36 +1,36 @@
-from json import load
 from os.path import join
 from data_retriever import Main
 from os import listdir
+from json import load
 
 team_list = listdir(Main.TEAM_SEASON_PATH)
 
 
 def top_ten_wlr():
-    wlr_list = get_data()[0]
+    wlr_list = get_graph_data()[0]
     wlr_list.sort(key=lambda ratio: ratio[1], reverse=True)
     return wlr_list
 
 
 def top_ten_points():
-    points_list = get_data()[1]
+    points_list = get_graph_data()[1]
     points_list.sort(key=lambda ratio: ratio[1], reverse=True)
     return points_list
 
 
 def top_ten_rebounds():
-    rebounds_list = get_data()[2]
+    rebounds_list = get_graph_data()[2]
     rebounds_list.sort(key=lambda ratio: ratio[1], reverse=True)
     return rebounds_list
 
 
 def top_ten_assists():
-    assists_list = get_data()[3]
+    assists_list = get_graph_data()[3]
     assists_list.sort(key=lambda ratio: ratio[1], reverse=True)
     return assists_list
 
 
-def get_data():
+def get_graph_data():
     wlr_list = []
     points_list = []
     rebounds_list = []
@@ -53,4 +53,3 @@ def get_data():
         assists_list.append((team_dir[:3], assists_per_game))
 
     return wlr_list, points_list, rebounds_list, assists_list
-

@@ -1,45 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
 
+<head>
     {% load staticfiles %}
-    <link rel="stylesheet" href="{% static 'bar_graphs/style.css' %}"/>
+    <title>Stats Graphs</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
 
-    <title>Stats Graphs</title>
-    <!--[if lte IE 8]>
+    <link rel="stylesheet" href="{% static 'stats/style.css' %}"/>
     <script src="{% static 'js/excanvas.js' %}"></script>
-    <![endif]-->
-
 </head>
 
 <body>
-
 <div class="container">
     <nav class="navbar navbar-inverse">
         <div class="navbar-header">
-            <a class="navbar-brand">NBA Simulator</a>
+            <a class="navbar-brand" href="/">NBA Simulator</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-			<li><a href="#">View Team Comparisons</a></li>
-			<li><a href="/tournament/bracket/2017">View Playoff Bracket</a></li>
-			<li><a href="/stats/view_wins_and_losses">View Standing</a></li>
-			<li><a href="/stats_graphs">View All Teams Statistics</a></li>
+            <li class="active"><a href="/tournament/bracket/2016-17">Home</a></li>
+            <li><a href="#">View Team Comparisons</a></li>
+            <li><a href="/stats/view_standing/2016-17">View Standing</a></li>
+            <li><a href="/stats/all_team_statistics">View All Teams Statistics</a></li>
+            <li><a href="/tournament/bracket/2017-18">View Simulated Results</a></li>
         </ul>
     </nav>
 
     <div class="container-fluid">
         <div class="col-sm-12">
             <center><h1>Stats Graphs</h1></center>
-            <center><h4>Regular Season</h4></center>
         </div>
-    </div><hr>
+    </div>
+    <hr>
 
     <div class="row">
         <nav class="col-sm-2" id="myScrollspy">
@@ -59,11 +55,14 @@
                     $.get('{% url "bar_wlr_chart" %}', function(data) {
                         var ctx = $("#WLR").get(0).getContext("2d");
                         new Chart(ctx, {
-                            type: 'bar', data: data
+                            type: 'bar',
+                            data: data
                         });
                     });
                 </script>
-                <br><hr>
+                <br>
+                <hr>
+                <br>
 
                 <canvas id="PPG"></canvas>
                 <script type="text/javascript">
@@ -74,7 +73,9 @@
                         });
                     });
                 </script>
-                <br><hr>
+                <br>
+                <hr>
+                <br>
 
                 <canvas id="RPG"></canvas>
                 <script type="text/javascript">
@@ -85,7 +86,9 @@
                         });
                     });
                 </script>
-                <br><hr>
+                <br>
+                <hr>
+                <br>
 
                 <canvas id="APG"></canvas>
                 <script type="text/javascript">
@@ -96,18 +99,12 @@
                         });
                     });
                 </script>
-                <br><hr>
+                <br>
+                <hr>
+                <br>
             </div>
         </div>
     </div>
-
-
-    <!--<h2 class="outline">Top 10</h2>
-
-
-        <div class="sub_title2"><strong>Points Per Game</strong></div>
-        <div class="sub_title3"><strong>Rebounds Per Game</strong></div>
-        <div class="sub_title4"><strong>Assists Per Game</strong></div>-->
 </div>
 <a href="#" class="btn btn-info" role="button" id="top_button">Back to Top</a>
 
