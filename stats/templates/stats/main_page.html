@@ -13,13 +13,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <style type="text/css">
-        body {
-            background-image: url("{% static 'stats/images/background.png' static %}");
-            overflow: auto;
-            z-index: 1
-        }
+    body {
+        background-image: url("{% static 'stats/images/background.png' static %}");
+        overflow: auto;
+        z-index: 1
+    }
 
-    </style>
+</style>
 </head>
 
 <body>
@@ -43,7 +43,7 @@
                 <div class="item active">
                     <center>
                         <img src="{% static 'stats/images/slide1.png' static %}" alt="Lebron and Curry"
-                             style="width: 90%; height: 50%">
+                        style="width: 90%; height: 50%">
                     </center>
                     <div class="carousel-caption">
                         <h3><strong>The Ultimate Matchup</strong></h3>
@@ -54,7 +54,7 @@
                 <div class="item">
                     <center>
                         <img src="{% static 'stats/images/slide2.png' static %}" alt="Map of NBA"
-                             style="width: 90%; height: 50%">
+                        style="width: 90%; height: 50%">
                     </center>
 
                     <div class="carousel-caption">
@@ -66,7 +66,7 @@
                 <div class="item">
                     <center>
                         <img src="{% static 'stats/images/slide3.png' static%}" alt="NBA Draft 2018"
-                             style="width: 90%; height: 50%">
+                        style="width: 90%; height: 50%">
                     </center>
 
                     <div class="carousel-caption">
@@ -88,21 +88,16 @@
 
         <br><br>
         <a href="/tournament/bracket/2017-18">
-            <button class="button sim_button" id="simulate" data-toggle="tooltip" data-placement="bottom"
-                    title="May take up to 1 min to download data"><strong>Simulate</strong>
-            </button>
+            <button class="button sim_button"><strong>Simulate</strong></button>
         </a>
         <a href="/tournament/bracket/2016-17">
             <button class="button view_button"><strong>View Stats</strong></button>
         </a>
+
         <img src="{% static 'images/logo.png' static %}" alt="Project Team Logo" class="team_logo">
     </div>
 
     <script>
-        $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-
         $("#simulate").click(function() {
             console.log("Simulate");
             $.get("simulate_season", function(data, status){
