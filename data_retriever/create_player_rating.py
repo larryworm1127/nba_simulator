@@ -1,3 +1,7 @@
+"""
+This module creates player ratings and sort the ratings into the appropriate team files
+"""
+
 # general imports
 from data_retriever import Main
 from simulator import player_rating_machine

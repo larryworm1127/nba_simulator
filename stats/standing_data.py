@@ -1,3 +1,7 @@
+"""
+This module creates data for standing pages
+"""
+
 # general imports
 from json import load
 from os.path import join
@@ -6,6 +10,7 @@ from os import listdir
 from simulator.ranking_teams import rank_team_all
 
 
+# main functions
 def create_standing_data(season):
     if season == '2017-18':
         result = create_simulated_wl_data()

@@ -1,5 +1,5 @@
 from unittest import TestCase
-from data_retriever import Main, create_player_rating, run
+from data_retriever import Main, create_player_rating, run, file_check
 
 
 class TestMain(TestCase):
@@ -18,3 +18,8 @@ class TestCreatePlayerRating(TestCase):
 class TestRun(TestCase):
     def test_run(self):
         run.run()
+
+
+class TestFileCheck(TestCase):
+    def test_init(self):
+        file_check.init()

@@ -1,5 +1,9 @@
+"""
+This module runs the playoff simulation by running series and rounds separately
+"""
+
 # general imports
-from data_retriever import Main
+from data_retriever import Main, file_check
 from simulator import one_game_simulation
 from json import dump, load
 
@@ -7,11 +11,13 @@ from json import dump, load
 TEAM_MATCH_LIST = [[1, 8, 4, 5], [3, 6, 2, 7]]
 TEAM_OPPONENT = {1: 8, 2: 7, 3: 6, 4: 5, 5: 4, 6: 3, 7: 2, 8: 1}
 
-
+# loads data and check if the file exists before loading it
+file_check.init()
 with open(Main.TEAM_DICT_PATH) as team_dict_file:
     team_dict = load(team_dict_file)
 
 
+# main functions
 def run_single_series(team1, team2):
     """
     Takes two team IDs and run the 7 games playoff series
@@ -20,10 +26,12 @@ def run_single_series(team1, team2):
     :param team2: the team ID of team two
     :return: A list containing two tuples, each tuple contains the team ID and its score
     """
+    # create variables
     series_complete = False
     team1_points, team2_points = (0, 0)
     result = []
 
+    # simulate single series
     while not series_complete:
         simulate = one_game_simulation.TeamScoringMachine(team1, team2)
         winner = simulate.get_winner()
@@ -38,6 +46,7 @@ def run_single_series(team1, team2):
 
     result.append((team1, team1_points))
     result.append((team2, team2_points))
+
     return result
 
 

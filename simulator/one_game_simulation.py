@@ -1,3 +1,7 @@
+"""
+This module simulate a single NBA games given two teams
+"""
+
 # general import
 import json
 import random
@@ -7,6 +11,11 @@ import data_retriever.Main as Main
 
 
 class TeamScoringMachine:
+    """
+    This class will rate two teams and give each of them a score. A winner
+    will be determined using random but the chance of winning will be affected
+    by the score difference between the two teams
+    """
     def __init__(self, team_one_id, team_two_id):
         # create variables
         self.team_one = team_one_id
@@ -198,6 +207,14 @@ def string_processor(string):
 
 
 def point_difference_scoring_machine(team_one_points, team_two_points):
+    """
+    A helper function for scoring points for teams based on their
+    points secondary points rated through their points per game
+
+    :param team_one_points: the points team one scored through its point per game
+    :param team_two_points: the points team two scored through its point per game
+    :return: a tuple containing the score of the two teams
+    """
     difference = abs(team_one_points - team_two_points)
 
     if team_one_points > team_two_points:

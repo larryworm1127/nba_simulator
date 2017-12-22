@@ -25,14 +25,15 @@ def boxscore(request):
     team1 = data[5]
     team2 = data[6]
 
-    return render(request, 'stats/boxscore.html',
-                  {'headers': headers,
-                   'rows1': rows1,
-                   'rows2': rows2,
-                   'team1_name': team1_name,
-                   'team2_name': team2_name,
-                   'team1': team1,
-                   'team2': team2})
+    context = {'headers': headers,
+               'rows1': rows1,
+               'rows2': rows2,
+               'team1_name': team1_name,
+               'team2_name': team2_name,
+               'team1': team1,
+               'team2': team2}
+
+    return render(request, 'stats/boxscore.html', context)
 
 
 def all_team_stats(request):
@@ -41,10 +42,11 @@ def all_team_stats(request):
     headers = data['headers']
     rows = data['rows']
 
-    return render(request, 'stats/all_team_statistics.html',
-                  {'headers': headers,
-                   'rows': rows,
-                   })
+    context = {'headers': headers,
+               'rows': rows,
+               }
+
+    return render(request, 'stats/all_team_statistics.html', context)
 
 
 def standing(request, season):
@@ -57,11 +59,12 @@ def standing(request, season):
     else:
         template = 'stats/standing.html'
 
-    return render(request, template,
-                  {'headers': headers,
-                   'rows': rows,
-                   'season': season
-                   })
+    context = {'headers': headers,
+               'rows': rows,
+               'season': season
+               }
+
+    return render(request, template, context)
 
 
 class GetData(object):
@@ -159,14 +162,6 @@ assists_chart = TemplateView.as_view(template_name='stats_graph.html')
 bar_assists_chart = AssistsChart.as_view()
 
 
-def index(request):
-    return render(request, 'stats/stats_graph.html',
-                  {'wlr_chart': bar_wlr_chart,
-                   'points_chart': bar_points_chart,
-                   'bar_rebounds_chart': bar_rebounds_chart,
-                   'bar_assists_chart': bar_assists_chart})
-
-
 def team_comparisons(request):
     compare = request.GET.get('compare')
     data = create_divisions_data(compare)
@@ -177,8 +172,24 @@ def team_comparisons(request):
     categories2 = data[4]
     abbreviations = data[5]
     team1 = {data[6]: 'images/' + data[6] + '.png'}
-    team2= {data[7]: 'images/' + data[7] + '.png'}
+    team2 = {data[7]: 'images/' + data[7] + '.png'}
 
-    return render(request, 'stats/team_comparisons.html',
-                  {'west_divisions': west_divisions, 'east_divisions': east_divisions, 'all_teams': all_teams,
-                   'categories1': categories1, 'categories2': categories2, 'abbreviations': abbreviations, 'team1': team1,'team2': team2})
+    context = {'west_divisions': west_divisions,
+               'east_divisions': east_divisions,
+               'all_teams': all_teams,
+               'categories1': categories1,
+               'categories2': categories2,
+               'abbreviations': abbreviations,
+               'team1': team1,
+               'team2': team2}
+
+    return render(request, 'stats/team_comparisons.html', context)
+
+
+def stats_graph(request):
+    context = {'wlr_chart': bar_wlr_chart,
+               'points_chart': bar_points_chart,
+               'bar_rebounds_chart': bar_rebounds_chart,
+               'bar_assists_chart': bar_assists_chart}
+
+    return render(request, 'stats/stats_graph.html', context)

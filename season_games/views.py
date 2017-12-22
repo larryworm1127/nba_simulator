@@ -14,11 +14,11 @@ def season_games(request, team, season):
         template = 'season_games/team_page.html'
         game_dict = get_games(team)
 
-    return render(request, template,
-                  {'team': team,
-                   'team_logo': team_logo,
-                   'team_name': team_name,
-                   'team_list': team_list,
-                   'game_dict': game_dict,
-                   'season': season
-                   })
+    context = {'team': team,
+               'team_logo': team_logo,
+               'team_name': team_name,
+               'team_list': team_list,
+               'game_dict': game_dict,
+               'season': season
+               }
+    return render(request, template, context)

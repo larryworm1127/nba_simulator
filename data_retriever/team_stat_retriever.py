@@ -18,13 +18,16 @@ def create_game_logs_file(team_id):
 
     :param team_id: ID number of the team
     """
+    # team game log
     path = join(Main.TEAM_BASE_PATH, team_dict[team_id] + '.json')
     if not exists(path):
-        print("Retrieving team " + team_dict[team_id] + " game log data + season stats and creating files ... Please wait.")
+        print("Retrieving team " + team_dict[
+            team_id] + " game log data + season stats and creating files ... Please wait.")
         game_logs = team.TeamGameLogs(team_id, '2016-17').json
         with open(path, 'w') as outfile:
             json.dump(game_logs, outfile)
 
+    # playoff game log
     playoff_path = join(Main.TEAM_PLAYOFF_PATH, team_dict[team_id] + '.json')
     if not exists(playoff_path):
         playoff_games = team.TeamGameLogs(team_id, '2016-17', constants.SeasonType.Playoffs).json
@@ -32,21 +35,12 @@ def create_game_logs_file(team_id):
             with open(playoff_path, 'w') as playoff_files:
                 json.dump(playoff_games, playoff_files)
 
+    # season stats
     season_path = join(Main.TEAM_SEASON_PATH, team_dict[team_id] + '.json')
     if not exists(season_path):
         season_stats = team.TeamSeasons(team_id).json
         with open(season_path, 'w') as season_files:
             json.dump(season_stats, season_files)
-
-
-def create_season_stats_file(team_id):
-    path = join(Main.TEAM_SEASON_PATH, team_dict[team_id] + '.json')
-
-    if not exists(path):
-        print("Retrieving team season log data and creating files ... Please wait.")
-        season_logs = team.TeamSeasons(team_id).json
-        with open(path, 'w') as outfile:
-            json.dump(season_logs, outfile)
 
 
 def init():
@@ -55,7 +49,5 @@ def init():
     """
     for team_id in team_dict.keys():
         create_game_logs_file(team_id)
-        create_season_stats_file(team_id)
 
     file_check.team_name_dict()
-

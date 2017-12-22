@@ -1,11 +1,16 @@
-import json
-import math
+"""
+This module creates player ratings based on their performances from last season
+"""
 
+# general imports
+from json import load
+from math import ceil
 from enum import Enum
 from os.path import join
 from data_retriever import Main
 
 
+# preliminary variables
 class Stats(Enum):
     PTS = 1
     REB = 2
@@ -23,6 +28,11 @@ MULTIPLY_FACTOR = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 
 class RatingMachine:
+    """
+    This class creates rating based on the player's various
+    performances in different categories from the previous season
+    """
+
     def __init__(self, player_id):
         self.player_rating = 0
         self.data = prepare_data(player_id)
@@ -40,9 +50,9 @@ class RatingMachine:
         return self.player_rating
 
     def rate(self):
-        self.player_rating = math.ceil(self.points() + self.rebounds() + self.assists() + self.steals() +
-                                       self.blocks() + self.turnover() + self.fouls() +
-                                       self.field_goal_percentage() + self.free_throw_percentage())
+        self.player_rating = ceil(self.points() + self.rebounds() + self.assists() + self.steals() +
+                                  self.blocks() + self.turnover() + self.fouls() +
+                                  self.field_goal_percentage() + self.free_throw_percentage())
 
     def points(self):
         result = self.player_stat['PTS'] * MULTIPLY_FACTOR[0]
@@ -94,14 +104,14 @@ def prepare_data(player_id):
     """
     # prepare player dict data
     with open(Main.PLAYER_DICT_PATH, 'r') as player_dict_file:
-        player_dict = dict(json.load(player_dict_file))
+        player_dict = dict(load(player_dict_file))
 
     # load the season stats for the player
     player_name = player_dict[player_id]
     player_stat = {}
     path = join(Main.PLAYER_SEASON_PATH, player_name + '.json')
     with open(path) as season_file:
-        data = json.load(season_file)
+        data = load(season_file)
 
     for stat in Stats:
         player_stat[str(stat.name)] = data[-1][str(stat.name)]

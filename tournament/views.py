@@ -25,8 +25,6 @@ def tournament(request, season):
         with open(Main.SIMULATE_PLAYOFF_PATH, 'r+') as playoff_file:
             data = load(playoff_file)
 
-        #initialize_playoff()
-
     elif season == "2016-17":
         data_manipulate.final_data = {'east': {'teams': [], 'results': [[], [], []]},
                                       'west': {'teams': [], 'results': [[], [], []]},
@@ -41,11 +39,12 @@ def bracket(request, season):
     east_teams = {team: 'images/' + team + '.png' for team in division_dict['east']}
     west_teams = {team: 'images/' + team + '.png' for team in division_dict['west']}
 
-    return render(request, 'tournament/bracket.html',
-                  {'season': season,
-                   'east_teams': east_teams,
-                   'west_teams': west_teams,
-                   })
+    context = {'season': season,
+               'east_teams': east_teams,
+               'west_teams': west_teams,
+               }
+
+    return render(request, 'tournament/bracket.html', context)
 
 
 def simulate_playoff(request):

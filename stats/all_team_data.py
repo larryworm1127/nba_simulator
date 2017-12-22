@@ -1,3 +1,7 @@
+"""
+This module creates table data for all team statistic page
+"""
+
 # general imports
 from json import load
 from os.path import join
@@ -5,7 +9,14 @@ from data_retriever import Main
 from os import listdir
 
 
+# main functions
 def create_team_data(sort):
+    """
+    This function creates and sorts data from files so that the web page can read them
+
+    :param sort: the type of sorting the web page requested
+    :return: the data to be displayed on the web page
+    """
     with open(join(Main.TEAM_SEASON_PATH, 'ATL.json')) as data_file:
         parsed_json = load(data_file)
 
@@ -36,6 +47,13 @@ def create_team_data(sort):
 
 
 def find_indexes(result_sets, headers):
+    """
+    Find the index of a list of headers within the result sets
+
+    :param result_sets: the data set that contains all headers
+    :param headers: the list of headers that will be used to find the indexes
+    :return: a list of index for the given headers
+    """
     indexes = []
     header_data = result_sets[0]['headers']
 
@@ -46,6 +64,11 @@ def find_indexes(result_sets, headers):
 
 
 def get_data():
+    """
+    Create a list containing all the team season stats
+
+    :return: A list containing the data to be sorted and modified
+    """
     all_team_lists = []
     for single_file in listdir(Main.TEAM_SEASON_PATH):
         with open(join(Main.TEAM_SEASON_PATH, single_file)) as data_file:
@@ -55,10 +78,19 @@ def get_data():
         for row in data:
             if row[3] == "2016-17":
                 all_team_lists.append(row)
+
     return all_team_lists
 
 
 def sort_data_by_header(header, result_rows, headers):
+    """
+    A helper function for sorting the display data
+
+    :param header: the category of stats that will be used for sorting
+    :param result_rows: the current data
+    :param headers: the list of headers
+    :return:
+    """
     tuple_data = [tuple(row) for row in result_rows]
     header_index = headers.index(header)
 

@@ -143,21 +143,6 @@
             $('[data-toggle="tooltip"]').tooltip();
         });
 
-        function render_fn(container, data, score, state) {
-            switch(state) {
-                case "empty-bye":
-                    container.append("No team")
-                    return;
-                case "empty-tbd":
-                    container.append("Upcoming")
-                    return;
-         
-                case "entry-no-score":
-                case "entry-default-win":
-                case "entry-complete":
-            }
-        }
-
         $("#simulate_playoff").click(function() {
             console.log("Simulate");
             $.get("simulate_playoff", function(data, status){

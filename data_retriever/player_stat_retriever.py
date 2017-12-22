@@ -1,3 +1,8 @@
+"""
+This module contains functions that will retrieve various stats data relating
+to NBA players
+"""
+
 # general import
 import json
 from os.path import join, exists

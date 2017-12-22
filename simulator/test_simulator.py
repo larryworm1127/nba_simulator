@@ -153,8 +153,10 @@ class TestRankingTeams(TestCase):
 
     def test_sort_win_data(self):
         actual_result = sort_win_data()
+        print("sort win data: " + str(actual_result))
         self.assertTrue(actual_result)
 
     def test_rank_team_all(self):
         actual_result = rank_team_all()
+        print("rank team all: " + str(actual_result))
         self.assertTrue(actual_result)

@@ -1,9 +1,14 @@
+"""
+This module creates box score page data
+"""
+
 # general imports
 from os.path import join
 from data_retriever import Main
 from json import load
 
 
+# main functions
 def create_data(game_id):
     path = join(Main.GAME_BASE_PATH, str(game_id) + '.json')
     with open(path) as boxscore_file:
@@ -46,12 +51,13 @@ def create_data(game_id):
                 rows1.append(new_row)
                 rows2.append(new_row)
                 new_row = []
+
     for _ in rows1:
         if (rows1[0])[0] != (rows1[counter1])[0]:
             counter2.append(counter1)
         counter1 += 1
     for row in counter2:
-        rows1.remove(rows1[row-counter3])
+        rows1.remove(rows1[row - counter3])
         counter3 += 1
     while counter4 < counter2[0]:
         rows2.remove(rows2[0])
@@ -69,15 +75,16 @@ def create_data(game_id):
                     new_row.append(row[index])
                 rows1.append(new_row)
                 new_row = []
+
     if (rows1[len(rows1) - 2][0]) != rows1[0][0]:
         rows2.append(rows1[len(rows1) - 2])
         rows1.remove(rows1[len(rows1) - 2])
     else:
-        rows2.append(rows1[len(rows1)-1])
-        rows1.remove(rows1[len(rows1)-1])
+        rows2.append(rows1[len(rows1) - 1])
+        rows1.remove(rows1[len(rows1) - 1])
 
-    team1_name = (rows1[len(rows1)-1])[1] + ' ' + (rows1[len(rows1)-1])[2]
-    team2_name = (rows2[len(rows2)-1])[1] + ' ' + (rows2[len(rows2)-1])[2]
+    team1_name = (rows1[len(rows1) - 1])[1] + ' ' + (rows1[len(rows1) - 1])[2]
+    team2_name = (rows2[len(rows2) - 1])[1] + ' ' + (rows2[len(rows2) - 1])[2]
     team1 = rows1[0][0]
     team2 = rows2[0][0]
 

@@ -1,3 +1,8 @@
+"""
+This module checks if the major data files exists or not, if the file does
+not exist, it will run the appropriate function in order to create one
+"""
+
 # general imports
 from data_retriever import Main
 from os.path import exists
@@ -33,6 +38,11 @@ def division_list():
 def team_name_dict():
     if not exists(Main.TEAM_NAME_DICT_PATH):
         Main.create_team_name_dict()
+
+
+def game_list():
+    if not exists(Main.GAME_LIST_PATH):
+        Main.create_game_list_files()
 
 
 # directory check functions
@@ -73,5 +83,5 @@ def init():
     team_dict()
     player_dict()
     division_list()
+    game_list()
     team_name_dict()
-

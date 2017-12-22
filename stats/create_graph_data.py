@@ -1,11 +1,18 @@
+"""
+This module creates data for the stats graphs
+"""
+
+# general imports
 from os.path import join
 from data_retriever import Main
 from os import listdir
 from json import load
 
+# create variables
 team_list = listdir(Main.TEAM_SEASON_PATH)
 
 
+# main functions
 def top_ten_wlr():
     wlr_list = get_graph_data()[0]
     wlr_list.sort(key=lambda ratio: ratio[1], reverse=True)
@@ -31,6 +38,11 @@ def top_ten_assists():
 
 
 def get_graph_data():
+    """
+    Extract the specific data from files and put them in lists
+
+    :return: four lists containing stats for different category
+    """
     wlr_list = []
     points_list = []
     rebounds_list = []

@@ -1,3 +1,8 @@
+"""
+This module reads from team playoff game log data and select
+specific data from it and create data that can be understood by Bracket.js
+"""
+
 # general import
 from json import load
 from data_retriever import Main, file_check
