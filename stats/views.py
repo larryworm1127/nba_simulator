@@ -7,8 +7,8 @@ from stats.game_stats_data import create_data
 from stats.all_team_data import create_team_data
 from stats.standing_data import create_standing_data
 
-from stats.wins_losses import create_wl_data
 from stats.team_comparisons import create_divisions_data
+
 
 def main_page(request):
     return render(request, 'stats/main_page.html')
@@ -168,14 +168,17 @@ def index(request):
 
 
 def team_comparisons(request):
-    data = create_divisions_data()
+    compare = request.GET.get('compare')
+    data = create_divisions_data(compare)
     west_divisions = data[0]
     east_divisions = data[1]
     all_teams = data[2]
-    categories = data[3]
-    stats = data[4]
+    categories1 = data[3]
+    categories2 = data[4]
     abbreviations = data[5]
+    team1 = {data[6]: 'images/' + data[6] + '.png'}
+    team2= {data[7]: 'images/' + data[7] + '.png'}
 
     return render(request, 'stats/team_comparisons.html',
                   {'west_divisions': west_divisions, 'east_divisions': east_divisions, 'all_teams': all_teams,
-                   'categories': categories, 'stats': stats, 'abbreviations': abbreviations})
+                   'categories1': categories1, 'categories2': categories2, 'abbreviations': abbreviations, 'team1': team1,'team2': team2})

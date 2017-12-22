@@ -1,7 +1,7 @@
-from stats.all_team_data import create_team_data
+from stats.all_team_data import get_data
 
 
-def create_divisions_data():
+def create_divisions_data(compare):
     west_divisions = {
         "Northwest Division": [{"DEN": "images/DEN.png"}, {"MIN": "images/MIN.png"}, {"OKC": "images/OKC.png"},
                                {"POR": "images/POR.png"}, {"UTA": "images/UTA.png"}],
@@ -23,18 +23,31 @@ def create_divisions_data():
                  "Atlantic -", "BOS", "BKN", "NYK", "PHI", "TOR", "Central -", "CHI", "CLE", "DET", "IND", "MIL",
                  "Southeast -", "ATL", "CHA", "MIA", "ORL",
                  "WAS"]
-    abbreviations = ["GSW", "SAS", "HOU", "BOS", "CLE", "LAC", "TOR", "UTA", "WAS", "OKC", "ATL", "MEM", "IND", "MIL",
-                     "CHI",
-                     "MIA", "POR", "DEN", "DET", "CHA", "NOP", "DAL", "SAC", "MIN", "NYK", "ORL", "PHI", "LAL", "PHX",
-                     "BKN"]
+    abbreviations = ["ATL", "BKN", "BOS", "CHA", "CHI", "CLE", "DAL", "DEN", "DET", "GSW", "HOU", "IND", "LAC", "LAL",
+                     "MEM", "MIA", "MIL", "MIN", "NOP", "NYK", "OKC", "ORL", "PHI", "PHX", "POR", "SAC", "SAS", "TOR",
+                     "UTA", "WAS"]
+    categories1 = {"W-L R": '', "PPG": '', "FG%": '', "3P%": '', "REB": '', "AST": ''}
+    categories2 = {"W-L R": '', "PPG": '', "FG%": '', "3P%": '', "REB": '', "AST": ''}
+    categories_index = [7, 32, 17, 20, 26, 27]
 
-    data = create_team_data()
-    categories = data[0]
-    stats = data[1]
-
+    stats = get_data()
+    stats1 = []
+    stats2 = []
+    team1 = ''
+    team2 = ''
     counter = 0
-    while counter < 5:
-        categories.remove(categories[0])
-        counter += 1
 
-    return west_divisions, east_divisions, all_teams, categories, stats, abbreviations
+    if compare is not None:
+        team1 = compare[0:3]
+        team2 = compare[3:6]
+        temp1 = stats[abbreviations.index(team1)]
+        temp2 = stats[abbreviations.index(team2)]
+        for each in categories_index:
+            stats1.append(temp1[each])
+            stats2.append(temp2[each])
+        for key in categories1.keys():
+            categories1[key] = stats1[counter]
+            categories2[key] = stats2[counter]
+            counter += 1
+
+    return west_divisions, east_divisions, all_teams, categories1, categories2, abbreviations, team1, team2
