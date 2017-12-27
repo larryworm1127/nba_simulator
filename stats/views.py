@@ -67,7 +67,7 @@ def standing(request, season):
     return render(request, template, context)
 
 
-class GetData(object):
+class GetData:
     def __init__(self):
         data = top_ten_wlr()
         self.labels = [single_team[0] for single_team in data]

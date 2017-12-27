@@ -101,7 +101,7 @@
         <div align="right">
             <font style="font-family: impact;">
                 <a href="#" data-toggle="popover" data-trigger="hover" data-placement="left" title="What's below?"
-                data-content="Choose a team to view all of its 82 regular season games 2016-17"
+                data-content="Choose a team to view all of its 82 regular season games {{ season }}"
                 data-html="true">Instructions</a>
             </font>
         </div>
@@ -141,6 +141,10 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        $(document).ready(function(){
+            $('[data-toggle="popover"]').popover();
         });
 
         $("#simulate_playoff").click(function() {
@@ -188,10 +192,6 @@
             })
         })
     </script>
-    <script>
-    $(document).ready(function(){
-        $('[data-toggle="popover"]').popover();
-    });
-    </script>
+
 </body>
 </html>
