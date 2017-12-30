@@ -1,14 +1,19 @@
+"""
+This module retrieves team game log data (regular season and playoff) and team season data, and store
+the data inside a JSON file
+"""
+
 # general imports
-import json
+from json import dump, load
 from os.path import join, exists
 from data_retriever import Main
 from nba_py import team, constants
-from data_retriever import file_check
+from data_retriever import create_other_files
 
 # create preliminary files for teams
-file_check.init()
+create_other_files.init()
 with open(Main.TEAM_DICT_PATH, 'r') as team_dict_file:
-    team_dict = json.load(team_dict_file)
+    team_dict = load(team_dict_file)
 
 
 # helper functions
@@ -25,7 +30,7 @@ def create_game_logs_file(team_id):
             team_id] + " game log data + season stats and creating files ... Please wait.")
         game_logs = team.TeamGameLogs(team_id, '2016-17').json
         with open(path, 'w') as outfile:
-            json.dump(game_logs, outfile)
+            dump(game_logs, outfile)
 
     # playoff game log
     playoff_path = join(Main.TEAM_PLAYOFF_PATH, team_dict[team_id] + '.json')
@@ -33,14 +38,14 @@ def create_game_logs_file(team_id):
         playoff_games = team.TeamGameLogs(team_id, '2016-17', constants.SeasonType.Playoffs).json
         if len(playoff_games['resultSets'][0]['rowSet']):
             with open(playoff_path, 'w') as playoff_files:
-                json.dump(playoff_games, playoff_files)
+                dump(playoff_games, playoff_files)
 
     # season stats
     season_path = join(Main.TEAM_SEASON_PATH, team_dict[team_id] + '.json')
     if not exists(season_path):
         season_stats = team.TeamSeasons(team_id).json
         with open(season_path, 'w') as season_files:
-            json.dump(season_stats, season_files)
+            dump(season_stats, season_files)
 
 
 def init():
@@ -50,4 +55,4 @@ def init():
     for team_id in team_dict.keys():
         create_game_logs_file(team_id)
 
-    file_check.team_name_dict()
+    create_other_files.team_name_dict()

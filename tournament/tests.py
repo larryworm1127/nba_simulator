@@ -1,5 +1,5 @@
 from unittest import TestCase
-from tournament.data_manipulate import format_data, second_third_round_data, conf_final_teams, final_data
+from tournament.create_bracket_data import format_data, second_third_round_data, conf_final_teams, final_data
 
 
 class TestFormat_data(TestCase):

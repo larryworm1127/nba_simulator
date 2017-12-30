@@ -52,7 +52,7 @@
             <div class="col-sm-10">
                 <canvas id="WLR"></canvas>
                 <script type="text/javascript">
-                    $.get('{% url "bar_wlr_chart" %}', function(data) {
+                    $.get('{% url "bar_wlr_chart" %}', function (data) {
                         var ctx = $("#WLR").get(0).getContext("2d");
                         new Chart(ctx, {
                             type: 'bar',
@@ -66,7 +66,7 @@
 
                 <canvas id="PPG"></canvas>
                 <script type="text/javascript">
-                    $.get('{% url "bar_points_chart" %}', function(data) {
+                    $.get('{% url "bar_points_chart" %}', function (data) {
                         var ctx = $("#PPG").get(0).getContext("2d");
                         new Chart(ctx, {
                             type: 'bar', data: data
@@ -79,7 +79,7 @@
 
                 <canvas id="RPG"></canvas>
                 <script type="text/javascript">
-                    $.get('{% url "bar_rebounds_chart" %}', function(data) {
+                    $.get('{% url "bar_rebounds_chart" %}', function (data) {
                         var ctx = $("#RPG").get(0).getContext("2d");
                         new Chart(ctx, {
                             type: 'bar', data: data
@@ -92,7 +92,7 @@
 
                 <canvas id="APG"></canvas>
                 <script type="text/javascript">
-                    $.get('{% url "bar_assists_chart" %}', function(data) {
+                    $.get('{% url "bar_assists_chart" %}', function (data) {
                         var ctx = $("#APG").get(0).getContext("2d");
                         new Chart(ctx, {
                             type: 'bar', data: data

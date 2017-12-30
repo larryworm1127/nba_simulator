@@ -27,7 +27,7 @@ class Stats(Enum):
 MULTIPLY_FACTOR = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 
-class RatingMachine:
+class SinglePlayerRating:
     """
     This class creates rating based on the player's various
     performances in different categories from the previous season

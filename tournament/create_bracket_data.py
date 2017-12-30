@@ -5,7 +5,7 @@ specific data from it and create data that can be understood by Bracket.js
 
 # general import
 from json import load
-from data_retriever import Main, file_check
+from data_retriever import Main, create_other_files
 from os import listdir
 from os.path import join
 
@@ -17,7 +17,7 @@ TEAM_OPPONENT = {1: 8, 2: 7, 3: 6, 4: 5, 5: 4, 6: 3, 7: 2, 8: 1}
 final_data = {'east': {'teams': [], 'results': [[], [], []]}, 'west': {'teams': [], 'results': [[], [], []]},
               'final': {'teams': [], 'results': [[]]}}
 
-file_check.init()
+create_other_files.init()
 
 with open(Main.DIVISION_LIST_PATH, 'r') as division_file:
     division_dict = load(division_file)

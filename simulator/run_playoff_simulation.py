@@ -3,7 +3,7 @@ This module runs the playoff simulation by running series and rounds separately
 """
 
 # general imports
-from data_retriever import Main, file_check
+from data_retriever import Main, create_other_files
 from simulator import one_game_simulation
 from json import dump, load
 
@@ -12,7 +12,7 @@ TEAM_MATCH_LIST = [[1, 8, 4, 5], [3, 6, 2, 7]]
 TEAM_OPPONENT = {1: 8, 2: 7, 3: 6, 4: 5, 5: 4, 6: 3, 7: 2, 8: 1}
 
 # loads data and check if the file exists before loading it
-file_check.init()
+create_other_files.init()
 with open(Main.TEAM_DICT_PATH) as team_dict_file:
     team_dict = load(team_dict_file)
 
@@ -33,7 +33,7 @@ def run_single_series(team1, team2):
 
     # simulate single series
     while not series_complete:
-        simulate = one_game_simulation.TeamScoringMachine(team1, team2)
+        simulate = one_game_simulation.GameSimulation(team1, team2)
         winner = simulate.get_winner()
 
         if winner == team1:

@@ -3,14 +3,14 @@ This module runs the season simulation and also initialize playoff brackets
 """
 
 # general imports
-from data_retriever import Main, file_check
+from data_retriever import Main, create_other_files
 from simulator import one_game_simulation as sim
 from simulator.ranking_teams import ranking_teams
 from os.path import join, exists
 from os import remove
 from json import dump, load
 
-file_check.init()
+create_other_files.init()
 
 with open(Main.GAME_LIST_PATH, 'r') as game_list_file:
     game_list = load(game_list_file)
@@ -46,7 +46,7 @@ def run_simulation():
         for game in day:
             team1_id = str(game[0])
             team2_id = str(game[1])
-            simulator = sim.TeamScoringMachine(team1_id, team2_id)
+            simulator = sim.GameSimulation(team1_id, team2_id)
             team1_abb = team_dict[team1_id]
             team2_abb = team_dict[team2_id]
             counter += 1

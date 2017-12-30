@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <title>All Team Stats 2016-2017</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">NBA Simulator</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/tournament/bracket/2016-17">Home</a></li>
+            <li><a href="/stats/view_team_comparisons">View Team Comparisons</a></li>
+            <li><a href="/stats/view_standing/2016-17">View Standing</a></li>
+            <li><a href="/stats/graphs">View Stats Graphs</a></li>
+            <li><a href="/tournament/bracket/2017-18">View Simulated Results</a></li>
+        </ul>
+    </nav>
+
+    <font size="18">
+        <center style="font-family: Calibri;">All Team Statistics</center>
+    </font>
+
+    <div align="right">
+        <font style="font-family: impact;">
+            <a href="#" data-toggle="popover" data-trigger="hover" data-placement="left" title="Glossary"
+               data-content="W: Wins <br /> L: Losses <br /> PPG: Points Per Game
+                <br /> FG%: Field Goal Percentage <br /> 3P%: Three Pointer Percentage
+                <br /> DREB: Defensive Rebounds <br /> OREB: Offensive Rebounds <br /> AST: Assists
+                <br /> TOV: Turnovers <br /> STL: Steals <br /> BLK: Blocks <br /> PF: Personal Fouls"
+               data-html="true">Glossary</a>
+        </font>
+    </div>
+
+    <input class="form-control" id="table_search" type="text" placeholder="Search..">
+    <br>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            {% for header in headers %}
+                <th><a href="?sort={{ header }}">{{ header }}</a></th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody id="data_table">
+        {% for row in rows %}
+            <tr>
+                {% for column in row %}
+                    <td>{{ column }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#table_search").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#data_table tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+</body>
+</html>

@@ -177,6 +177,7 @@ def create_game_list_files():
         dump(game_list, outfile)
 
 
+# helper functions
 def get_id_from_abb(team_abb):
     with open(TEAM_DICT_PATH) as team_dict_file:
         team_dict = dict(load(team_dict_file))

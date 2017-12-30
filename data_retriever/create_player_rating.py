@@ -4,7 +4,7 @@ This module creates player ratings and sort the ratings into the appropriate tea
 
 # general imports
 from data_retriever import Main
-from simulator import player_rating_machine
+from simulator import single_player_rating
 from os.path import join, exists
 import json
 
@@ -22,7 +22,7 @@ def sort_player_into_team():
     player_ratings = {}
     print("Rating players ... Please wait.")
     for player_id in player_dict.keys():
-        rating = player_rating_machine.RatingMachine(player_id)
+        rating = single_player_rating.SinglePlayerRating(player_id)
         player_ratings[player_dict[player_id]] = rating.get_rating()
 
     # create team folders if they don't exist

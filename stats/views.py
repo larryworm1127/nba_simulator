@@ -14,7 +14,7 @@ def main_page(request):
     return render(request, 'stats/main_page.html')
 
 
-def boxscore(request):
+def box_score(request):
     game_id = request.GET['gameID']
     data = create_data(game_id)
     headers = data[0]
@@ -33,7 +33,7 @@ def boxscore(request):
                'team1': team1,
                'team2': team2}
 
-    return render(request, 'stats/boxscore.html', context)
+    return render(request, 'stats/box_score.html', context)
 
 
 def all_team_stats(request):
@@ -46,7 +46,7 @@ def all_team_stats(request):
                'rows': rows,
                }
 
-    return render(request, 'stats/all_team_statistics.html', context)
+    return render(request, 'stats/all_team_stats.html', context)
 
 
 def standing(request, season):
@@ -101,7 +101,7 @@ class WlrChart(BaseLineChartView, GetData):
         return [self.wlr[:10]]
 
 
-wlr_chart = TemplateView.as_view(template_name='stats_graph.html')
+wlr_chart = TemplateView.as_view(template_name='stats/stats_graph.html')
 bar_wlr_chart = WlrChart.as_view()
 
 
@@ -120,7 +120,7 @@ class PointsChart(BaseLineChartView, GetData):
         return [self.points[:10]]
 
 
-points_chart = TemplateView.as_view(template_name='stats_graph.html')
+points_chart = TemplateView.as_view(template_name='stats/stats_graph.html')
 bar_points_chart = PointsChart.as_view()
 
 
@@ -139,7 +139,7 @@ class ReboundsChart(BaseLineChartView, GetData):
         return [self.rebounds[:10]]
 
 
-rebounds_chart = TemplateView.as_view(template_name='stats_graph.html')
+rebounds_chart = TemplateView.as_view(template_name='stats/stats_graph.html')
 bar_rebounds_chart = ReboundsChart.as_view()
 
 
@@ -158,7 +158,7 @@ class AssistsChart(BaseLineChartView, GetData):
         return [self.assists[:10]]
 
 
-assists_chart = TemplateView.as_view(template_name='stats_graph.html')
+assists_chart = TemplateView.as_view(template_name='stats/stats_graph.html')
 bar_assists_chart = AssistsChart.as_view()
 
 
@@ -181,7 +181,8 @@ def team_comparisons(request):
                'categories2': categories2,
                'abbreviations': abbreviations,
                'team1': team1,
-               'team2': team2}
+               'team2': team2
+               }
 
     return render(request, 'stats/team_comparisons.html', context)
 

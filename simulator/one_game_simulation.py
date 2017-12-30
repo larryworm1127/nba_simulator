@@ -10,7 +10,7 @@ from os.path import join
 import data_retriever.Main as Main
 
 
-class TeamScoringMachine:
+class GameSimulation:
     """
     This class will rate two teams and give each of them a score. A winner
     will be determined using random but the chance of winning will be affected

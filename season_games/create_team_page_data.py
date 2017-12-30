@@ -64,7 +64,7 @@ def get_games(team_abb):
                 for header in headers:
                     data_list.append(game[headers.index(header)])
 
-                game_url = "/stats/boxscore/?gameID=" + game[1]
+                game_url = "/stats/box_score/?gameID=" + game[1]
                 single_game['url'] = game_url
                 single_game['HEADER'] = data_list[3] + ' ---- ' + data_list[2]
                 data = data_cleanup(headers, data_list)

@@ -3,8 +3,8 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from tournament import data_manipulate
-from tournament.data_manipulate import division_dict
+from tournament import create_bracket_data
+from tournament.create_bracket_data import division_dict
 from data_retriever import Main
 from json import load
 from simulator.run_playoff_simulation import run_whole_simulation
@@ -26,11 +26,11 @@ def tournament(request, season):
             data = load(playoff_file)
 
     elif season == "2016-17":
-        data_manipulate.final_data = {'east': {'teams': [], 'results': [[], [], []]},
+        create_bracket_data.final_data = {'east': {'teams': [], 'results': [[], [], []]},
                                       'west': {'teams': [], 'results': [[], [], []]},
                                       'final': {'teams': [], 'results': [[]]}}
-        data_manipulate.create_playoff_data()
-        data = data_manipulate.final_data
+        create_bracket_data.create_playoff_data()
+        data = create_bracket_data.final_data
 
     return JsonResponse(data)
 

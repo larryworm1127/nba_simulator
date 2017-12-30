@@ -1,5 +1,5 @@
 from unittest import TestCase
-from simulator import player_rating_machine as rating
+from simulator import single_player_rating as rating
 from simulator import run_season_simulation
 from simulator import one_game_simulation as sim
 from simulator.run_playoff_simulation import run_round_simulation, run_single_series, run_whole_simulation, \
@@ -10,12 +10,12 @@ from simulator.run_season_simulation import run_simulation, initialize_playoff
 
 class TestRatingMachine(TestCase):
     def test_rating(self):
-        self.assertTrue(rating.RatingMachine('201166'))  # Aaron Brooks
-        self.assertTrue(rating.RatingMachine('201935'))  # James Harden
-        self.assertTrue(rating.RatingMachine('201142'))  # Kevin Durant
-        self.assertTrue(rating.RatingMachine('204001'))  # Porzingis
-        self.assertTrue(rating.RatingMachine('201566'))  # Russell Westbrook
-        self.assertTrue(rating.RatingMachine('203112'))
+        self.assertTrue(rating.SinglePlayerRating('201166'))  # Aaron Brooks
+        self.assertTrue(rating.SinglePlayerRating('201935'))  # James Harden
+        self.assertTrue(rating.SinglePlayerRating('201142'))  # Kevin Durant
+        self.assertTrue(rating.SinglePlayerRating('204001'))  # Porzingis
+        self.assertTrue(rating.SinglePlayerRating('201566'))  # Russell Westbrook
+        self.assertTrue(rating.SinglePlayerRating('203112'))
 
 
 class TestRunSeasonSimulation(TestCase):
@@ -43,10 +43,10 @@ class TestOneGameSimulation(TestCase):
     """
 
     def test_run_simulation(self):
-        simulator = sim.TeamScoringMachine('1610612751', '1610612737')  # BKN vs ATL
-        simulator2 = sim.TeamScoringMachine('1610612761', '1610612737')  # TOR vs ATL
-        simulator3 = sim.TeamScoringMachine('1610612744', '1610612737')  # GSW vs ATL
-        simulator4 = sim.TeamScoringMachine('1610612748', '1610612754')
+        simulator = sim.GameSimulation('1610612751', '1610612737')  # BKN vs ATL
+        simulator2 = sim.GameSimulation('1610612761', '1610612737')  # TOR vs ATL
+        simulator3 = sim.GameSimulation('1610612744', '1610612737')  # GSW vs ATL
+        simulator4 = sim.GameSimulation('1610612748', '1610612754')
         self.assertTrue(simulator.get_winner())
         self.assertTrue(simulator2.get_winner())
         self.assertTrue(simulator3.get_winner())
@@ -54,7 +54,7 @@ class TestOneGameSimulation(TestCase):
         self.assertTrue(simulator4.get_winner())
 
     def test_point_difference(self):
-        simulator = sim.TeamScoringMachine('1610612751', '1610612737')
+        simulator = sim.GameSimulation('1610612751', '1610612737')
         self.assertEqual(simulator.point_difference(), (3, 4))
 
 

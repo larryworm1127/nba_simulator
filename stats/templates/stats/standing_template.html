@@ -48,14 +48,14 @@
 </div>
 
 <script>
-	$(document).ready(function(){
-  		$("#table_search").on("keyup", function() {
-    		var value = $(this).val().toLowerCase();
-    		$("#data_table tr").filter(function() {
-      			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    		});
-  		});
-	});
+    $(document).ready(function () {
+        $("#table_search").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#data_table").find("tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
 </script>
 
 </body>
