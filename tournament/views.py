@@ -3,12 +3,12 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from tournament import create_bracket_data
-from tournament.create_bracket_data import division_dict
-from data_retriever import Main
 from json import load
+
+from tournament.create_bracket_data import BracketData
+from data_retriever import Main
 from simulator.run_playoff_simulation import run_whole_simulation
-from simulator.run_season_simulation import init, initialize_playoff
+from simulator.run_season_simulation import init
 
 
 class Tournament(APIView):
@@ -26,16 +26,18 @@ def tournament(request, season):
             data = load(playoff_file)
 
     elif season == "2016-17":
-        create_bracket_data.final_data = {'east': {'teams': [], 'results': [[], [], []]},
-                                      'west': {'teams': [], 'results': [[], [], []]},
-                                      'final': {'teams': [], 'results': [[]]}}
-        create_bracket_data.create_playoff_data()
-        data = create_bracket_data.final_data
+        bracket_data = BracketData()
+
+        bracket_data.create_playoff_data()
+        data = bracket_data.get_final_data()
 
     return JsonResponse(data)
 
 
 def bracket(request, season):
+    with open(Main.DIVISION_LIST_PATH) as division_file:
+        division_dict = load(division_file)
+
     east_teams = {team: 'images/' + team + '.png' for team in division_dict['east']}
     west_teams = {team: 'images/' + team + '.png' for team in division_dict['west']}
 

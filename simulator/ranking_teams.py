@@ -3,9 +3,10 @@ This module contains functions that rank teams based on the number of wins and l
 """
 
 # general imports
-import json
-from data_retriever import Main
+from json import load, dump
 from os.path import join
+
+from data_retriever import Main
 
 
 def ranking_teams():
@@ -15,7 +16,7 @@ def ranking_teams():
     :return: A dictionary where the key is the team rank and the value is the team abbreviation
     """
     with open(Main.DIVISION_LIST_PATH) as division_list_file:
-        division_list = json.load(division_list_file)
+        division_list = load(division_list_file)
 
     result = {'east': {}, 'west': {}}
     win_data_list = sort_win_data()
@@ -31,7 +32,7 @@ def ranking_teams():
             west_counter += 1
 
     with open(Main.SIMULATE_RANKING_PATH, 'w') as ranking_file:
-        json.dump(result, ranking_file)
+        dump(result, ranking_file)
 
     return result
 
@@ -45,7 +46,7 @@ def sort_win_data():
     # get data
     win_count_path = join(Main.SIMULATE_RESULT_PATH, 'win_count.json')
     with open(win_count_path) as win_count_file:
-        win_data = dict(json.load(win_count_file))
+        win_data = dict(load(win_count_file))
 
     # sort the teams
     win_data_list = [(team_abb, num_win) for team_abb, num_win in win_data.items()]

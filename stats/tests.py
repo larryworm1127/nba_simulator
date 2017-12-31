@@ -1,11 +1,8 @@
-from json import load
 from unittest import TestCase
 
-from os.path import join
 
-from data_retriever import Main
 from stats.standing_data import get_data, find_indexes, rank_teams, create_standing_data
-from stats.create_graph_data import get_graph_data, top_ten_rebounds, top_ten_wlr, top_ten_assists, top_ten_points
+from stats.create_graph_data import *
 
 
 class TestWinsLosses(TestCase):

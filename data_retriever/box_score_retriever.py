@@ -27,8 +27,8 @@ def create_box_score_files():
         with open(team_path, 'r') as game_log_path:
             data = load(game_log_path)
 
-        for index in range(len(data['resultSets'][0]['rowSet'])):
-            game_id_list.append(data['resultSets'][0]['rowSet'][index][1])
+        for single_game in data['resultSets'][0]['rowSet']:
+            game_id_list.append(single_game[1])
 
     # output a message to let the user know that the program is running
     print("Retrieving box score data and creating files ... Please wait.")

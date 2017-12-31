@@ -3,12 +3,13 @@ This module runs the season simulation and also initialize playoff brackets
 """
 
 # general imports
-from data_retriever import Main, create_other_files
-from simulator import one_game_simulation as sim
-from simulator.ranking_teams import ranking_teams
 from os.path import join, exists
 from os import remove
 from json import dump, load
+
+from data_retriever import Main, create_other_files
+from simulator import one_game_simulation as sim
+from simulator.ranking_teams import ranking_teams
 
 create_other_files.init()
 

@@ -3,11 +3,11 @@ This module simulate a single NBA games given two teams
 """
 
 # general import
-import json
+from json import load
 import random
 from os.path import join
 
-import data_retriever.Main as Main
+from data_retriever import Main
 
 
 class GameSimulation:
@@ -32,7 +32,7 @@ class GameSimulation:
 
         # set up team dict data
         with open(Main.TEAM_DICT_PATH, 'r') as team_dict_file:
-            self.team_dict = json.load(team_dict_file)
+            self.team_dict = load(team_dict_file)
 
         # prepare data for simulation
         self.prepare_game_log_data()
@@ -65,9 +65,9 @@ class GameSimulation:
         team1_path = join(Main.TEAM_BASE_PATH, self.team_dict[self.team_one] + '.json')
         team2_path = join(Main.TEAM_BASE_PATH, self.team_dict[self.team_two] + '.json')
         with open(team1_path, 'r') as team1_file:
-            data1 = json.load(team1_file)
+            data1 = load(team1_file)
         with open(team2_path, 'r') as team2_file:
-            data2 = json.load(team2_file)
+            data2 = load(team2_file)
 
         for num in range(82):
             data1_teams = string_processor(data1['resultSets'][0]['rowSet'][num][3])
@@ -92,10 +92,10 @@ class GameSimulation:
         team1_path = join(Main.PLAYER_RATING_PATH, team1_abb + '.json')
         team2_path = join(Main.PLAYER_RATING_PATH, team2_abb + '.json')
         with open(team1_path, 'r') as team1_file:
-            self.team1_ratings = json.load(team1_file)
+            self.team1_ratings = load(team1_file)
 
         with open(team2_path, 'r') as team2_file:
-            self.team2_ratings = json.load(team2_file)
+            self.team2_ratings = load(team2_file)
 
     def team_match_up(self):
         score1 = 0

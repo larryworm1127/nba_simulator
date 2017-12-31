@@ -7,6 +7,7 @@ from json import load
 from math import ceil
 from enum import Enum
 from os.path import join
+
 from data_retriever import Main
 
 

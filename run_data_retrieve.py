@@ -3,11 +3,7 @@ The run module that runs all data retrieving
 """
 
 # general imports
-from data_retriever import create_other_files
-from data_retriever import team_stat_retriever
-from data_retriever import player_stat_retriever
-from data_retriever import create_player_rating
-from data_retriever import box_score_retriever
+from data_retriever import *
 
 
 # run

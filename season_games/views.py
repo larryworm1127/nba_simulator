@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from season_games.create_team_page_data import get_team_from_abb, get_other_teams, get_games, get_simulated_games
+
+from season_games.create_team_page_data import *
 
 
 def season_games(request, team, season):
@@ -21,4 +22,5 @@ def season_games(request, team, season):
                'game_dict': game_dict,
                'season': season
                }
+
     return render(request, template, context)

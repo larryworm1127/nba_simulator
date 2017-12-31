@@ -3,9 +3,10 @@ This module runs the playoff simulation by running series and rounds separately
 """
 
 # general imports
+from json import dump, load
+
 from data_retriever import Main, create_other_files
 from simulator import one_game_simulation
-from json import dump, load
 
 # constants
 TEAM_MATCH_LIST = [[1, 8, 4, 5], [3, 6, 2, 7]]

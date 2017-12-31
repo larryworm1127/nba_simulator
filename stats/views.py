@@ -2,7 +2,7 @@ from chartjs.views.lines import BaseLineChartView
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from stats.create_graph_data import top_ten_wlr, top_ten_points, top_ten_rebounds, top_ten_assists
+from stats.create_graph_data import *
 from stats.game_stats_data import create_data
 from stats.all_team_data import create_team_data
 from stats.standing_data import create_standing_data
