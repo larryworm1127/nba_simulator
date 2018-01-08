@@ -97,7 +97,7 @@ class WlrChart(BaseLineChartView, GetData):
         return ["Win - Loss Ratio"]
 
     def get_data(self):
-        """Return 4 data sets to plot."""
+        """Return 10 data sets to plot."""
         return [self.wlr[:10]]
 
 
@@ -116,7 +116,7 @@ class PointsChart(BaseLineChartView, GetData):
         return ["Points Per Game"]
 
     def get_data(self):
-        """Return 4 data sets to plot."""
+        """Return 10 data sets to plot."""
         return [self.points[:10]]
 
 
@@ -135,7 +135,7 @@ class ReboundsChart(BaseLineChartView, GetData):
         return ["Rebounds Per Game"]
 
     def get_data(self):
-        """Return 4 data sets to plot."""
+        """Return 10 data sets to plot."""
         return [self.rebounds[:10]]
 
 
@@ -154,7 +154,7 @@ class AssistsChart(BaseLineChartView, GetData):
         return ["Assists Per Game"]
 
     def get_data(self):
-        """Return 4 data sets to plot."""
+        """Return 10 data sets to plot."""
         return [self.assists[:10]]
 
 

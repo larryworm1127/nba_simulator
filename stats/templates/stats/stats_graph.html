@@ -54,10 +54,10 @@
                 <script type="text/javascript">
                     $.get('{% url "bar_wlr_chart" %}', function (data) {
                         var ctx = $("#WLR").get(0).getContext("2d");
+                        var color = {datasets: [{fillColor: "rgba(220,220,220,0)"}]}
                         new Chart(ctx, {
-                            type: 'bar',
-                            data: data
-                        });
+                            type: 'bar', data: data
+                        }).Bar(color, {responsive: true});
                     });
                 </script>
                 <br>
