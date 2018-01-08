@@ -7,9 +7,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.9">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'jquery-bracket/jquery.bracket.min.js' %}"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'jquery-bracket/jquery.bracket.min.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'tournament/style.css' %}">
@@ -17,7 +17,7 @@
 </head>
 
 <body class="body" style="background-color:#8FBC8F">
-<div class="container">
+<div class="container-fluid">
     <nav class="navbar navbar-inverse">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">NBA Simulator</a>
@@ -26,15 +26,15 @@
         <ul class="nav navbar-nav">
             <li class="active"><a href="#">Home</a></li>
             {% if season == '2016-17' %}
-                <li><a href="/stats/view_team_comparisons">View Team Comparisons</a></li>
-                <li><a href="/stats/view_standing/{{ season }}">View Standing</a></li>
-                <li><a href="/stats/all_team_statistics/?sort=Team%20City">View All Teams Statistics</a></li>
-                <li><a href="/stats/graphs">View Stats Graph</a></li>
-                <li><a href="/tournament/bracket/2017-18">View Simulated Results</a></li>
+                <li><a href="{% url 'team_comparisons' %}">View Team Comparisons</a></li>
+                <li><a href="{% url 'standing' season %}">View Standing</a></li>
+                <li><a href="{% url 'all_team_stats' %}?sort=Team%20City">View All Teams Statistics</a></li>
+                <li><a href="{% url 'graphs' %}">View Stats Graph</a></li>
+                <li><a href="{% url 'tournament_bracket' '2017-18' %}">View Simulated Results</a></li>
             {% endif %}
             {% if season == '2017-18' %}
-                <li><a href="/stats/view_standing/{{ season }}">View Standing</a></li>
-                <li><a href="/tournament/bracket/2016-17">View Previous Year Stats</a></li>
+                <li><a href="{% url 'standing' season %}">View Standing</a></li>
+                <li><a href="{% url 'tournament_bracket' '2016-17' %}">View Previous Year Stats</a></li>
             {% endif %}
         </ul>
     </nav>
@@ -116,7 +116,7 @@
         <center>
             <div class="col-sm-6">
                 {% for team, data in west_teams.items %}
-                    <a href="/season_games/{{ season }}/{{ team }}" class="list-group-item"
+                    <a href="{% url 'season_games' season team %}" class="list-group-item"
                        style="float: left; background-color: #FFFFF0">
                         <h4 class="list-group-item-heading">{{ team }}</h4>
                         <img src="{% static data %}" alt="Team Logo" style="width: 150px; height: 100px">
@@ -128,7 +128,7 @@
         <div class="col-sm-6">
             <center>
                 {% for team, data in east_teams.items %}
-                    <a href="/season_games/{{ season }}/{{ team }}" class="list-group-item"
+                    <a href="{% url 'season_games' season team %}" class="list-group-item"
                        style="float: right; background-color:  #FFFFF0">
                         <h4 class="list-group-item-heading">{{ team }}</h4>
                         <img src="{% static data %}" alt="Team Logo" style="width: 150px; height: 100px">

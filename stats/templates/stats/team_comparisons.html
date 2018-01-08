@@ -8,23 +8,23 @@
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
 </head>
 
 <body>
-<div class="container">
+<div class="container-fluid">
     <nav class="navbar navbar-inverse">
         <div class="navbar-header">
             <a class="navbar-brand">NBA Simulator</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/tournament/bracket/2016-17">Home</a></li>
-            <li><a href="/stats/view_standing/2016-17">View Standing</a></li>
-            <li><a href="/stats/graphs">View Stats Graphs</a></li>
-            <li><a href="/stats/all_team_statistics">View All Team Statistics</a></li>
-            <li><a href="/tournament/bracket/2017-18">View Simulated Results</a></li>
+            <li class="active"><a href="{% url 'tournament_bracket' '2016-17' %}">Home</a></li>
+            <li><a href="{% url 'standing' '2016-17' %}">View Standing</a></li>
+            <li><a href="{% url 'graphs' %}">View Stats Graphs</a></li>
+            <li><a href="{% url 'all_team_stats' %}?sort=Team%20City">View All Team Statistics</a></li>
+            <li><a href="{% url 'tournament_bracket' '2017-18' %}">View Simulated Results</a></li>
         </ul>
     </nav>
 
@@ -52,7 +52,7 @@
                     {% for team in teams %}
                         {% for team, image in team.items %}
                             <h4 class="Team">
-                                <img src="{% static image static %}" alt="Team Logo" style="width: 30px; height: 20px">
+                                <img src="{% static image %}" alt="Team Logo" style="width: 30px; height: 20px">
                                 {{ team }}
                             </h4>
                         {% endfor %}
@@ -69,7 +69,7 @@
                     {% for team in teams %}
                         {% for team, image in team.items %}
                             <h4 class="Team">
-                                <img src="{% static image static %}" alt="Team Logo" style="width: 30px; height: 20px">
+                                <img src="{% static image %}" alt="Team Logo" style="width: 30px; height: 20px">
                                 {{ team }}
                             </h4>
                         {% endfor %}
