@@ -15,13 +15,17 @@ def ranking_teams():
 
     :return: A dictionary where the key is the team rank and the value is the team abbreviation
     """
+    # load division file
     with open(Main.DIVISION_LIST_PATH) as division_list_file:
         division_list = load(division_list_file)
 
+    # initialize variables
     result = {'east': {}, 'west': {}}
     win_data_list = sort_win_data()
     east_counter = 1
     west_counter = 1
+
+    # sort each team in the sorted win list into specific conference
     for item in win_data_list:
         team_abb = item[0]
         if team_abb in division_list['east']:
@@ -31,6 +35,7 @@ def ranking_teams():
             result['west'][west_counter] = team_abb
             west_counter += 1
 
+    # store the new data
     with open(Main.SIMULATE_RANKING_PATH, 'w') as ranking_file:
         dump(result, ranking_file)
 

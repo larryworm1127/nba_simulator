@@ -1,44 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'stats/main_template.html' %}
 
-<head>
-    {% load static %}
-    <title>All Team Stats 2016-2017</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
-</head>
+{% load static %}
+{% block title %}All Team Stats 2016-2017{% endblock %}
 
-<body>
-<div class="container-fluid">
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">NBA Simulator</a>
+{% block content %}
+     <div class="container-fluid">
+        <div class="col-sm-12">
+            <div style="text-align: center; font-family: Calibri, serif"><h1>All Team Stats</h1></div>
         </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'tournament_bracket' '2016-17' %}">Home</a></li>
-            <li><a href="{% url 'team_comparisons' %}">View Team Comparisons</a></li>
-            <li><a href="{% url 'standing' '2016-17' %}">View Standing</a></li>
-            <li><a href="{% url 'graphs' %}">View Stats Graphs</a></li>
-            <li><a href="{% url 'tournament_bracket' '2017-18' %}">View Simulated Results</a></li>
-        </ul>
-    </nav>
-
-    <font size="18">
-        <center style="font-family: Calibri;">All Team Statistics</center>
-    </font>
+    </div>
 
     <div align="right">
-        <font style="font-family: impact;">
+        <span style="font-family: impact, serif;">
             <a href="#" data-toggle="popover" data-trigger="hover" data-placement="left" title="Glossary"
                data-content="W: Wins <br /> L: Losses <br /> PPG: Points Per Game
                 <br /> FG%: Field Goal Percentage <br /> 3P%: Three Pointer Percentage
                 <br /> DREB: Defensive Rebounds <br /> OREB: Offensive Rebounds <br /> AST: Assists
                 <br /> TOV: Turnovers <br /> STL: Steals <br /> BLK: Blocks <br /> PF: Personal Fouls"
                data-html="true">Glossary</a>
-        </font>
+        </span>
     </div>
 
     <input class="form-control" id="table_search" type="text" placeholder="Search..">
@@ -62,21 +42,19 @@
         {% endfor %}
         </tbody>
     </table>
-</div>
 
-<script>
-    $(document).ready(function () {
-        $("#table_search").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#data_table").find("tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    <script>
+        $(document).ready(function () {
+            $("#table_search").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#data_table").find("tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
         });
-    });
 
-    $(document).ready(function () {
-        $('[data-toggle="popover"]').popover();
-    });
-</script>
-</body>
-</html>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        });
+    </script>
+{% endblock %}

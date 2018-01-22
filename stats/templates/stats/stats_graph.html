@@ -1,38 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'stats/main_template.html' %}
 
-<head>
-    {% load staticfiles %}
-    <title>Stats Graphs</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+{% load static %}
+{% block title %}Stats Graphs{% endblock %}
 
-    <link rel="stylesheet" href="{% static 'stats/style.css' %}"/>
-    <script src="{% static 'js/excanvas.js' %}"></script>
-</head>
-
-<body>
-<div class="container-fluid">
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">NBA Simulator</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="{% url 'tournament_bracket' '2016-17' %}">Home</a></li>
-            <li><a href="{% url 'team_comparisons' %}">View Team Comparisons</a></li>
-            <li><a href="{% url 'standing' '2016-17' %}">View Standing</a></li>
-            <li><a href="{% url 'all_team_stats' %}?sort=Team%20City">View All Teams Statistics</a></li>
-            <li><a href="{% url 'tournament_bracket' '2017-18' %}">View Simulated Results</a></li>
-        </ul>
-    </nav>
-
+{% block content %}
     <div class="container-fluid">
         <div class="col-sm-12">
-            <center><h1>Stats Graphs</h1></center>
+            <div style="text-align: center; font-family: Calibri, serif"><h1>Stats Graphs</h1></div>
         </div>
     </div>
     <hr>
@@ -54,7 +28,7 @@
                 <script type="text/javascript">
                     $.get('{% url "bar_wlr_chart" %}', function (data) {
                         var ctx = $("#WLR").get(0).getContext("2d");
-                        var color = {datasets: [{fillColor: "rgba(220,220,220,0)"}]}
+                        var color = {datasets: [{fillColor: "rgba(220,220,220,0)"}]};
                         new Chart(ctx, {
                             type: 'bar', data: data
                         }).Bar(color, {responsive: true});
@@ -105,8 +79,7 @@
             </div>
         </div>
     </div>
-</div>
-<a href="#" class="btn btn-info" role="button" id="top_button">Back to Top</a>
 
-</body>
-</html>
+    <a href="#" class="btn btn-info" role="button" id="top_button">Back to Top</a>
+
+{% endblock %}

@@ -9,7 +9,9 @@ from os.path import exists
 from os import makedirs
 
 
-# file check functions
+# file check functions - these functions check if a file
+# exists or not. They will create the file by calling the
+# corresponding functions in Main.py if the file does not exists
 def player_dict():
     if not exists(Main.PLAYER_DICT_PATH):
         Main.create_player_dict()
@@ -47,6 +49,9 @@ def game_list():
 
 # directory check functions
 def check_assets_dir():
+    """
+    This function checks if a directory exists. If not it will create one
+    """
     if not exists(Main.PLAYER_BASE_PATH):
         makedirs(Main.PLAYER_BASE_PATH)
 

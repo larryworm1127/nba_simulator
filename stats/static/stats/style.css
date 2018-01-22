@@ -1,6 +1,6 @@
 #background {
     size: 80%;
-} 
+}
 
 .button {
     background-color: transparent;
@@ -43,7 +43,11 @@
 }
 
 #top_button {
-	position: fixed;
-  	bottom: 10px;
-  	left: 10px;
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
+
+h1 {
+    font-size: 50px;
 }

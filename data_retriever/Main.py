@@ -179,6 +179,13 @@ def create_game_list_files():
 
 # helper functions
 def get_id_from_abb(team_abb):
+    """
+    A helper function that return the corresponding team ID given
+    a team abbreviation
+
+    :param team_abb: the team abbreviation
+    :return: the team ID
+    """
     with open(TEAM_DICT_PATH) as team_dict_file:
         team_dict = dict(load(team_dict_file))
 
@@ -188,6 +195,13 @@ def get_id_from_abb(team_abb):
 
 
 def get_abb_from_name(team_name):
+    """
+    A helper function that return the corresponding team abbreviation
+    given a team name
+
+    :param team_name: the name of the team
+    :return: the team abbreviation
+    """
     with open(TEAM_NAME_DICT_PATH) as team_name_file:
         team_data = dict(load(team_name_file))
 

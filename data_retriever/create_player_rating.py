@@ -46,7 +46,6 @@ def sort_player_into_team():
                     sorted_player_ratings.append(player_ratings[player_name])
 
             # put each of the player dictionary inside the team dictionary into a single file
-
             with open(sorted_dir, 'w') as outfile:
                 json.dump(sorted_player_ratings, outfile)
 

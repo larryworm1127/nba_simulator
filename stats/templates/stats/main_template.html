@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <title>{% block title %}Page Title{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'stats/style.css' %}"/>
+    <script src="{% static 'js/excanvas.js' %}"></script>
+</head>
+
+<body>
+<div class="container-fluid">
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">NBA Simulator</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url 'tournament_bracket' '2016-17' %}">Home</a></li>
+            <li><a href="{% url 'team_comparisons' %}">Team Comparisons</a></li>
+            <li><a href="{% url 'standing' '2016-17' %}">Standing</a></li>
+            <li><a href="{% url 'graphs' %}">Stats Graphs</a></li>
+            <li><a href="{% url 'all_team_stats' %}?sort=Team%20City">All Team Stats</a></li>
+            <li><a href="{% url 'tournament_bracket' '2017-18' %}">Simulated Results</a></li>
+        </ul>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+</body>
+</html>
