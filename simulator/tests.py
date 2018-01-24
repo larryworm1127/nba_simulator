@@ -1,9 +1,9 @@
 from unittest import TestCase
-from simulator.single_player_rating import SinglePlayerRating
-from simulator.one_game_simulation import GameSimulation
-from simulator.run_playoff_simulation import *
-from simulator.ranking_teams import rank_team_all, ranking_teams, sort_win_data
-from simulator.run_season_simulation import run_simulation, initialize_playoff
+from simulator.rate_player import SinglePlayerRating
+from simulator.game_simulation import GameSimulation
+from simulator.playoff_simulation import *
+from simulator.rank_teams import rank_team_all, ranking_teams, sort_win_data
+from simulator.season_simulation import run_simulation, initialize_playoff
 
 
 class TestRatingMachine(TestCase):

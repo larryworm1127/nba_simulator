@@ -5,9 +5,9 @@ This module creates data for standing pages
 # general imports
 from json import load
 from os.path import join
-from data_retriever import Main
+from stats_files import Main
 from os import listdir
-from simulator.ranking_teams import rank_team_all
+from simulator.rank_teams import rank_team_all
 
 
 # main functions

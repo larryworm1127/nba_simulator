@@ -5,7 +5,7 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^', include('stats.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^tournament/', include('tournament.urls')),
+    url(r'^stats_brackets/', include('stats_brackets.urls')),
     url(r'^stats/', include('stats.urls')),
-    url(r'^season_games/', include('season_games.urls')),
+    url(r'^stats_team_pages/', include('stats_team_pages.urls')),
 ]

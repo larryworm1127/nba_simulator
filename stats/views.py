@@ -2,12 +2,11 @@ from chartjs.views.lines import BaseLineChartView
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
-from stats.create_graph_data import *
-from stats.game_stats_data import create_data
+from stats.graph_data import *
+from stats.box_score_data import create_data
 from stats.all_team_data import create_team_data
 from stats.standing_data import create_standing_data
-
-from stats.team_comparisons import create_divisions_data
+from stats.comparison_data import create_divisions_data
 
 
 def main_page(request):

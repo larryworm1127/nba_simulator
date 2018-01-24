@@ -2,7 +2,7 @@ from unittest import TestCase
 
 
 from stats.standing_data import get_data, find_indexes, rank_teams, create_standing_data
-from stats.create_graph_data import *
+from stats.graph_data import *
 
 
 class TestWinsLosses(TestCase):
