@@ -6,7 +6,7 @@ from rest_framework.views import APIView
 from json import load
 
 from stats_brackets.bracket_data import BracketData
-from stats_files import Main
+from stats_files import files_main
 from simulator.playoff_simulation import run_whole_simulation
 from simulator.season_simulation import init
 
@@ -22,7 +22,7 @@ class Tournament(APIView):
 def tournament(request, season):
     data = None
     if season == "2017-18":
-        with open(Main.SIMULATE_PLAYOFF_PATH, 'r+') as playoff_file:
+        with open(files_main.SIMULATE_PLAYOFF_PATH, 'r+') as playoff_file:
             data = load(playoff_file)
 
     elif season == "2016-17":
@@ -35,7 +35,7 @@ def tournament(request, season):
 
 
 def bracket(request, season):
-    with open(Main.DIVISION_LIST_PATH) as division_file:
+    with open(files_main.DIVISION_LIST_PATH) as division_file:
         division_dict = load(division_file)
 
     east_teams = {team: 'images/' + team + '.png' for team in division_dict['east']}

@@ -5,7 +5,7 @@ This module creates table data for all team statistic page
 # general imports
 from json import load
 from os.path import join
-from stats_files import Main
+from stats_files import files_main
 from os import listdir
 
 
@@ -17,7 +17,7 @@ def create_team_data(sort):
     :param sort: the type of sorting the web page requested
     :return: the data to be displayed on the web page
     """
-    with open(join(Main.TEAM_SEASON_PATH, 'ATL.json')) as data_file:
+    with open(join(files_main.TEAM_SEASON_PATH, 'ATL.json')) as data_file:
         parsed_json = load(data_file)
 
     result_sets = parsed_json['resultSets']
@@ -70,8 +70,8 @@ def get_data():
     :return: A list containing the data to be sorted and modified
     """
     all_team_lists = []
-    for single_file in listdir(Main.TEAM_SEASON_PATH):
-        with open(join(Main.TEAM_SEASON_PATH, single_file)) as data_file:
+    for single_file in listdir(files_main.TEAM_SEASON_PATH):
+        with open(join(files_main.TEAM_SEASON_PATH, single_file)) as data_file:
             parsed_json = load(data_file)
 
         data = parsed_json['resultSets'][0]['rowSet']

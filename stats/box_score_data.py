@@ -4,13 +4,13 @@ This module creates box score page data
 
 # general imports
 from os.path import join
-from stats_files import Main
+from stats_files import files_main
 from json import load
 
 
 # main functions
 def create_data(game_id):
-    path = join(Main.GAME_BASE_PATH, str(game_id) + '.json')
+    path = join(files_main.GAME_BASE_PATH, str(game_id) + '.json')
     with open(path) as boxscore_file:
         parsed_json = load(boxscore_file)
 

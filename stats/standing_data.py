@@ -5,7 +5,7 @@ This module creates data for standing pages
 # general imports
 from json import load
 from os.path import join
-from stats_files import Main
+from stats_files import files_main
 from os import listdir
 from simulator.rank_teams import rank_team_all
 
@@ -21,12 +21,12 @@ def create_standing_data(season):
 
 
 def rank_teams(season):
-    with open(Main.TEAM_DICT_PATH) as team_dict_file:
+    with open(files_main.TEAM_DICT_PATH) as team_dict_file:
         team_list = load(team_dict_file).values()
 
     team_win_list = []
     for team_abb in team_list:
-        with open(join(Main.TEAM_SEASON_PATH, team_abb + '.json')) as data_file:
+        with open(join(files_main.TEAM_SEASON_PATH, team_abb + '.json')) as data_file:
             data = load(data_file)['resultSets'][0]['rowSet']
 
         for row in data:
@@ -51,7 +51,7 @@ def create_wl_data(season):
              'images/DET.png', 'images/CHA.png', 'images/NOP.png', 'images/DAL.png', 'images/SAC.png', 'images/MIN.png',
              'images/NYK.png', 'images/ORL.png', 'images/PHI.png', 'images/LAL.png', 'images/PHX.png', 'images/BKN.png']
 
-    with open(join(Main.TEAM_SEASON_PATH, 'ATL.json')) as data_file:
+    with open(join(files_main.TEAM_SEASON_PATH, 'ATL.json')) as data_file:
         parsed_json = load(data_file)
 
     result_sets = parsed_json['resultSets']
@@ -91,12 +91,12 @@ def find_indexes(result_sets, headers):
 def get_data(season, ranking=None):
     all_team_lists = []
     if ranking is None:
-        list_iter = listdir(Main.TEAM_SEASON_PATH)
+        list_iter = listdir(files_main.TEAM_SEASON_PATH)
     else:
         list_iter = [team_abb + '.json' for team_abb in ranking.values()]
 
     for single_file in list_iter:
-        with open(join(Main.TEAM_SEASON_PATH, single_file)) as data_file:
+        with open(join(files_main.TEAM_SEASON_PATH, single_file)) as data_file:
             parsed_json = load(data_file)
 
         result_sets = parsed_json['resultSets'][0]['rowSet']
@@ -108,13 +108,13 @@ def get_data(season, ranking=None):
 
 
 def create_simulated_wl_data():
-    with open(join(Main.SIMULATE_RESULT_PATH, 'win_count.json')) as win_file:
+    with open(join(files_main.SIMULATE_RESULT_PATH, 'win_count.json')) as win_file:
         win_list = load(win_file)
 
-    with open(join(Main.SIMULATE_RESULT_PATH, 'loss_count.json')) as loss_file:
+    with open(join(files_main.SIMULATE_RESULT_PATH, 'loss_count.json')) as loss_file:
         loss_list = load(loss_file)
 
-    with open(join(Main.TEAM_SEASON_PATH, 'ATL.json')) as data_file:
+    with open(join(files_main.TEAM_SEASON_PATH, 'ATL.json')) as data_file:
         parsed_json = load(data_file)
 
     result_sets = parsed_json['resultSets']
@@ -132,7 +132,7 @@ def create_simulated_wl_data():
         for index in heading_index:
             single_row.append(row[index])
 
-        team_abb = Main.get_abb_from_name(row[2])
+        team_abb = files_main.get_abb_from_name(row[2])
         single_row.append(win_list[team_abb])
         single_row.append(loss_list[team_abb])
         result_row.append(single_row)

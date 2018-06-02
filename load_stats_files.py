@@ -3,7 +3,7 @@ The run module that runs all data retrieving
 """
 
 # general imports
-from stats_files import *
+from stats_files import team_stats, create_other_files, player_stats, create_player_rating, box_score
 
 
 # run

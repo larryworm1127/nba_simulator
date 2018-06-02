@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {% load staticfiles %}
+    {% load static %}
 
     <title>NBA Simulator</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.5">
     <link rel="stylesheet" href="{% static 'stats/style.css' %}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
 
     <style type="text/css">
         body {
@@ -25,9 +25,9 @@
 <div id="background"></div>
 
 <div class="container" style="width: 51%">
-    <center>
-        <H1 style="font-size: 90px; color: White; font-family: Lato">NBA Simulator</H1>
-    </center>
+    <div style="text-align: center;">
+        <H1 style="font-size: 90px; color: White; font-family: Lato, serif">NBA Simulator</H1>
+    </div>
     <br>
     <br>
 
@@ -40,10 +40,10 @@
 
         <div class="carousel-inner">
             <div class="item active">
-                <center>
+                <div style="text-align: center;">
                     <img src="{% static 'stats/images/slide1.png' %}" alt="Lebron and Curry"
                          style="width: 90%; height: 50%">
-                </center>
+                </div>
                 <div class="carousel-caption">
                     <h3><strong>The Ultimate Matchup</strong></h3>
                     <p><strong>Golden State Warriors vs. Cleveland Cavalier</strong></p>
@@ -51,10 +51,10 @@
             </div>
 
             <div class="item">
-                <center>
+                <div style="text-align: center;">
                     <img src="{% static 'stats/images/slide2.png' %}" alt="Map of NBA"
                          style="width: 90%; height: 50%">
-                </center>
+                </div>
 
                 <div class="carousel-caption">
                     <h3><strong>Map of NBA</strong></h3>
@@ -63,10 +63,10 @@
             </div>
 
             <div class="item">
-                <center>
+                <div style="text-align: center;">
                     <img src="{% static 'stats/images/slide3.png' %}" alt="NBA Draft 2018"
                          style="width: 90%; height: 50%">
-                </center>
+                </div>
 
                 <div class="carousel-caption">
                     <h3><strong>2018 Draft</strong></h3>

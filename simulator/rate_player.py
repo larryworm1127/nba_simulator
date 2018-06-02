@@ -51,6 +51,10 @@ class SinglePlayerRating:
         return self.player_rating
 
     def rate(self):
+        """
+        By calling all the factor methods, a player rating is determined by adding all the
+        return values from the factor methods
+        """
         self.player_rating = ceil(self.points() + self.rebounds() + self.assists() + self.steals() +
                                   self.blocks() + self.turnover() + self.fouls() +
                                   self.field_goal_percentage() + self.free_throw_percentage())

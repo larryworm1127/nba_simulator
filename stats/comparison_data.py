@@ -2,6 +2,7 @@ from stats.all_team_data import get_data
 
 
 def create_divisions_data(compare):
+    # initialize west conference logo path dictionary
     west_divisions = {
         "Northwest Division": [{"DEN": "images/DEN.png"}, {"MIN": "images/MIN.png"}, {"OKC": "images/OKC.png"},
                                {"POR": "images/POR.png"}, {"UTA": "images/UTA.png"}],
@@ -9,6 +10,8 @@ def create_divisions_data(compare):
                              {"PHX": "images/PHX.png"}, {"SAC": "images/SAC.png"}],
         "Southwest Division": [{"DAL": "images/DAL.png"}, {"HOU": "images/HOU.png"}, {"MEM": "images/MEM.png"},
                                {"NOP": "images/NOP.png"}, {"SAS": "images/SAS.png"}]}
+
+    # initialize east conference logo path dictionary
     east_divisions = {
         "Atlantic Division": [{"BOS": "images/BOS.png"}, {"BKN": "images/BKN.png"}, {"NYK": "images/NYK.png"},
                               {"PHI": "images/PHI.png"}, {"TOR": "images/TOR.png"}],
@@ -17,6 +20,8 @@ def create_divisions_data(compare):
         "Southeast Division": [{"ATL": "images/ATL.png"}, {"CHA": "images/CHA.png"},
                                {"MIA": "images/MIA.png"}, {"ORL": "images/ORL.png"},
                                {"WAS": "images/WAS.png"}]}
+
+    # initialize division list
     all_teams = ["Northwest -", "DEN", "MIN", "OKC", "POR", "UTA", "Pacific -", "GSW", "LAC", "LAL", "PHX", "SAC",
                  "Southwest -", "DAL", "HOU", "MEM", "NOP",
                  "SAS",
@@ -26,6 +31,8 @@ def create_divisions_data(compare):
     abbreviations = ["ATL", "BKN", "BOS", "CHA", "CHI", "CLE", "DAL", "DEN", "DET", "GSW", "HOU", "IND", "LAC", "LAL",
                      "MEM", "MIA", "MIL", "MIN", "NOP", "NYK", "OKC", "ORL", "PHI", "PHX", "POR", "SAC", "SAS", "TOR",
                      "UTA", "WAS"]
+
+    # the stats comparing dictionaries
     categories1 = {"W-L R": '', "PPG": '', "FG%": '', "3P%": '', "REB": '', "AST": ''}
     categories2 = {"W-L R": '', "PPG": '', "FG%": '', "3P%": '', "REB": '', "AST": ''}
     categories_index = [7, 32, 17, 20, 26, 27]
@@ -37,6 +44,7 @@ def create_divisions_data(compare):
     team2 = ''
     counter = 0
 
+    # if user selected the two teams and pressed the compare button
     if compare is not None:
         team1 = compare[0:3]
         team2 = compare[3:6]
