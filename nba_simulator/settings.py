@@ -34,7 +34,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'chartjs',
     'rest_framework',
-    'stats_team_pages.apps.SeasonGamesConfig',
     'stats.apps.StatsConfig',
     'stats_brackets.apps.TournamentConfig',
     'django.contrib.admin',

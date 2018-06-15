@@ -3,4 +3,5 @@
 run.bat
 db.sqlite3
 temp
-venv/
+venv
+test
