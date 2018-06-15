@@ -130,7 +130,6 @@ class TestRunPlayoffSimulation(unittest.TestCase):
 
     def test_run_whole_simulation(self):
         result = run_whole_simulation()
-        print(result)
         self.assertTrue(result)
 
     def test_get_playoff_teams(self):

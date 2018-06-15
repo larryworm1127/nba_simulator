@@ -20,13 +20,11 @@ def sort_player_into_team():
 
     # calculate the player ratings
     player_ratings = {}
-    print("Rating players ... Please wait.")
     for player_id in player_dict.keys():
         rating = rate_player.SinglePlayerRating(player_id)
         player_ratings[player_dict[player_id]] = rating.get_rating()
 
     # create team folders if they don't exist
-    print("Sorting players and creating files ... Please wait.")
     with open(files_main.TEAM_DICT_PATH, 'r') as team_dict_file:
         team_dict = json.load(team_dict_file)
 
@@ -49,5 +47,4 @@ def sort_player_into_team():
             with open(sorted_dir, 'w') as outfile:
                 json.dump(sorted_player_ratings, outfile)
 
-    print("Sorting complete.")
     return True  # used in test cases

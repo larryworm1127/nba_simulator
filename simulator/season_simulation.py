@@ -37,9 +37,6 @@ def run_simulation():
         for other_team in other_teams:
             results[team_abb][other_team] = []
 
-    # print a message to let the user know the simulation is running
-    print("Running simulation ...")
-
     counter = 0  # debug use variable
 
     # loop through the game list and simulate all the games

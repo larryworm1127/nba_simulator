@@ -7,13 +7,14 @@ single file data.
 # general imports
 from json import load, dump
 from os.path import join, expanduser, exists
+from sys import path
 
 from datetime import date, timedelta
 from nba_py import player, team, Scoreboard
 
 # constant for the data paths
 # asset base paths
-BASE = expanduser('~')
+BASE = path[0]
 ASSET_BASE = join(BASE, 'assets')
 
 # other base paths

@@ -1,6 +1,5 @@
 .idea
 *.pyc
-assets
 run.bat
 db.sqlite3
 temp
