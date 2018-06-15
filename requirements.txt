@@ -6,12 +6,12 @@
 #########################################################
 
 ## Core Dependencies ##
-Django==1.11.5
+Django==2.0.6
 nba-py==0.1.1a2
 
 ## Secondary Dependencies ##
-django-chartjs==1.2
-djangorestframework==3.7.1
+django-chartjs==1.3
+djangorestframework==3.8.2
 Jinja2==2.9.6
 
 ## Other Dependencies ##

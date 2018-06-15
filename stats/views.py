@@ -9,8 +9,8 @@ from stats.standing_data import create_standing_data
 from stats.comparison_data import create_divisions_data
 
 
-def main_page(request):
-    return render(request, 'stats/main_page.html')
+def index(request):
+    return render(request, 'stats/index.html')
 
 
 def box_score(request):

@@ -1,4 +1,5 @@
-from unittest import TestCase
+import unittest
+
 from simulator.rate_player import SinglePlayerRating
 from simulator.game_simulation import GameSimulation
 from simulator.playoff_simulation import *
@@ -6,7 +7,7 @@ from simulator.rank_teams import rank_team_all, ranking_teams, sort_win_data
 from simulator.season_simulation import run_simulation, initialize_playoff
 
 
-class TestRatingMachine(TestCase):
+class TestRatingMachine(unittest.TestCase):
     def test_rating(self):
         self.assertTrue(SinglePlayerRating('201166'))  # Aaron Brooks
         self.assertTrue(SinglePlayerRating('201935'))  # James Harden
@@ -16,12 +17,9 @@ class TestRatingMachine(TestCase):
         self.assertTrue(SinglePlayerRating('203112'))
 
 
-class TestRunSeasonSimulation(TestCase):
+class TestRunSeasonSimulation(unittest.TestCase):
     def test_run_simulation(self):
         simulation = run_simulation()
-        print(simulation[0])
-        print(simulation[1])
-        print(simulation[2])
         self.assertTrue(simulation[0])
         self.assertTrue(simulation[1])
         self.assertTrue(simulation[2])
@@ -29,8 +27,11 @@ class TestRunSeasonSimulation(TestCase):
         self.assertTrue(max(simulation[1].values()) > 50)
         self.assertTrue(max(simulation[2].values()) > 40)
 
+    def test_initialize_playoff(self):
+        self.assertTrue(initialize_playoff())
 
-class TestOneGameSimulation(TestCase):
+
+class TestOneGameSimulation(unittest.TestCase):
     """
     ATL player rating: 33
     BKN player rating: 87
@@ -56,20 +57,12 @@ class TestOneGameSimulation(TestCase):
         self.assertEqual(simulator.point_difference(), (3, 4))
 
 
-class TestRunSesasonSimulation(TestCase):
-    def test_run_simulation(self):
-        print(run_simulation())
-
-    def test_initialize_playoff(self):
-        print(initialize_playoff())
-
-
-class TestRunPlayoffSimulation(TestCase):
+class TestRunPlayoffSimulation(unittest.TestCase):
     def test_run_single_series(self):
-        print(run_single_series('1610612761', '1610612751'))  # TOR vs BKN
-        print(run_single_series('1610612739', '1610612738'))  # CLE vs BOS
-        print(run_single_series('1610612744', '1610612743'))  # GSW vs DEN
-        print(run_single_series('1610612758', '1610612763'))  # SAS vs MEM
+        self.assertTrue(run_single_series('1610612761', '1610612751'))  # TOR vs BKN
+        self.assertTrue(run_single_series('1610612739', '1610612738'))  # CLE vs BOS
+        self.assertTrue(run_single_series('1610612744', '1610612743'))  # GSW vs DEN
+        self.assertTrue(run_single_series('1610612758', '1610612763'))  # SAS vs MEM
 
     def test_run_round_simulation(self):
         def helper_func(team1, team2):
@@ -144,17 +137,19 @@ class TestRunPlayoffSimulation(TestCase):
         self.assertTrue(get_playoff_teams())
 
 
-class TestRankingTeams(TestCase):
+class TestRankingTeams(unittest.TestCase):
     def test_rank_teams(self):
         actual_result = ranking_teams()
         self.assertTrue(actual_result)
 
     def test_sort_win_data(self):
         actual_result = sort_win_data()
-        print("sort win data: " + str(actual_result))
         self.assertTrue(actual_result)
 
     def test_rank_team_all(self):
         actual_result = rank_team_all()
-        print("rank team all: " + str(actual_result))
         self.assertTrue(actual_result)
+
+
+if __name__ == '__main__':
+    unittest.main()

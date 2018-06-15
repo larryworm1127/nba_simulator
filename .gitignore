@@ -4,3 +4,4 @@ assets
 run.bat
 db.sqlite3
 temp
+venv/

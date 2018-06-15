@@ -1,10 +1,10 @@
-from unittest import TestCase
+import unittest
+
 from stats_team_pages.team_page_data import get_games, data_cleanup, get_simulated_games
 
 
-class TestCreateTeamPageData(TestCase):
+class TestCreateTeamPageData(unittest.TestCase):
     def test_get_games(self):
-        print(get_games('ATL'))
         self.assertTrue(get_games('ATL'))
 
     def test_display_cleanup(self):
@@ -19,5 +19,8 @@ class TestCreateTeamPageData(TestCase):
         self.assertEqual(data_cleanup(ori_header, ori_data), shorten_data)
 
     def test_get_simulated_game(self):
-        print(get_simulated_games('ATL'))
         self.assertTrue(get_simulated_games('ATL'))
+
+
+if __name__ == '__main__':
+    unittest.main()

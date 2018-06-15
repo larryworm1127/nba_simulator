@@ -2,7 +2,7 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.main_page, name='main_page'),
+    url(r'^$', views.index, name='main_page'),
     url(r'^all_team_stats/$', views.all_team_stats, name='all_team_stats'),
     url(r'^box_score/$', views.box_score, name='box_score'),
     url(r'^standing/(?P<season>[0-9-]+)$', views.standing, name='standing'),
