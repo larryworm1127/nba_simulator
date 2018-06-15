@@ -1,6 +1,11 @@
 from chartjs.views.lines import BaseLineChartView
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from json import load
 
 from stats.graph_data import top_ten_wlr, top_ten_points, top_ten_rebounds, top_ten_assists
 from stats.box_score_data import create_data
@@ -8,6 +13,10 @@ from stats.all_team_data import create_team_data
 from stats.standing_data import create_standing_data
 from stats.comparison_data import create_divisions_data
 from stats.team_page_data import get_team_from_abb, get_other_teams, get_simulated_games, get_games
+from stats.bracket_data import BracketData
+from stats_files import files_main
+from simulator.playoff_simulation import run_whole_simulation
+from simulator.season_simulation import init
 
 
 def index(request):
@@ -217,3 +226,49 @@ def season_games(request, team, season):
                }
 
     return render(request, template, context)
+
+
+class Tournament(APIView):
+    def get(self, request, format=None):
+        data = {'key', 'value'}
+        return Response(data)
+
+
+# @api_view(['GET', 'POST'])
+@csrf_exempt
+def tournament(request, season):
+    data = None
+    if season == "2017-18":
+        with open(files_main.SIMULATE_PLAYOFF_PATH, 'r+') as playoff_file:
+            data = load(playoff_file)
+
+    elif season == "2016-17":
+        bracket_data = BracketData()
+
+        bracket_data.create_playoff_data()
+        data = bracket_data.get_final_data()
+
+    return JsonResponse(data)
+
+
+def bracket(request, season):
+    with open(files_main.DIVISION_LIST_PATH) as division_file:
+        division_dict = load(division_file)
+
+    east_teams = {team: 'images/' + team + '.png' for team in division_dict['east']}
+    west_teams = {team: 'images/' + team + '.png' for team in division_dict['west']}
+
+    context = {'season': season,
+               'east_teams': east_teams,
+               'west_teams': west_teams,
+               }
+
+    return render(request, 'stats_brackets/bracket.html', context)
+
+
+def simulate_playoff(request):
+    return JsonResponse(run_whole_simulation())
+
+
+def simulate_season(request):
+    return JsonResponse(init())

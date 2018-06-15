@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'chartjs',
     'rest_framework',
     'stats.apps.StatsConfig',
-    'stats_brackets.apps.TournamentConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
