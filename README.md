@@ -1,4 +1,6 @@
 # Nba Simulator
+[![CircleCI](https://circleci.com/gh/larryworm1127/nba_simulator.svg?style=svg)](https://circleci.com/gh/larryworm1127/nba_simulator)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/37a20c287c1140cdb2b77148447a2cc1)](https://www.codacy.com/app/larryworm1127/nba_simulator?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=larryworm1127/nba_simulator&amp;utm_campaign=Badge_Grade)
 
 ## About
 The NBA Simulator, is a web based Python program in which it can simulate the 2017-18 season result
