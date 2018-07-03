@@ -1,15 +1,13 @@
-"""
-This module creates data for the stats graphs
-"""
+"""This module creates data for the stats graphs"""
 
 # general imports
 from os.path import join
-from stats_files import files_main
+from stats_files import TEAM_SEASON_PATH
 from os import listdir
 from json import load
 
 # create variables
-team_list = listdir(files_main.TEAM_SEASON_PATH)
+team_list = listdir(TEAM_SEASON_PATH)
 
 
 # main functions
@@ -49,7 +47,7 @@ def get_graph_data():
     assists_list = []
 
     for team_dir in team_list:
-        with open(join(files_main.TEAM_SEASON_PATH, team_dir)) as team_season_file:
+        with open(join(TEAM_SEASON_PATH, team_dir)) as team_season_file:
             data = load(team_season_file)
 
         win_loss_ratios = data['resultSets'][0]['rowSet'][-2][7]

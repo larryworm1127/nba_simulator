@@ -7,7 +7,7 @@ to NBA players
 from json import load, dump
 from os.path import join, exists
 from nba_py import player
-from stats_files import files_main
+from stats_files import PLAYER_DICT_PATH, PLAYER_BASE_PATH
 from stats_files import create_other_files
 
 
@@ -19,7 +19,7 @@ def create_game_log_profile(player_id, player_dict):
     :param player_dict: self explanatory
     :param player_id: the ID of the player
     """
-    new_path = join(files_main.PLAYER_BASE_PATH, player_dict[player_id] + '.json')
+    new_path = join(PLAYER_BASE_PATH, player_dict[player_id] + '.json')
     if not exists(new_path):
         print("Retrieving player game log data and creating files ... Please wait.")
         game_log = player.PlayerGameLogs(player_id).json
@@ -34,7 +34,7 @@ def create_player_profile(player_id, player_dict):
     :param player_dict: self explanatory
     :param player_id: the ID of the player
     """
-    new_path = join(files_main.PLAYER_BASE_PATH, 'season_stats/' + player_dict[player_id] + '.json')
+    new_path = join(PLAYER_BASE_PATH, 'season_stats/' + player_dict[player_id] + '.json')
     if not exists(new_path):
         print("Retrieving player season stats data and creating files ... Please wait.")
         season_stats = player.PlayerCareer(player_id).regular_season_totals()
@@ -48,7 +48,7 @@ def init():
     """
     # create preliminary files for players
     create_other_files.init()
-    with open(files_main.PLAYER_DICT_PATH, 'r') as player_dict_file:
+    with open(PLAYER_DICT_PATH, 'r') as player_dict_file:
         player_dict = load(player_dict_file)
 
     for player_id in player_dict.keys():

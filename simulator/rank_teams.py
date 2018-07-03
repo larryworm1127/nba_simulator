@@ -6,7 +6,7 @@ This module contains functions that rank teams based on the number of wins and l
 from json import load, dump
 from os.path import join
 
-from stats_files import files_main
+from stats_files import DIVISION_LIST_PATH, SIMULATE_RANKING_PATH, SIMULATE_RESULT_PATH
 
 
 def ranking_teams():
@@ -16,7 +16,7 @@ def ranking_teams():
     :return: A dictionary where the key is the team rank and the value is the team abbreviation
     """
     # load division file
-    with open(files_main.DIVISION_LIST_PATH) as division_list_file:
+    with open(DIVISION_LIST_PATH) as division_list_file:
         division_list = load(division_list_file)
 
     # initialize variables
@@ -36,7 +36,7 @@ def ranking_teams():
             west_counter += 1
 
     # store the new data
-    with open(files_main.SIMULATE_RANKING_PATH, 'w') as ranking_file:
+    with open(SIMULATE_RANKING_PATH, 'w') as ranking_file:
         dump(result, ranking_file)
 
     return result
@@ -49,7 +49,7 @@ def sort_win_data():
     :return: A list containing tuples of (team abbreviation, number of wins)
     """
     # get data
-    win_count_path = join(files_main.SIMULATE_RESULT_PATH, 'win_count.json')
+    win_count_path = join(SIMULATE_RESULT_PATH, 'win_count.json')
     with open(win_count_path) as win_count_file:
         win_data = dict(load(win_count_file))
 

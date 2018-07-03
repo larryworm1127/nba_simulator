@@ -3,7 +3,7 @@ This module creates player ratings and sort the ratings into the appropriate tea
 """
 
 # general imports
-from stats_files import files_main
+from stats_files import PLAYER_DICT_PATH, TEAM_DICT_PATH, PLAYER_RATING_PATH, PLAYER_SEASON_PATH
 from simulator import rate_player
 from os.path import join, exists
 import json
@@ -15,7 +15,7 @@ def sort_player_into_team():
     create directories and files and sort players into appropriate team folders
     """
     # retrieve preliminary data
-    with open(files_main.PLAYER_DICT_PATH, 'r') as player_dict_file:
+    with open(PLAYER_DICT_PATH, 'r') as player_dict_file:
         player_dict = json.load(player_dict_file)
 
     # calculate the player ratings
@@ -25,17 +25,17 @@ def sort_player_into_team():
         player_ratings[player_dict[player_id]] = rating.get_rating()
 
     # create team folders if they don't exist
-    with open(files_main.TEAM_DICT_PATH, 'r') as team_dict_file:
+    with open(TEAM_DICT_PATH, 'r') as team_dict_file:
         team_dict = json.load(team_dict_file)
 
     for team_abb in team_dict.values():
-        sorted_dir = join(files_main.PLAYER_RATING_PATH, team_abb + '.json')
+        sorted_dir = join(PLAYER_RATING_PATH, team_abb + '.json')
         if not exists(sorted_dir):
             # sort player ratings into teams directories
             sorted_player_ratings = []
             for index in player_dict.keys():
                 player_name = player_dict[index]
-                player_path = join(files_main.PLAYER_SEASON_PATH, player_name + '.json')
+                player_path = join(PLAYER_SEASON_PATH, player_name + '.json')
                 with open(player_path, 'r') as player_file:
                     file = json.load(player_file)
 

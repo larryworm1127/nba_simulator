@@ -8,7 +8,7 @@ from json import load
 from os import listdir
 from os.path import join
 
-from stats_files import files_main, create_other_files
+from stats_files import create_other_files, DIVISION_LIST_PATH, TEAM_PLAYOFF_PATH, TEAM_SEASON_PATH
 
 
 # constant
@@ -27,14 +27,14 @@ class BracketData:
 
         create_other_files.init()
 
-        with open(files_main.DIVISION_LIST_PATH, 'r') as division_file:
+        with open(DIVISION_LIST_PATH, 'r') as division_file:
             division_dict = load(division_file)
 
-        playoff_teams_list = [file.split('.')[0] for file in listdir(files_main.TEAM_PLAYOFF_PATH)]
+        playoff_teams_list = [file.split('.')[0] for file in listdir(TEAM_PLAYOFF_PATH)]
 
         div_list = {}
         for team_name in playoff_teams_list:
-            with open(join(files_main.TEAM_SEASON_PATH, team_name + ".json")) as season_file:
+            with open(join(TEAM_SEASON_PATH, team_name + '.json')) as season_file:
                 data = load(season_file)
                 team_division = 'east' if team_name in division_dict['east'] else 'west'
                 div_list[team_name] = team_division
@@ -54,7 +54,7 @@ class BracketData:
         for team in TEAM_MATCH_LIST[index]:
             team_abb = self.playoff_dict[division][team]
 
-            with open(join(files_main.TEAM_PLAYOFF_PATH, team_abb + '.json')) as playoff_file:
+            with open(join(TEAM_PLAYOFF_PATH, team_abb + '.json')) as playoff_file:
                 team_data = load(playoff_file)
 
             opponent = self.playoff_dict[division][TEAM_OPPONENT[team]]
@@ -86,7 +86,7 @@ class BracketData:
         team_abb = team_list[0]
         opponent = team_list[1]
 
-        with open(join(files_main.TEAM_PLAYOFF_PATH, team_abb + '.json')) as playoff_file:
+        with open(join(TEAM_PLAYOFF_PATH, team_abb + '.json')) as playoff_file:
             team_data = load(playoff_file)
 
         if division == 'final':

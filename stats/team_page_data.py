@@ -3,7 +3,7 @@ This module creates data sets that will be displayed onto the team regular seaso
 """
 
 # general imports
-from stats_files import files_main
+from stats_files import TEAM_SEASON_PATH, TEAM_DICT_PATH, TEAM_BASE_PATH, SIMULATE_RESULT_PATH
 from os.path import join
 from json import load
 
@@ -16,7 +16,7 @@ def get_team_from_abb(team_abb):
     :param team_abb: the team abbreviation of a team
     :return: a string containing the team city and team name
     """
-    with open(join(files_main.TEAM_SEASON_PATH, team_abb + '.json')) as data_file:
+    with open(join(TEAM_SEASON_PATH, team_abb + '.json')) as data_file:
         data = load(data_file)
 
     team_city = data['resultSets'][0]['rowSet'][-2][1]
@@ -33,7 +33,7 @@ def get_other_teams(team_abb):
     :param team_abb: the team abbreviation of a team
     :return: a list containing all teams in the league except the given one
     """
-    with open(files_main.TEAM_DICT_PATH) as team_dict_file:
+    with open(TEAM_DICT_PATH) as team_dict_file:
         team_dict = dict(load(team_dict_file))
 
     team_list = list(team_dict.values())
@@ -48,7 +48,7 @@ def get_games(team_abb):
     :param team_abb: the team abbreviation of the team
     :return: the data to be displayed on the web page
     """
-    with open(join(files_main.TEAM_BASE_PATH, team_abb + '.json')) as data_file:
+    with open(join(TEAM_BASE_PATH, team_abb + '.json')) as data_file:
         game_log_data = load(data_file)
 
     other_teams = get_other_teams(team_abb)
@@ -108,7 +108,7 @@ def get_simulated_games(team_abb):
     :param team_abb: the team abbreviation of the team
     :return: the data to be displayed on the web page
     """
-    with open(join(files_main.SIMULATE_RESULT_PATH, team_abb + '.json')) as data_file:
+    with open(join(SIMULATE_RESULT_PATH, team_abb + '.json')) as data_file:
         team_data = load(data_file)
 
     other_teams = get_other_teams(team_abb)

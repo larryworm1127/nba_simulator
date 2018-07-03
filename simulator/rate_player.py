@@ -8,7 +8,7 @@ from math import ceil
 from enum import Enum
 from os.path import join
 
-from stats_files import files_main
+from stats_files import PLAYER_DICT_PATH, PLAYER_SEASON_PATH
 
 
 # preliminary variables
@@ -108,13 +108,13 @@ def prepare_data(player_id):
     :return: a list containing player stats and a string for player position
     """
     # prepare player dict data
-    with open(files_main.PLAYER_DICT_PATH, 'r') as player_dict_file:
+    with open(PLAYER_DICT_PATH, 'r') as player_dict_file:
         player_dict = dict(load(player_dict_file))
 
     # load the season stats for the player
     player_name = player_dict[player_id]
     player_stat = {}
-    path = join(files_main.PLAYER_SEASON_PATH, player_name + '.json')
+    path = join(PLAYER_SEASON_PATH, player_name + '.json')
     with open(path) as season_file:
         data = load(season_file)
 

@@ -14,7 +14,7 @@ from stats.standing_data import create_standing_data
 from stats.comparison_data import create_divisions_data
 from stats.team_page_data import get_team_from_abb, get_other_teams, get_simulated_games, get_games
 from stats.bracket_data import BracketData
-from stats_files import files_main
+from stats_files import DIVISION_LIST_PATH, SIMULATE_PLAYOFF_PATH
 from simulator.playoff_simulation import run_whole_simulation
 from simulator.season_simulation import init
 
@@ -239,7 +239,7 @@ class Tournament(APIView):
 def tournament(request, season):
     data = None
     if season == "2017-18":
-        with open(files_main.SIMULATE_PLAYOFF_PATH, 'r+') as playoff_file:
+        with open(SIMULATE_PLAYOFF_PATH, 'r+') as playoff_file:
             data = load(playoff_file)
 
     elif season == "2016-17":
@@ -252,7 +252,7 @@ def tournament(request, season):
 
 
 def bracket(request, season):
-    with open(files_main.DIVISION_LIST_PATH) as division_file:
+    with open(DIVISION_LIST_PATH) as division_file:
         division_dict = load(division_file)
 
     east_teams = {team: 'images/' + team + '.png' for team in division_dict['east']}

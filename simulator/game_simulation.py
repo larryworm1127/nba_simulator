@@ -7,7 +7,7 @@ from json import load
 import random
 from os.path import join
 
-from stats_files import files_main
+from stats_files import TEAM_DICT_PATH, TEAM_BASE_PATH, PLAYER_RATING_PATH
 
 
 class GameSimulation:
@@ -31,7 +31,7 @@ class GameSimulation:
         self.winner = None
 
         # set up team dict data
-        with open(files_main.TEAM_DICT_PATH, 'r') as team_dict_file:
+        with open(TEAM_DICT_PATH, 'r') as team_dict_file:
             self.team_dict = load(team_dict_file)
 
         # prepare data for simulation
@@ -63,8 +63,8 @@ class GameSimulation:
 
     def prepare_game_log_data(self):
         # initialize data files
-        team1_path = join(files_main.TEAM_BASE_PATH, self.team_dict[self.team_one] + '.json')
-        team2_path = join(files_main.TEAM_BASE_PATH, self.team_dict[self.team_two] + '.json')
+        team1_path = join(TEAM_BASE_PATH, self.team_dict[self.team_one] + '.json')
+        team2_path = join(TEAM_BASE_PATH, self.team_dict[self.team_two] + '.json')
         with open(team1_path, 'r') as team1_file:
             data1 = load(team1_file)['resultSets'][0]['rowSet']
         with open(team2_path, 'r') as team2_file:
@@ -97,8 +97,8 @@ class GameSimulation:
         # load files and put data in global variables
         team1_abb = self.team_dict[self.team_one]
         team2_abb = self.team_dict[self.team_two]
-        team1_path = join(files_main.PLAYER_RATING_PATH, team1_abb + '.json')
-        team2_path = join(files_main.PLAYER_RATING_PATH, team2_abb + '.json')
+        team1_path = join(PLAYER_RATING_PATH, team1_abb + '.json')
+        team2_path = join(PLAYER_RATING_PATH, team2_abb + '.json')
         with open(team1_path, 'r') as team1_file:
             self.team1_ratings = load(team1_file)
 

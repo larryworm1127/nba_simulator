@@ -7,16 +7,17 @@ from os.path import join, exists
 from os import remove
 from json import dump, load
 
-from stats_files import files_main, create_other_files
+from stats_files import create_other_files, GAME_LIST_PATH, TEAM_DICT_PATH, SIMULATE_RANKING_PATH, \
+    SIMULATE_PLAYOFF_PATH, SIMULATE_RESULT_PATH
 from simulator import game_simulation as sim
 from simulator.rank_teams import ranking_teams
 
 create_other_files.init()
 
-with open(files_main.GAME_LIST_PATH, 'r') as game_list_file:
+with open(GAME_LIST_PATH, 'r') as game_list_file:
     game_list = load(game_list_file)
 
-with open(files_main.TEAM_DICT_PATH, 'r') as team_dict_file:
+with open(TEAM_DICT_PATH, 'r') as team_dict_file:
     team_dict = dict(load(team_dict_file))
 
 
@@ -80,7 +81,7 @@ def initialize_playoff():
     team_opponent = {1: 8, 2: 7, 3: 6, 4: 5, 5: 4, 6: 3, 7: 2, 8: 1}
 
     # reads the ranking file
-    with open(files_main.SIMULATE_RANKING_PATH) as ranking_file:
+    with open(SIMULATE_RANKING_PATH) as ranking_file:
         ranking_data = load(ranking_file)
 
     # initialize the result data
@@ -95,9 +96,9 @@ def initialize_playoff():
                     check_list.remove(team_opponent[rank])
 
     # check if the file exist, if it does, then delete it and create a new one
-    if exists(files_main.SIMULATE_PLAYOFF_PATH):
-        remove(files_main.SIMULATE_PLAYOFF_PATH)
-    with open(files_main.SIMULATE_PLAYOFF_PATH, 'w') as playoff_file:
+    if exists(SIMULATE_PLAYOFF_PATH):
+        remove(SIMULATE_PLAYOFF_PATH)
+    with open(SIMULATE_PLAYOFF_PATH, 'w') as playoff_file:
         dump(final_result, playoff_file)
 
     return final_result  # test case use only
@@ -113,17 +114,17 @@ def init():
 
     for team in team_dict.values():
         team_result = results[0][team]
-        team_path = join(files_main.SIMULATE_RESULT_PATH, team + '.json')
+        team_path = join(SIMULATE_RESULT_PATH, team + '.json')
         with open(team_path, 'w') as result_file:
             dump(team_result, result_file)
 
     # create win count file
-    win_count_path = join(files_main.SIMULATE_RESULT_PATH, 'win_count.json')
+    win_count_path = join(SIMULATE_RESULT_PATH, 'win_count.json')
     with open(win_count_path, 'w') as win_count_file:
         dump(results[1], win_count_file)
 
     # create loss count file
-    loss_count_path = join(files_main.SIMULATE_RESULT_PATH, 'loss_count.json')
+    loss_count_path = join(SIMULATE_RESULT_PATH, 'loss_count.json')
     with open(loss_count_path, 'w') as loss_count_file:
         dump(results[2], loss_count_file)
 

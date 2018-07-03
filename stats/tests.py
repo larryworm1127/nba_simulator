@@ -1,7 +1,12 @@
+# general imports
 import unittest
+from json import load
+from os.path import join
+
 
 from stats.standing_data import get_data, find_indexes, rank_teams, create_standing_data
-from stats.graph_data import *
+from stats.graph_data import TEAM_SEASON_PATH, get_graph_data, top_ten_rebounds, top_ten_wlr, top_ten_assists, \
+    top_ten_points
 from stats.team_page_data import get_games, data_cleanup, get_simulated_games
 
 
@@ -16,7 +21,7 @@ class TestWinsLosses(unittest.TestCase):
 
     def test_find_indexes(self):
         headings = ['TEAM_CITY', 'TEAM_NAME']
-        with open(join(files_main.TEAM_SEASON_PATH, 'ATL.json')) as data_file:
+        with open(join(TEAM_SEASON_PATH, 'ATL.json')) as data_file:
             parsed_json = load(data_file)
 
         result_sets = parsed_json['resultSets']

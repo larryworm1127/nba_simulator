@@ -1,3 +1,6 @@
+"""This module formats data needed for team comparison page"""
+
+# general imports
 from stats.all_team_data import get_data
 
 
