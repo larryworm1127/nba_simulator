@@ -38,11 +38,11 @@ Here is a list of features implemented in the program:
     
 ## How to use it
 **Python 3.6** is required to run the program.
->To begin using the program, either clone the project or download it as a zip file: \
+>To begin using the program, either clone the project or download it as a zip file:
 > ```bash
 > git clone https://github.com/larryworm1127/RecipeGenerator.git
 > ```
-> or use: ```Download Zip``` on GitHub
+> or use: `Download Zip` on GitHub
 
 > Once the project is downloaded, go the the project directory
 > ```bash
