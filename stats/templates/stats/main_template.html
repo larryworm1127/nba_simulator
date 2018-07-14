@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+  <head>
     {% load static %}
     <title>{% block title %}Page Title{% endblock %}</title>
     <meta charset="utf-8">
@@ -12,38 +12,38 @@
     <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'stats/style.css' %}"/>
     <script src="{% static 'js/excanvas.js' %}"></script>
-</head>
+  </head>
 
-<body>
-<div class="container" style="width: 80%">
-    <nav class="navbar navbar-inverse">
+  <body>
+    <div class="container" style="width: 80%">
+      <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">NBA Simulator</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="{% url 'tournament_bracket' '2016-17' %}">Home</a></li>
-                    <li><a href="{% url 'team_comparisons' %}">Team Comparisons</a></li>
-                    <li><a href="{% url 'standing' '2016-17' %}">Standing</a></li>
-                    <li><a href="{% url 'graphs' %}">Stats Graphs</a></li>
-                    <li><a href="{% url 'all_team_stats' %}?sort=Team%20City">All Team Stats</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{% url 'tournament_bracket' '2017-18' %}">Simulated Results</a></li>
-                </ul>
-            </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">NBA Simulator</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="{% url 'tournament_bracket' '2016-17' %}">Home</a></li>
+              <li><a href="{% url 'team_comparisons' %}">Team Comparisons</a></li>
+              <li><a href="{% url 'standing' '2016-17' %}">Standing</a></li>
+              <li><a href="{% url 'graphs' %}">Stats Graphs</a></li>
+              <li><a href="{% url 'all_team_stats' %}?sort=Team%20City">All Team Stats</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="{% url 'tournament_bracket' '2017-18' %}">Simulated Results</a></li>
+            </ul>
+          </div>
         </div>
-    </nav>
+      </nav>
 
-    {% block content %}
-    {% endblock %}
+      {% block content %}
+      {% endblock %}
 
-</div>
-</body>
+    </div>
+  </body>
 </html>

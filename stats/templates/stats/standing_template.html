@@ -1,81 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+  <head>
     {% load static %}
     <title>
-        {% block title %}Page Title{% endblock %}
+      {% block title %}Page Title{% endblock %}
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
-</head>
+  </head>
 
-<body>
-<div class="container" style="width: 80%">
-    <nav class="navbar navbar-inverse">
+  <body>
+    <div class="container" style="width: 80%">
+      <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">NBA Simulator</a>
-            </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                {% if season == '2016-17' %}
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="{% url 'tournament_bracket' '2016-17' %}">Home</a></li>
-                        <li><a href="{% url 'team_comparisons' %}">Team Comparisons</a></li>
-                        <li><a href="{% url 'standing' '2016-17' %}">Standing</a></li>
-                        <li><a href="{% url 'graphs' %}">Stats Graphs</a></li>
-                        <li><a href="{% url 'all_team_stats' %}?sort=Team%20City">All Team Stats</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{% url 'tournament_bracket' '2017-18' %}">Simulated Results</a></li>
-                    </ul>
-                {% endif %}
-                {% if season == '2017-18' %}
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="{% url 'tournament_bracket' '2017-18' %}">Home</a></li>
-                        <li><a href="{% url 'standing' season %}">Standing</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{% url 'tournament_bracket' '2016-17' %}">Previous Year Stats</a></li>
-                    </ul>
-                {% endif %}
-            </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">NBA Simulator</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            {% if season == '2016-17' %}
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url 'tournament_bracket' '2016-17' %}">Home</a></li>
+                <li><a href="{% url 'team_comparisons' %}">Team Comparisons</a></li>
+                <li><a href="{% url 'standing' '2016-17' %}">Standing</a></li>
+                <li><a href="{% url 'graphs' %}">Stats Graphs</a></li>
+                <li><a href="{% url 'all_team_stats' %}?sort=Team%20City">All Team Stats</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'tournament_bracket' '2017-18' %}">Simulated Results</a></li>
+              </ul>
+            {% endif %}
+            {% if season == '2017-18' %}
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url 'tournament_bracket' '2017-18' %}">Home</a></li>
+                <li><a href="{% url 'standing' season %}">Standing</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'tournament_bracket' '2016-17' %}">Previous Year Stats</a></li>
+              </ul>
+            {% endif %}
+          </div>
         </div>
-    </nav>
+      </nav>
 
-    <div class="container-fluid">
+      <div class="container-fluid">
         <div class="col-sm-12">
-            <div style="text-align: center; font-family: Calibri, serif"><h1>NBA Team Standings</h1></div>
+          <div style="text-align: center; font-family: Calibri, serif"><h1>NBA Team Standings</h1></div>
         </div>
-    </div>
+      </div>
 
-    <input class="form-control" id="table_search" type="text" placeholder="Search..">
-    <br>
+      <input class="form-control" id="table_search" type="text" placeholder="Search..">
+      <br>
 
-    <table class="table table-hover">
+      <table class="table table-hover">
         {% block content %}
         {% endblock %}
-    </table>
-</div>
+      </table>
+    </div>
 
-<script>
-    $(document).ready(function () {
-        $("#table_search").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#data_table").find("tr").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    <script>
+        $(document).ready(function () {
+            $("#table_search").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#data_table").find("tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
             });
         });
-    });
-</script>
+    </script>
 
-</body>
+  </body>
 </html>

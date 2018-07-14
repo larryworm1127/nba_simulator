@@ -4,8 +4,7 @@
 
 .button {
     background-color: transparent;
-    border-width: 5px;
-    border-color: white;
+    border: 5px white;
     color: white;
     padding: 40px;
     text-align: center;

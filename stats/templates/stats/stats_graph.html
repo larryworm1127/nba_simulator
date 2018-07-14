@@ -4,82 +4,82 @@
 {% block title %}Stats Graphs{% endblock %}
 
 {% block content %}
+  <div class="container-fluid">
+    <div class="col-sm-12">
+      <div style="text-align: center; font-family: Calibri, serif"><h1>Stats Graphs</h1></div>
+    </div>
+  </div>
+  <hr>
+
+  <div class="row">
+    <nav class="col-sm-2" id="myScrollspy">
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#WLR">Win - Loss Ratios</a></li>
+        <li><a href="#PPG">Points Per Game</a></li>
+        <li><a href="#RPG">Rebounds Per Game</a></li>
+        <li><a href="#APG">Assists Per Game</a></li>
+        <hr>
+      </ul>
+    </nav>
+
     <div class="container-fluid">
-        <div class="col-sm-12">
-            <div style="text-align: center; font-family: Calibri, serif"><h1>Stats Graphs</h1></div>
-        </div>
+      <div class="col-sm-10">
+        <canvas id="WLR"></canvas>
+        <script type="text/javascript">
+            $.get('{% url "bar_wlr_chart" %}', function (data) {
+                var ctx = $("#WLR").get(0).getContext("2d");
+                var color = {datasets: [{fillColor: "rgba(220,220,220,0)"}]};
+                new Chart(ctx, {
+                    type: 'bar', data: data
+                }).Bar(color, {responsive: true});
+            });
+        </script>
+        <br>
+        <hr>
+        <br>
+
+        <canvas id="PPG"></canvas>
+        <script type="text/javascript">
+            $.get('{% url "bar_points_chart" %}', function (data) {
+                var ctx = $("#PPG").get(0).getContext("2d");
+                new Chart(ctx, {
+                    type: 'bar', data: data
+                });
+            });
+        </script>
+        <br>
+        <hr>
+        <br>
+
+        <canvas id="RPG"></canvas>
+        <script type="text/javascript">
+            $.get('{% url "bar_rebounds_chart" %}', function (data) {
+                var ctx = $("#RPG").get(0).getContext("2d");
+                new Chart(ctx, {
+                    type: 'bar', data: data
+                });
+            });
+        </script>
+        <br>
+        <hr>
+        <br>
+
+        <canvas id="APG"></canvas>
+        <script type="text/javascript">
+            $.get('{% url "bar_assists_chart" %}', function (data) {
+                var ctx = $("#APG").get(0).getContext("2d");
+                new Chart(ctx, {
+                    type: 'bar', data: data
+                });
+            });
+        </script>
+        <br>
+        <hr>
+        <br>
+      </div>
     </div>
-    <hr>
+  </div>
 
-    <div class="row">
-        <nav class="col-sm-2" id="myScrollspy">
-            <ul class="nav nav-pills nav-stacked">
-                <li><a href="#WLR">Win - Loss Ratios</a></li>
-                <li><a href="#PPG">Points Per Game</a></li>
-                <li><a href="#RPG">Rebounds Per Game</a></li>
-                <li><a href="#APG">Assists Per Game</a></li>
-                <hr>
-            </ul>
-        </nav>
-
-        <div class="container-fluid">
-            <div class="col-sm-10">
-                <canvas id="WLR"></canvas>
-                <script type="text/javascript">
-                    $.get('{% url "bar_wlr_chart" %}', function (data) {
-                        var ctx = $("#WLR").get(0).getContext("2d");
-                        var color = {datasets: [{fillColor: "rgba(220,220,220,0)"}]};
-                        new Chart(ctx, {
-                            type: 'bar', data: data
-                        }).Bar(color, {responsive: true});
-                    });
-                </script>
-                <br>
-                <hr>
-                <br>
-
-                <canvas id="PPG"></canvas>
-                <script type="text/javascript">
-                    $.get('{% url "bar_points_chart" %}', function (data) {
-                        var ctx = $("#PPG").get(0).getContext("2d");
-                        new Chart(ctx, {
-                            type: 'bar', data: data
-                        });
-                    });
-                </script>
-                <br>
-                <hr>
-                <br>
-
-                <canvas id="RPG"></canvas>
-                <script type="text/javascript">
-                    $.get('{% url "bar_rebounds_chart" %}', function (data) {
-                        var ctx = $("#RPG").get(0).getContext("2d");
-                        new Chart(ctx, {
-                            type: 'bar', data: data
-                        });
-                    });
-                </script>
-                <br>
-                <hr>
-                <br>
-
-                <canvas id="APG"></canvas>
-                <script type="text/javascript">
-                    $.get('{% url "bar_assists_chart" %}', function (data) {
-                        var ctx = $("#APG").get(0).getContext("2d");
-                        new Chart(ctx, {
-                            type: 'bar', data: data
-                        });
-                    });
-                </script>
-                <br>
-                <hr>
-                <br>
-            </div>
-        </div>
-    </div>
-
-    <a href="#" class="btn btn-info" role="button" id="top_button">Back to Top</a>
+  <a href="#" class="btn btn-info" role="button" id="top_button">Back to Top</a>
 
 {% endblock %}

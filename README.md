@@ -60,7 +60,7 @@ Here is a list of features implemented in the program:
 
 > After activating the virtual environment, run:
 > ```bash
-> python manage.py runserver
+> $ python manage.py runserver
 > ```
 > and the following output should appear on console:
 > ```

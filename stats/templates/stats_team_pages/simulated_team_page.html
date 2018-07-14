@@ -4,44 +4,44 @@
 
 {% block content %}
 
-    <nav class="col-sm-2" id="myScrollspy">
-        <ul class="nav nav-pills nav-stacked">
-            {% for other_team in team_list %}
-                <li><a href="#{{ other_team }}">{{ other_team }}</a></li>
-            {% endfor %}
-            <hr>
-        </ul>
-        <a href="#" class="btn btn-info" role="button" id="top_button">Back to Top</a>
-    </nav>
+  <nav class="col-sm-2" id="myScrollspy">
+    <ul class="nav nav-pills nav-stacked">
+      {% for other_team in team_list %}
+        <li><a href="#{{ other_team }}">{{ other_team }}</a></li>
+      {% endfor %}
+      <hr>
+    </ul>
+    <a href="#" class="btn btn-info" role="button" id="top_button">Back to Top</a>
+  </nav>
 
-    <div class="col-sm-10">
-        {% for other_team, data in game_dict.items %}
-            <div id="{{ other_team }}">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4>{{ data.HEADER }}</h4>
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                {% for header in data.TAB_HEADERS %}
-                                    <th>{{ header }}</th>
-                                {% endfor %}
-                            </tr>
-                            </thead>
-                            <tbody id="data_table">
-                            <tr>
-                                {% for column in data.DISPLAY %}
-                                    <td>{{ column }}</td>
-                                {% endfor %}
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+  <div class="col-sm-10">
+    {% for other_team, data in game_dict.items %}
+      <div id="{{ other_team }}">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4>{{ data.HEADER }}</h4>
+          </div>
+          <div class="panel-body">
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                {% for header in data.TAB_HEADERS %}
+                  <th>{{ header }}</th>
+                {% endfor %}
+              </tr>
+              </thead>
+              <tbody id="data_table">
+              <tr>
+                {% for column in data.DISPLAY %}
+                  <td>{{ column }}</td>
+                {% endfor %}
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 
 {% endblock %}

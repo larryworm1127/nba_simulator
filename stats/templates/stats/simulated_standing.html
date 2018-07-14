@@ -5,23 +5,23 @@
 
 {% block content %}
 
-    <thead>
-    <tr>
-        {% for header in headers %}
-            <th>{{ header }} </th>
-        {% endfor %}
-    </tr>
-    </thead>
-    <tbody id="data_table">
-    {% for row in rows %}
-        <tr>
-            <td>{{ row.0 }}</td>
-            <td>{{ row.1 }}</td>
-            <td>{{ row.2 }}</td>
-            <td>{{ row.3 }}</td>
-            <td>{{ row.4 }}</td>
-        </tr>
+  <thead>
+  <tr>
+    {% for header in headers %}
+      <th>{{ header }} </th>
     {% endfor %}
-    </tbody>
+  </tr>
+  </thead>
+  <tbody id="data_table">
+  {% for row in rows %}
+    <tr>
+      <td>{{ row.0 }}</td>
+      <td>{{ row.1 }}</td>
+      <td>{{ row.2 }}</td>
+      <td>{{ row.3 }}</td>
+      <td>{{ row.4 }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
 
 {% endblock %}

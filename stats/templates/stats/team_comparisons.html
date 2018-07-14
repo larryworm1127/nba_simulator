@@ -4,155 +4,155 @@
 {% block title %}Team Comparisons{% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
-        <div class="col-sm-12">
-            <div style="text-align: center; font-family: Calibri, serif"><h1>Team Comparisons</h1></div>
-        </div>
+  <div class="container-fluid">
+    <div class="col-sm-12">
+      <div style="text-align: center; font-family: Calibri, serif"><h1>Team Comparisons</h1></div>
+    </div>
+  </div>
+
+  <div align="right">
+    <span style="font-family: impact, serif;">
+      <a href="#" data-toggle="popover" data-trigger="hover" data-placement="left" title="Glossary"
+         data-content="W-L R: Win-Loss Ratio <br /> PPG: Points Per Game <br /> FG%: Field Goal Percentage <br />
+             3P%: Three Pointer Percentage <br /> REB: Rebounds <br /> AST: Assists"
+         data-html="true">Glossary</a>
+    </span>
+  </div>
+  <hr>
+
+  <div class="container" style="width: 100%">
+    <div style="text-align: center;">
+      <div class="col-sm-3">
+        {% for divisions, teams in west_divisions.items %}
+          <h4 class="Heading" style="font-family: Arial Black, serif">{{ divisions }}</h4>
+          {% for team in teams %}
+            {% for team, image in team.items %}
+              <h4 class="Team">
+                <img src="{% static image %}" alt="Team Logo" style="width: 30px; height: 20px">
+                {{ team }}
+              </h4>
+            {% endfor %}
+          {% endfor %}
+          <br>
+        {% endfor %}
+      </div>
     </div>
 
-    <div align="right">
-        <span style="font-family: impact, serif;">
-            <a href="#" data-toggle="popover" data-trigger="hover" data-placement="left" title="Glossary"
-               data-content="W-L R: Win-Loss Ratio <br /> PPG: Points Per Game <br /> FG%: Field Goal Percentage <br />
-                   3P%: Three Pointer Percentage <br /> REB: Rebounds <br /> AST: Assists"
-               data-html="true">Glossary</a>
-        </span>
-    </div>
-    <hr>
-
-    <div class="container" style="width: 100%">
-        <div style="text-align: center;">
-            <div class="col-sm-3">
-                {% for divisions, teams in west_divisions.items %}
-                    <h4 class="Heading" style="font-family: Arial Black, serif">{{ divisions }}</h4>
-                    {% for team in teams %}
-                        {% for team, image in team.items %}
-                            <h4 class="Team">
-                                <img src="{% static image %}" alt="Team Logo" style="width: 30px; height: 20px">
-                                {{ team }}
-                            </h4>
-                        {% endfor %}
-                    {% endfor %}
-                    <br>
-                {% endfor %}
-            </div>
-        </div>
-
-        <div style="text-align: center;">
-            <div class="col-sm-3">
-                {% for divisions, teams in east_divisions.items %}
-                    <h4 class="Heading" style="font-family: Arial Black, serif">{{ divisions }}</h4>
-                    {% for team in teams %}
-                        {% for team, image in team.items %}
-                            <h4 class="Team">
-                                <img src="{% static image %}" alt="Team Logo" style="width: 30px; height: 20px">
-                                {{ team }}
-                            </h4>
-                        {% endfor %}
-                    {% endfor %}
-                    <br>
-                {% endfor %}
-            </div>
-        </div>
-
-        <div style="text-align: center;">
-            <div class="col-sm-2">
-                <h4 class="Heading" style="font-family: Calibri, serif">Team One</h4>
-                <label for="team1"></label><select id="team1" onchange="team1()" class="form-control">
-                {% for team in all_teams %}
-                    <option value="{{ team }}">{{ team }}</option>
-                {% endfor %}
-            </select>
-                {% for team, logo in team1.items %}
-                    <h3 id="name1" style="font-family: Arial Black, serif">{{ team }}</h3>
-                    <img id="logo1" src="{% static logo %}" alt="Click Compare"
-                         style="width: 45px; height: 30px">
-                {% endfor %}
-                <br>
-                <br>
-                <table class="table table-hover">
-                    <tbody id="team1_table">
-                    {% for category, stat in categories1.items %}
-                        <tr>
-                            <td style="font-family: Calibri Black, serif">{{ category }}</td>
-                            <td id="stat1">{{ stat }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div style="text-align: center;">
-            <div class="col-sm-2">
-                <h4 class="Heading" style="font-family: Calibri, serif">Team Two</h4>
-                <label for="team2"></label><select id="team2" onchange="team2()" class="form-control">
-                {% for team in all_teams %}
-                    <option value="{{ team }}">{{ team }}</option>
-                {% endfor %}
-            </select>
-                {% for team, logo in team2.items %}
-                    <h3 id="name2" style="font-family: Arial Black, serif">{{ team }}</h3>
-                    <img id="logo2" src="{% static logo %}" alt="Click Compare"
-                         style="width: 45px; height: 30px">
-                {% endfor %}
-                <br>
-                <br>
-                <table class="table table-hover">
-                    <tbody id="team2_table">
-                    {% for category, stat in categories2.items %}
-                        <tr>
-                            <td style="font-family: Calibri Black, serif">{{ category }}</td>
-                            <td id="stat2">{{ stat }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div style="text-align: center;">
-            <div class="col-sm-2">
-                <br>
-                <br>
-                <a id="my_compare" onclick="compare()" href="">
-                    <button type="button" class="btn btn-primary" id="compare">
-                        Compare
-                    </button>
-                </a>
-            </div>
-        </div>
+    <div style="text-align: center;">
+      <div class="col-sm-3">
+        {% for divisions, teams in east_divisions.items %}
+          <h4 class="Heading" style="font-family: Arial Black, serif">{{ divisions }}</h4>
+          {% for team in teams %}
+            {% for team, image in team.items %}
+              <h4 class="Team">
+                <img src="{% static image %}" alt="Team Logo" style="width: 30px; height: 20px">
+                {{ team }}
+              </h4>
+            {% endfor %}
+          {% endfor %}
+          <br>
+        {% endfor %}
+      </div>
     </div>
 
-    <div class="space"></div>
-    <hr>
+    <div style="text-align: center;">
+      <div class="col-sm-2">
+        <h4 class="Heading" style="font-family: Calibri, serif">Team One</h4>
+        <label for="team1"></label><select id="team1" onchange="team1()" class="form-control">
+        {% for team in all_teams %}
+          <option value="{{ team }}">{{ team }}</option>
+        {% endfor %}
+      </select>
+        {% for team, logo in team1.items %}
+          <h3 id="name1" style="font-family: Arial Black, serif">{{ team }}</h3>
+          <img id="logo1" src="{% static logo %}" alt="Click Compare"
+               style="width: 45px; height: 30px">
+        {% endfor %}
+        <br>
+        <br>
+        <table class="table table-hover">
+          <tbody id="team1_table">
+          {% for category, stat in categories1.items %}
+            <tr>
+              <td style="font-family: Calibri Black, serif">{{ category }}</td>
+              <td id="stat1">{{ stat }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="text-align: center;">
+      <div class="col-sm-2">
+        <h4 class="Heading" style="font-family: Calibri, serif">Team Two</h4>
+        <label for="team2"></label><select id="team2" onchange="team2()" class="form-control">
+        {% for team in all_teams %}
+          <option value="{{ team }}">{{ team }}</option>
+        {% endfor %}
+      </select>
+        {% for team, logo in team2.items %}
+          <h3 id="name2" style="font-family: Arial Black, serif">{{ team }}</h3>
+          <img id="logo2" src="{% static logo %}" alt="Click Compare"
+               style="width: 45px; height: 30px">
+        {% endfor %}
+        <br>
+        <br>
+        <table class="table table-hover">
+          <tbody id="team2_table">
+          {% for category, stat in categories2.items %}
+            <tr>
+              <td style="font-family: Calibri Black, serif">{{ category }}</td>
+              <td id="stat2">{{ stat }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style="text-align: center;">
+      <div class="col-sm-2">
+        <br>
+        <br>
+        <a id="my_compare" onclick="compare()" href="">
+          <button type="button" class="btn btn-primary" id="compare">
+            Compare
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="space"></div>
+  <hr>
 
 
-    <script>
-        $(document).ready(function () {
-            $('[data-toggle="popover"]').popover();
-        });
+  <script>
+      $(document).ready(function () {
+          $('[data-toggle="popover"]').popover();
+      });
 
-        function team1() {
-            var team1 = document.getElementById("team1").value;
-            if (team1.length < 4) {
-                document.getElementById("name1").innerHTML = team1;
-                document.getElementById("logo1").src = "";
-            }
-        }
+      function team1() {
+          var team1 = document.getElementById("team1").value;
+          if (team1.length < 4) {
+              document.getElementById("name1").innerHTML = team1;
+              document.getElementById("logo1").src = "";
+          }
+      }
 
-        function team2() {
-            var team2 = document.getElementById("team2").value;
-            if (team2.length < 4) {
-                document.getElementById("name2").innerHTML = team2;
-                document.getElementById("logo2").src = "";
-            }
-        }
+      function team2() {
+          var team2 = document.getElementById("team2").value;
+          if (team2.length < 4) {
+              document.getElementById("name2").innerHTML = team2;
+              document.getElementById("logo2").src = "";
+          }
+      }
 
-        function compare() {
-            var team1 = document.getElementById("name1").innerHTML;
-            var team2 = document.getElementById("name2").innerHTML;
-            document.getElementById("my_compare").href = "?compare=" + team1 + team2;
-        }
-    </script>
+      function compare() {
+          var team1 = document.getElementById("name1").innerHTML;
+          var team2 = document.getElementById("name2").innerHTML;
+          document.getElementById("my_compare").href = "?compare=" + team1 + team2;
+      }
+  </script>
 {% endblock %}

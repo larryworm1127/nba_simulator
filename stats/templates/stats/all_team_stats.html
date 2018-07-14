@@ -4,57 +4,57 @@
 {% block title %}All Team Stats 2016-2017{% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
-        <div class="col-sm-12">
-            <div style="text-align: center; font-family: Calibri, serif"><h1>All Team Stats</h1></div>
-        </div>
+  <div class="container-fluid">
+    <div class="col-sm-12">
+      <div style="text-align: center; font-family: Calibri, serif"><h1>All Team Stats</h1></div>
     </div>
+  </div>
 
-    <div align="right">
-        <span style="font-family: impact, serif;">
-            <a href="#" data-toggle="popover" data-trigger="hover" data-placement="left" title="Glossary"
-               data-content="W: Wins <br /> L: Losses <br /> PPG: Points Per Game
-                <br /> FG%: Field Goal Percentage <br /> 3P%: Three Pointer Percentage
-                <br /> DREB: Defensive Rebounds <br /> OREB: Offensive Rebounds <br /> AST: Assists
-                <br /> TOV: Turnovers <br /> STL: Steals <br /> BLK: Blocks <br /> PF: Personal Fouls"
-               data-html="true">Glossary</a>
-        </span>
-    </div>
+  <div align="right">
+    <span style="font-family: impact, serif;">
+      <a href="#" data-toggle="popover" data-trigger="hover" data-placement="left" title="Glossary"
+         data-content="W: Wins <br /> L: Losses <br /> PPG: Points Per Game
+          <br /> FG%: Field Goal Percentage <br /> 3P%: Three Pointer Percentage
+          <br /> DREB: Defensive Rebounds <br /> OREB: Offensive Rebounds <br /> AST: Assists
+          <br /> TOV: Turnovers <br /> STL: Steals <br /> BLK: Blocks <br /> PF: Personal Fouls"
+         data-html="true">Glossary</a>
+    </span>
+  </div>
 
-    <input class="form-control" id="table_search" type="text" placeholder="Search..">
-    <br>
+  <input class="form-control" id="table_search" type="text" placeholder="Search..">
+  <br>
 
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            {% for header in headers %}
-                <th><a href="?sort={{ header }}">{{ header }}</a></th>
-            {% endfor %}
-        </tr>
-        </thead>
-        <tbody id="data_table">
-        {% for row in rows %}
-            <tr>
-                {% for column in row %}
-                    <td>{{ column }}</td>
-                {% endfor %}
-            </tr>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      {% for header in headers %}
+        <th><a href="?sort={{ header }}">{{ header }}</a></th>
+      {% endfor %}
+    </tr>
+    </thead>
+    <tbody id="data_table">
+    {% for row in rows %}
+      <tr>
+        {% for column in row %}
+          <td>{{ column }}</td>
         {% endfor %}
-        </tbody>
-    </table>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 
-    <script>
-        $(document).ready(function () {
-            $("#table_search").on("keyup", function () {
-                var value = $(this).val().toLowerCase();
-                $("#data_table").find("tr").filter(function () {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
+  <script>
+      $(document).ready(function () {
+          $("#table_search").on("keyup", function () {
+              var value = $(this).val().toLowerCase();
+              $("#data_table").find("tr").filter(function () {
+                  $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+              });
+          });
+      });
 
-        $(document).ready(function () {
-            $('[data-toggle="popover"]').popover();
-        });
-    </script>
+      $(document).ready(function () {
+          $('[data-toggle="popover"]').popover();
+      });
+  </script>
 {% endblock %}
