@@ -46,28 +46,3 @@ jobs:
       - store_artifacts:
           path: test-reports
           destination: test-reports
-
-  # deploy
-  deploy:
-    name: Deploy Master to Heroku
-    requires:
-      - build
-    docker:
-      - image: circleci/python:3.6-node-browsers
-    steps:
-      - checkout
-      - run: bash .circleci/setup-heroku.sh
-      - run: git push heroku master
-
-# workflow
-workflows:
-  version: 2
-  build-deploy:
-    jobs:
-      - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
