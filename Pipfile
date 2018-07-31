@@ -10,6 +10,8 @@ django-filter = "==1.1.0"
 Django = "==2.0.6"
 nba_py = "==0.1.1a2"
 "Jinja2" = "==2.9.6"
+gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 
