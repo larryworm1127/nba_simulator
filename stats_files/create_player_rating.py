@@ -1,9 +1,11 @@
 """
-This module creates player ratings and sort the ratings into the appropriate team files
+This module creates player ratings and sort the ratings into the appropriate
+team files
 """
 
 # general imports
-from stats_files import PLAYER_DICT_PATH, TEAM_DICT_PATH, PLAYER_RATING_PATH, PLAYER_SEASON_PATH
+from stats_files import PLAYER_DICT_PATH, TEAM_DICT_PATH, PLAYER_RATING_PATH, \
+    PLAYER_SEASON_PATH
 from simulator import rate_player
 from os.path import join, exists
 import json
@@ -40,7 +42,8 @@ def sort_player_into_team():
                     file = json.load(player_file)
 
                 # put all the player rating for the same team into a dictionary
-                if file[-1]["TEAM_ABBREVIATION"] == team_abb and file[-1]["SEASON_ID"] != '2016-17':
+                if file[-1]["TEAM_ABBREVIATION"] == team_abb and file[-1][
+                    "SEASON_ID"] != '2016-17':
                     sorted_player_ratings.append(player_ratings[player_name])
 
             # put each of the player dictionary inside the team dictionary into a single file

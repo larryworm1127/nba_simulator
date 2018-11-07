@@ -4,9 +4,10 @@ not exist, it will run the appropriate function in order to create one
 """
 
 # general imports
-from stats_files import *
 from os.path import exists
 from os import makedirs
+
+from stats_files import *
 
 
 # helper functions

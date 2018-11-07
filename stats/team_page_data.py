@@ -1,11 +1,14 @@
 """
-This module creates data sets that will be displayed onto the team regular season game pages
+This module creates data sets that will be displayed onto the team regular
+season game pages
 """
 
 # general imports
-from stats_files import TEAM_SEASON_PATH, TEAM_DICT_PATH, TEAM_BASE_PATH, SIMULATE_RESULT_PATH
 from os.path import join
 from json import load
+
+from stats_files import TEAM_SEASON_PATH, TEAM_DICT_PATH, TEAM_BASE_PATH, \
+    SIMULATE_RESULT_PATH
 
 
 # main functions
@@ -116,7 +119,8 @@ def get_simulated_games(team_abb):
 
     for team in other_teams:
         single_team = {}
-        tab_headers = ['Game ' + str(num + 1) for num in range(len(team_data[team]))]
+        tab_headers = ['Game ' + str(num + 1) for num in
+                       range(len(team_data[team]))]
         panel_header = team_abb + ' vs. ' + team
         single_team['TAB_HEADERS'] = tab_headers
         single_team['DISPLAY'] = team_data[team]

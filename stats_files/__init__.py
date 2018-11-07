@@ -38,8 +38,7 @@ TEAM_NAME_DICT_PATH = join(OTHER_BASE_PATH, 'team_name_dict.json')
 
 # main functions
 def create_player_list():
-    """
-    retrieve player list and put it in a json file
+    """Retrieve player list and put it in a json file
     """
     player_list = player.PlayerList(season='2016-17').json
     with open(PLAYER_LIST_PATH, 'w') as player_list_file:
@@ -50,8 +49,7 @@ def create_player_list():
 
 
 def create_team_list():
-    """
-    retrieve team list and put it in a json file
+    """Retrieve team list and put it in a json file
     """
     team_list = team.TeamList().json
     with open(TEAM_LIST_PATH, 'w') as team_list_file:
@@ -62,12 +60,12 @@ def create_team_list():
 
 
 def create_player_dict():
-    """
-    create a dictionary storing player ID and his name
+    """Create a dictionary storing player ID and his name
     """
     with open(PLAYER_LIST_PATH, 'r') as player_list_file:
         player_list = load(player_list_file)['resultSets'][0]['rowSet']
-    player_dict = {player_list[num][0]: player_list[num][6] for num in range(len(player_list))}
+    player_dict = {player_list[num][0]: player_list[num][6] for num in
+                   range(len(player_list))}
 
     with open(PLAYER_DICT_PATH, 'w') as player_dict_file:
         dump(player_dict, player_dict_file)
@@ -77,8 +75,7 @@ def create_player_dict():
 
 
 def create_team_dict():
-    """
-    create a dictionary storing team ID and its abbreviation
+    """Create a dictionary storing team ID and its abbreviation
     """
     with open(TEAM_LIST_PATH, 'r') as team_list_file:
         team_list = load(team_list_file)['resultSets'][0]['rowSet']
@@ -93,13 +90,13 @@ def create_team_dict():
 
 
 def create_division_list():
+    """Create a file for the division list
     """
-    create a file for the division list
-    """
-    data = {"east": ["ATL", "BKN", "BOS", "CHA", "CHI", "CLE", "DET", "IND", "MIA", "MIL", "NYK", "ORL", "PHI", "TOR",
-                     "WAS"],
-            "west": ["DAL", "DEN", "GSW", "HOU", "LAC", "LAL", "MEM", "MIN", "NOP", "OKC", "PHX", "POR", "SAC", "SAS",
-                     "UTA"]}
+    data = {
+        "east": ["ATL", "BKN", "BOS", "CHA", "CHI", "CLE", "DET", "IND", "MIA",
+                 "MIL", "NYK", "ORL", "PHI", "TOR", "WAS"],
+        "west": ["DAL", "DEN", "GSW", "HOU", "LAC", "LAL", "MEM", "MIN", "NOP",
+                 "OKC", "PHX", "POR", "SAC", "SAS", "UTA"]}
 
     with open(DIVISION_LIST_PATH, 'w') as division_file:
         dump(data, division_file)
@@ -109,9 +106,8 @@ def create_division_list():
 
 
 def create_team_name_dict():
-    """
-    create a file containing dictionary where the key is the
-    team abbreviation and the value is the team name
+    """Create a file containing dictionary where the key is the team
+    abbreviation and the value is the team name
     """
     with open(TEAM_DICT_PATH) as team_dict_file:
         team_list = load(team_dict_file).values()
@@ -132,8 +128,7 @@ def create_team_name_dict():
 
 
 def date_range(start, end):
-    """
-    A generate that yield a data given a range of dates
+    """A generate that yield a data given a range of dates
 
     :param start: the start of the time interval
     :param end: the end of the time interval
@@ -143,8 +138,7 @@ def date_range(start, end):
 
 
 def create_game_list_files():
-    """
-    Create a game list file by reading through
+    """Create a game list file by reading through
     """
     print("Create game list files ...")
     start_date = date(2017, 10, 17)
@@ -158,10 +152,12 @@ def create_game_list_files():
 
     for day in date_list:
         games = []
-        score_board = Scoreboard(month=int(day[1]), day=int(day[2]), year=int(day[0])).game_header()
+        score_board = Scoreboard(month=int(day[1]), day=int(day[2]),
+                                 year=int(day[0])).game_header()
 
         for item in score_board:
-            print(str(day) + ": " + str(item['HOME_TEAM_ID']) + ', ' + str(item['VISITOR_TEAM_ID']))
+            print(str(day) + ": " + str(item['HOME_TEAM_ID']) + ', ' + str(
+                item['VISITOR_TEAM_ID']))
             if item['HOME_TEAM_ID']:
                 games.append((item['HOME_TEAM_ID'], item['VISITOR_TEAM_ID']))
 

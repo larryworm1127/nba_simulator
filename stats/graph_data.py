@@ -56,7 +56,8 @@ def get_graph_data():
         points_per_game = data['resultSets'][0]['rowSet'][-2][-2]
         points_list.append((team_dir[:3], points_per_game))
 
-        rebounds_per_game = round(data['resultSets'][0]['rowSet'][-2][-9] + data['resultSets'][0]['rowSet'][-2][-10], 2)
+        rebounds_per_game = round(data['resultSets'][0]['rowSet'][-2][-9] +
+                                  data['resultSets'][0]['rowSet'][-2][-10], 2)
         rebounds_list.append((team_dir[:3], rebounds_per_game))
 
         assists_per_game = data['resultSets'][0]['rowSet'][-2][-7]

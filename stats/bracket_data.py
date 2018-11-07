@@ -8,7 +8,8 @@ from json import load
 from os import listdir
 from os.path import join
 
-from stats_files import create_other_files, DIVISION_LIST_PATH, TEAM_PLAYOFF_PATH, TEAM_SEASON_PATH
+from stats_files import create_other_files, DIVISION_LIST_PATH, \
+    TEAM_PLAYOFF_PATH, TEAM_SEASON_PATH
 
 
 # constant

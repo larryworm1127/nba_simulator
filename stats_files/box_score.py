@@ -13,8 +13,7 @@ from stats_files import create_other_files
 
 
 def create_box_score_files():
-    """
-    Creates a file storing box score data of a game given the ID
+    """Creates a file storing box score data of a game given the ID
     """
     # create preliminary files for players
     create_other_files.init()

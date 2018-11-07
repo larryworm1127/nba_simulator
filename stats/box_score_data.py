@@ -14,14 +14,17 @@ def create_data(game_id):
 
     result_sets = parsed_json['resultSets']
 
-    player_headers = ['TEAM_ABBREVIATION', 'PLAYER_NAME', 'START_POSITION', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
-                      'STL', 'BLK', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'TO',
-                      'PF', 'PLUS_MINUS']
-    team_headers = ['TEAM_ABBREVIATION', 'TEAM_CITY', 'TEAM_NAME', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST',
-                    'STL', 'BLK', 'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT', 'TO', 'PF',
-                    'PLUS_MINUS']
-    headers = ['Team', 'Player Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL',
-               'BLK', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%', 'FTM', 'FTA', 'FT%', 'TOV', 'PF', '+/-']
+    player_headers = ['TEAM_ABBREVIATION', 'PLAYER_NAME', 'START_POSITION',
+                      'MIN', 'PTS', 'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK',
+                      'FGM', 'FGA', 'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM',
+                      'FTA', 'FT_PCT', 'TO', 'PF', 'PLUS_MINUS']
+    team_headers = ['TEAM_ABBREVIATION', 'TEAM_CITY', 'TEAM_NAME', 'MIN', 'PTS',
+                    'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK', 'FGM', 'FGA',
+                    'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT',
+                    'TO', 'PF', 'PLUS_MINUS']
+    headers = ['Team', 'Player Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB',
+               'AST', 'STL', 'BLK', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%',
+               'FTM', 'FTA', 'FT%', 'TOV', 'PF', '+/-']
 
     player_stats_index = []
     team_stats_index = []

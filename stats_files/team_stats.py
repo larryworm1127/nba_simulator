@@ -22,8 +22,7 @@ def get_team_dict():
 
 # helper functions
 def create_game_logs_file(team_id):
-    """
-    Creates file for each NBA team containing game info from last season
+    """Creates file for each NBA team containing game info from last season
 
     :param team_id: ID number of the team
     """
@@ -53,8 +52,7 @@ def create_game_logs_file(team_id):
 
 
 def init():
-    """
-    Loop through every single team ID and create a file
+    """Loop through every single team ID and create a file
     """
     get_team_dict()
 

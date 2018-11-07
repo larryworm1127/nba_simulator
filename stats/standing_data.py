@@ -5,9 +5,11 @@ This module creates data for standing pages
 # general imports
 from json import load
 from os.path import join
-from stats_files import get_abb_from_name, TEAM_DICT_PATH, TEAM_SEASON_PATH, SIMULATE_RESULT_PATH
 from os import listdir
+
 from simulator.rank_teams import rank_team_all
+from stats_files import get_abb_from_name, TEAM_DICT_PATH, TEAM_SEASON_PATH, \
+    SIMULATE_RESULT_PATH
 
 
 # main functions
@@ -45,11 +47,16 @@ def rank_teams(season):
 
 
 def create_wl_data(season):
-    order = ['images/GSW.png', 'images/SAS.png', 'images/HOU.png', 'images/BOS.png', 'images/CLE.png', 'images/LAC.png',
-             'images/TOR.png', 'images/UTA.png', 'images/WAS.png', 'images/OKC.png', 'images/ATL.png', 'images/MEM.png',
-             'images/IND.png', 'images/MIL.png', 'images/CHI.png', 'images/MIA.png', 'images/POR.png', 'images/DEN.png',
-             'images/DET.png', 'images/CHA.png', 'images/NOP.png', 'images/DAL.png', 'images/SAC.png', 'images/MIN.png',
-             'images/NYK.png', 'images/ORL.png', 'images/PHI.png', 'images/LAL.png', 'images/PHX.png', 'images/BKN.png']
+    order = ['images/GSW.png', 'images/SAS.png', 'images/HOU.png',
+             'images/BOS.png', 'images/CLE.png', 'images/LAC.png',
+             'images/TOR.png', 'images/UTA.png', 'images/WAS.png',
+             'images/OKC.png', 'images/ATL.png', 'images/MEM.png',
+             'images/IND.png', 'images/MIL.png', 'images/CHI.png',
+             'images/MIA.png', 'images/POR.png', 'images/DEN.png',
+             'images/DET.png', 'images/CHA.png', 'images/NOP.png',
+             'images/DAL.png', 'images/SAC.png', 'images/MIN.png',
+             'images/NYK.png', 'images/ORL.png', 'images/PHI.png',
+             'images/LAL.png', 'images/PHX.png', 'images/BKN.png']
 
     with open(join(TEAM_SEASON_PATH, 'ATL.json')) as data_file:
         parsed_json = load(data_file)

@@ -3,16 +3,17 @@ This module creates table data for all team statistic page
 """
 
 # general imports
+from typing import Dict, List
 from json import load
 from os.path import join
-from stats_files import TEAM_SEASON_PATH
 from os import listdir
+
+from stats_files import TEAM_SEASON_PATH
 
 
 # main functions
-def create_team_data(sort):
-    """
-    This function creates and sorts data from files so that the web page can read them
+def create_team_data(sort: str) -> Dict[str, List]:
+    """Creates and sorts data from files so that the web page can read them
 
     :param sort: the type of sorting the web page requested
     :return: the data to be displayed on the web page
@@ -23,8 +24,8 @@ def create_team_data(sort):
     result_sets = parsed_json['resultSets']
 
     data = get_data()
-    data_headers = ['TEAM_CITY', 'TEAM_NAME', 'WINS', 'LOSSES', 'PTS', 'FG_PCT', 'FG3_PCT', 'DREB', 'OREB', 'AST',
-                    'TOV', 'STL', 'BLK', 'PF']
+    data_headers = ['TEAM_CITY', 'TEAM_NAME', 'WINS', 'LOSSES', 'PTS', 'FG_PCT',
+                    'FG3_PCT', 'DREB', 'OREB', 'AST', 'TOV', 'STL', 'BLK', 'PF']
 
     result_row = []
     single_row = []
@@ -35,8 +36,8 @@ def create_team_data(sort):
         result_row.append(single_row)
         single_row = []
 
-    result_headers = ['Team City', 'Team Name', 'W', 'L', 'PPG', 'FG%', '3P%', 'DREB', 'OREB', 'AST', 'TOV', 'STL',
-                      'BLK', 'PF']
+    result_headers = ['Team City', 'Team Name', 'W', 'L', 'PPG', 'FG%', '3P%',
+                      'DREB', 'OREB', 'AST', 'TOV', 'STL', 'BLK', 'PF']
 
     if sort is not None and sort in result_headers:
         result_row = sort_data_by_header(sort, result_row, result_headers)
@@ -46,26 +47,24 @@ def create_team_data(sort):
     return display_data
 
 
-def find_indexes(result_sets, headers):
-    """
-    Find the index of a list of headers within the result sets
+def find_indexes(result_sets: Dict[str, List], headers: List[str]) -> List[int]:
+    """Find the index of a list of headers within the result sets
 
     :param result_sets: the data set that contains all headers
     :param headers: the list of headers that will be used to find the indexes
     :return: a list of index for the given headers
     """
-    indexes = []
+    index = []
     header_data = result_sets[0]['headers']
 
     for header in headers:
-        indexes.append(header_data.index(header))
+        index.append(header_data.index(header))
 
-    return indexes
+    return index
 
 
-def get_data():
-    """
-    Create a list containing all the team season stats
+def get_data() -> List:
+    """Create a list containing all the team season stats
 
     :return: A list containing the data to be sorted and modified
     """
