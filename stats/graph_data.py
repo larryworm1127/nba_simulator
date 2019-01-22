@@ -48,19 +48,18 @@ def get_graph_data():
 
     for team_dir in team_list:
         with open(join(TEAM_SEASON_PATH, team_dir)) as team_season_file:
-            data = load(team_season_file)
+            data = load(team_season_file)['resultSets'][0]['rowSet']
 
-        win_loss_ratios = data['resultSets'][0]['rowSet'][-2][7]
+        win_loss_ratios = data[-2][7]
         wlr_list.append((team_dir[:3], win_loss_ratios))
 
-        points_per_game = data['resultSets'][0]['rowSet'][-2][-2]
+        points_per_game = data[-2][-2]
         points_list.append((team_dir[:3], points_per_game))
 
-        rebounds_per_game = round(data['resultSets'][0]['rowSet'][-2][-9] +
-                                  data['resultSets'][0]['rowSet'][-2][-10], 2)
+        rebounds_per_game = round(data[-2][-9] + data[-2][-10], 2)
         rebounds_list.append((team_dir[:3], rebounds_per_game))
 
-        assists_per_game = data['resultSets'][0]['rowSet'][-2][-7]
+        assists_per_game = data[-2][-7]
         assists_list.append((team_dir[:3], assists_per_game))
 
     return wlr_list, points_list, rebounds_list, assists_list

@@ -21,7 +21,8 @@ def create_divisions_data(compare):
                                {"HOU": "images/HOU.png"},
                                {"MEM": "images/MEM.png"},
                                {"NOP": "images/NOP.png"},
-                               {"SAS": "images/SAS.png"}]}
+                               {"SAS": "images/SAS.png"}]
+    }
 
     # initialize east conference logo path dictionary
     east_divisions = {
@@ -39,7 +40,8 @@ def create_divisions_data(compare):
                                {"CHA": "images/CHA.png"},
                                {"MIA": "images/MIA.png"},
                                {"ORL": "images/ORL.png"},
-                               {"WAS": "images/WAS.png"}]}
+                               {"WAS": "images/WAS.png"}]
+    }
 
     # initialize division list
     all_teams = ["Northwest -", "DEN", "MIN", "OKC", "POR", "UTA",

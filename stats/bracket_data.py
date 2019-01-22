@@ -29,18 +29,18 @@ class BracketData:
         create_other_files.init()
 
         with open(DIVISION_LIST_PATH, 'r') as division_file:
-            division_dict = load(division_file)
+            division = load(division_file)
 
-        playoff_teams_list = [file.split('.')[0] for file in listdir(TEAM_PLAYOFF_PATH)]
+        playoff_teams = [file.split('.')[0] for file in listdir(TEAM_PLAYOFF_PATH)]
 
         div_list = {}
-        for team_name in playoff_teams_list:
-            with open(join(TEAM_SEASON_PATH, team_name + '.json')) as season_file:
-                data = load(season_file)
-                team_division = 'east' if team_name in division_dict['east'] else 'west'
+        for team_name in playoff_teams:
+            with open(join(TEAM_SEASON_PATH, team_name + '.json')) as f:
+                data = load(f)['resultSets'][0]['rowSet']
+                team_division = 'east' if team_name in division['east'] else 'west'
                 div_list[team_name] = team_division
 
-            self.playoff_dict[team_division][data['resultSets'][0]['rowSet'][-2][8]] = team_name
+            self.playoff_dict[team_division][data[-2][8]] = team_name
 
     def get_final_data(self):
         return self.final_data
@@ -55,8 +55,8 @@ class BracketData:
         for team in TEAM_MATCH_LIST[index]:
             team_abb = self.playoff_dict[division][team]
 
-            with open(join(TEAM_PLAYOFF_PATH, team_abb + '.json')) as playoff_file:
-                team_data = load(playoff_file)
+            with open(join(TEAM_PLAYOFF_PATH, team_abb + '.json')) as f:
+                team_data = load(f)['resultSets'][0]['rowSet']
 
             opponent = self.playoff_dict[division][TEAM_OPPONENT[team]]
             team_check_list.remove(TEAM_OPPONENT[team])
@@ -65,9 +65,9 @@ class BracketData:
 
                 team_points = 0
                 opponent_points = 0
-                for index in range(len(team_data['resultSets'][0]['rowSet']) - 1, -1, -1):
-                    if team_data['resultSets'][0]['rowSet'][index][3][-3:] == opponent:
-                        if team_data['resultSets'][0]['rowSet'][index][4] == 'W':
+                for index in range(len(team_data) - 1, -1, -1):
+                    if team_data[index][3][-3:] == opponent:
+                        if team_data[index][4] == 'W':
                             team_points += 1
                         else:
                             opponent_points += 1
@@ -88,16 +88,16 @@ class BracketData:
         opponent = team_list[1]
 
         with open(join(TEAM_PLAYOFF_PATH, team_abb + '.json')) as playoff_file:
-            team_data = load(playoff_file)
+            team_data = load(playoff_file)['resultSets'][0]['rowSet']
 
         if division == 'final':
             self.final_data[division]['teams'].append([team_abb, opponent])
 
         team_points = 0
         opponent_points = 0
-        for index in range(len(team_data['resultSets'][0]['rowSet']) - 1, -1, -1):
-            if team_data['resultSets'][0]['rowSet'][index][3][-3:] == opponent:
-                if team_data['resultSets'][0]['rowSet'][index][4] == 'W':
+        for index in range(len(team_data) - 1, -1, -1):
+            if team_data[index][3][-3:] == opponent:
+                if team_data[index][4] == 'W':
                     team_points += 1
                 else:
                     opponent_points += 1

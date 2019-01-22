@@ -13,25 +13,23 @@ from stats_files import TEAM_SEASON_PATH, TEAM_DICT_PATH, TEAM_BASE_PATH, \
 
 # main functions
 def get_team_from_abb(team_abb):
-    """
-    Find the corresponding team city and team name given a team abbreviation
+    """Find the corresponding team city and team name given a team abbreviation.
 
     :param team_abb: the team abbreviation of a team
     :return: a string containing the team city and team name
     """
     with open(join(TEAM_SEASON_PATH, team_abb + '.json')) as data_file:
-        data = load(data_file)
+        data = load(data_file)['resultSets'][0]['rowSet']
 
-    team_city = data['resultSets'][0]['rowSet'][-2][1]
-    team_name = data['resultSets'][0]['rowSet'][-2][2]
+    team_city = data[-2][1]
+    team_name = data[-2][2]
 
     result = team_city + ' ' + team_name
     return result
 
 
 def get_other_teams(team_abb):
-    """
-    Compute all the other teams in the league given a team abbreviation
+    """Compute all the other teams in the league given a team abbreviation.
 
     :param team_abb: the team abbreviation of a team
     :return: a list containing all teams in the league except the given one
@@ -45,8 +43,7 @@ def get_other_teams(team_abb):
 
 
 def get_games(team_abb):
-    """
-    Creates the data set from the team game log stats
+    """Creates the data set from the team game log stats.
 
     :param team_abb: the team abbreviation of the team
     :return: the data to be displayed on the web page
@@ -79,8 +76,7 @@ def get_games(team_abb):
 
 
 def data_cleanup(header, data_list):
-    """
-    A helper function for removing unwanted elements in the table data
+    """A helper function for removing unwanted elements in the table data
 
     :param data_list: the data list of the table
     :param header: the header list of the table
@@ -93,11 +89,7 @@ def data_cleanup(header, data_list):
         result_header.pop(0)
         result_list.pop(0)
 
-    for _ in range(2):
-        result_header.pop(3)
-        result_list.pop(3)
-
-    for _ in range(9):
+    for _ in range(11):
         result_header.pop(3)
         result_list.pop(3)
 
@@ -105,8 +97,7 @@ def data_cleanup(header, data_list):
 
 
 def get_simulated_games(team_abb):
-    """
-    Creates the data set for simulated games
+    """Creates the data set for simulated games.
 
     :param team_abb: the team abbreviation of the team
     :return: the data to be displayed on the web page

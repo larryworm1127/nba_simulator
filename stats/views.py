@@ -7,12 +7,14 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from json import load
 
-from stats.graph_data import top_ten_wlr, top_ten_points, top_ten_rebounds, top_ten_assists
+from stats.graph_data import top_ten_wlr, top_ten_points, top_ten_rebounds, \
+    top_ten_assists
 from stats.box_score_data import create_data
 from stats.all_team_data import create_team_data
 from stats.standing_data import create_standing_data
 from stats.comparison_data import create_divisions_data
-from stats.team_page_data import get_team_from_abb, get_other_teams, get_simulated_games, get_games
+from stats.team_page_data import get_team_from_abb, get_other_teams, \
+    get_simulated_games, get_games
 from stats.bracket_data import BracketData
 from stats_files import DIVISION_LIST_PATH, SIMULATE_PLAYOFF_PATH
 from simulator.playoff_simulation import run_whole_simulation
@@ -34,13 +36,15 @@ def box_score(request):
     team1 = data[5]
     team2 = data[6]
 
-    context = {'headers': headers,
-               'rows1': rows1,
-               'rows2': rows2,
-               'team1_name': team1_name,
-               'team2_name': team2_name,
-               'team1': team1,
-               'team2': team2}
+    context = {
+        'headers': headers,
+        'rows1': rows1,
+        'rows2': rows2,
+        'team1_name': team1_name,
+        'team2_name': team2_name,
+        'team1': team1,
+        'team2': team2
+    }
 
     return render(request, 'stats/box_score.html', context)
 
@@ -51,9 +55,7 @@ def all_team_stats(request):
     headers = data['headers']
     rows = data['rows']
 
-    context = {'headers': headers,
-               'rows': rows,
-               }
+    context = {'headers': headers, 'rows': rows}
 
     return render(request, 'stats/all_team_stats.html', context)
 
@@ -68,10 +70,11 @@ def standing(request, season):
     else:
         template = 'stats/standing.html'
 
-    context = {'headers': headers,
-               'rows': rows,
-               'season': season
-               }
+    context = {
+        'headers': headers,
+        'rows': rows,
+        'season': season
+    }
 
     return render(request, template, context)
 
@@ -183,24 +186,27 @@ def team_comparisons(request):
     team1 = {data[6]: 'images/' + data[6] + '.png'}
     team2 = {data[7]: 'images/' + data[7] + '.png'}
 
-    context = {'west_divisions': west_divisions,
-               'east_divisions': east_divisions,
-               'all_teams': all_teams,
-               'categories1': categories1,
-               'categories2': categories2,
-               'abbreviations': abbreviations,
-               'team1': team1,
-               'team2': team2
-               }
+    context = {
+        'west_divisions': west_divisions,
+        'east_divisions': east_divisions,
+        'all_teams': all_teams,
+        'categories1': categories1,
+        'categories2': categories2,
+        'abbreviations': abbreviations,
+        'team1': team1,
+        'team2': team2
+    }
 
     return render(request, 'stats/team_comparisons.html', context)
 
 
 def stats_graph(request):
-    context = {'wlr_chart': bar_wlr_chart,
-               'points_chart': bar_points_chart,
-               'bar_rebounds_chart': bar_rebounds_chart,
-               'bar_assists_chart': bar_assists_chart}
+    context = {
+        'wlr_chart': bar_wlr_chart,
+        'points_chart': bar_points_chart,
+        'bar_rebounds_chart': bar_rebounds_chart,
+        'bar_assists_chart': bar_assists_chart
+    }
 
     return render(request, 'stats/stats_graph.html', context)
 
@@ -217,13 +223,14 @@ def season_games(request, team, season):
         template = 'stats_team_pages/team_page.html'
         game_dict = get_games(team)
 
-    context = {'team': team,
-               'team_logo': team_logo,
-               'team_name': team_name,
-               'team_list': team_list,
-               'game_dict': game_dict,
-               'season': season
-               }
+    context = {
+        'team': team,
+        'team_logo': team_logo,
+        'team_name': team_name,
+        'team_list': team_list,
+        'game_dict': game_dict,
+        'season': season
+    }
 
     return render(request, template, context)
 
@@ -253,15 +260,16 @@ def tournament(request, season):
 
 def bracket(request, season):
     with open(DIVISION_LIST_PATH) as division_file:
-        division_dict = load(division_file)
+        division = load(division_file)
 
-    east_teams = {team: 'images/' + team + '.png' for team in division_dict['east']}
-    west_teams = {team: 'images/' + team + '.png' for team in division_dict['west']}
+    east_teams = {team: 'images/' + team + '.png' for team in division['east']}
+    west_teams = {team: 'images/' + team + '.png' for team in division['west']}
 
-    context = {'season': season,
-               'east_teams': east_teams,
-               'west_teams': west_teams,
-               }
+    context = {
+        'season': season,
+        'east_teams': east_teams,
+        'west_teams': west_teams,
+    }
 
     return render(request, 'stats_brackets/bracket.html', context)
 

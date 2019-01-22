@@ -6,7 +6,8 @@ the data inside a JSON file
 # general imports
 from json import dump, load
 from os.path import join, exists
-from stats_files import TEAM_BASE_PATH, TEAM_DICT_PATH, TEAM_PLAYOFF_PATH, TEAM_SEASON_PATH
+from stats_files import TEAM_BASE_PATH, TEAM_DICT_PATH, TEAM_PLAYOFF_PATH, \
+    TEAM_SEASON_PATH
 from nba_py import team, constants
 from stats_files import create_other_files
 
@@ -29,8 +30,8 @@ def create_game_logs_file(team_id):
     # team game log
     path = join(TEAM_BASE_PATH, team_dict[team_id] + '.json')
     if not exists(path):
-        print("Retrieving team " + team_dict[
-            team_id] + " game log data + season stats and creating files ... Please wait.")
+        print("Retrieving team " + team_dict[team_id] +
+              " game log, season stats ... Please wait.")
         game_logs = team.TeamGameLogs(team_id, '2016-17').json
         with open(path, 'w') as outfile:
             dump(game_logs, outfile)
@@ -38,7 +39,8 @@ def create_game_logs_file(team_id):
     # playoff game log
     playoff_path = join(TEAM_PLAYOFF_PATH, team_dict[team_id] + '.json')
     if not exists(playoff_path):
-        playoff_games = team.TeamGameLogs(team_id, '2016-17', constants.SeasonType.Playoffs).json
+        playoff_games = team.TeamGameLogs(team_id, '2016-17',
+                                          constants.SeasonType.Playoffs).json
         if len(playoff_games['resultSets'][0]['rowSet']):
             with open(playoff_path, 'w') as playoff_files:
                 dump(playoff_games, playoff_files)

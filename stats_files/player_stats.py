@@ -20,8 +20,7 @@ def create_game_log_profile(player_id, player_dict):
     """
     new_path = join(PLAYER_BASE_PATH, player_dict[player_id] + '.json')
     if not exists(new_path):
-        print(
-            "Retrieving player game log data and creating files ... Please wait.")
+        print("Retrieving player game log ... Please wait.")
         game_log = player.PlayerGameLogs(player_id).json
         with open(new_path, 'w') as player_file:
             dump(game_log, player_file)
@@ -37,8 +36,7 @@ def create_player_profile(player_id, player_dict):
     new_path = join(PLAYER_BASE_PATH,
                     'season_stats/' + player_dict[player_id] + '.json')
     if not exists(new_path):
-        print(
-            "Retrieving player season stats data and creating files ... Please wait.")
+        print("Retrieving player season stats ... Please wait.")
         season_stats = player.PlayerCareer(player_id).regular_season_totals()
         with open(new_path, 'w') as season_file:
             dump(season_stats, season_file)
