@@ -8,9 +8,7 @@ from json import load
 from os import listdir
 from os.path import join
 
-from stats_files import create_other_files, DIVISION_LIST_PATH, \
-    TEAM_PLAYOFF_PATH, TEAM_SEASON_PATH
-
+from constant import DIVISION_LIST, TEAM_PLAYOFF_PATH, TEAM_SEASON_PATH
 
 # constant
 TEAM_MATCH_LIST = [[1, 8, 4, 5], [3, 6, 2, 7]]
@@ -26,21 +24,16 @@ class BracketData:
         self.playoff_dict = {'east': {}, 'west': {}}
         self.conf_final_teams = {'east': [], 'west': []}
 
-        create_other_files.init()
-
-        with open(DIVISION_LIST_PATH, 'r') as division_file:
-            division = load(division_file)
-
-        playoff_teams = [file.split('.')[0] for file in listdir(TEAM_PLAYOFF_PATH)]
+        teams = [file.split('.')[0] for file in listdir(TEAM_PLAYOFF_PATH)]
 
         div_list = {}
-        for team_name in playoff_teams:
-            with open(join(TEAM_SEASON_PATH, team_name + '.json')) as f:
+        for name in teams:
+            with open(join(TEAM_SEASON_PATH, name + '.json')) as f:
                 data = load(f)['resultSets'][0]['rowSet']
-                team_division = 'east' if team_name in division['east'] else 'west'
-                div_list[team_name] = team_division
+                division = 'east' if name in DIVISION_LIST['east'] else 'west'
+                div_list[name] = division
 
-            self.playoff_dict[team_division][data[-2][8]] = team_name
+            self.playoff_dict[division][data[-2][8]] = name
 
     def get_final_data(self):
         return self.final_data
@@ -72,14 +65,16 @@ class BracketData:
                         else:
                             opponent_points += 1
 
-                self.final_data[division]['results'][0].append([team_points, opponent_points])
+                self.final_data[division]['results'][0].append(
+                    [team_points, opponent_points])
 
                 if team_points > opponent_points:
                     next_round_teams.append(team_abb)
                 else:
                     next_round_teams.append(opponent)
 
-        next_round_team = self.second_third_round_data(next_round_teams, division, 2)
+        next_round_team = self.second_third_round_data(next_round_teams,
+                                                       division, 2)
         self.conf_final_teams[division].append(next_round_team)
 
     # format second and third round data
@@ -102,7 +97,8 @@ class BracketData:
                 else:
                     opponent_points += 1
 
-        self.final_data[division]['results'][round_num - 1].append([team_points, opponent_points])
+        self.final_data[division]['results'][round_num - 1].append(
+            [team_points, opponent_points])
         return team_abb if team_points > opponent_points else opponent
 
     def create_playoff_data(self):
@@ -112,7 +108,8 @@ class BracketData:
 
         final_teams = []
         for div in ['east', 'west']:
-            final_team = self.second_third_round_data(self.conf_final_teams[div], div, 3)
+            final_team = self.second_third_round_data(
+                self.conf_final_teams[div], div, 3)
             final_teams.append(final_team)
 
         self.second_third_round_data(final_teams, 'final', 1)

@@ -2,55 +2,48 @@
 This module contains functions that will retrieve various stats data relating
 to NBA players
 """
+import json
+import os.path
 
-# general import
-from json import load, dump
-from os.path import join, exists
 from nba_py import player
-from stats_files import PLAYER_DICT_PATH, PLAYER_BASE_PATH
-from stats_files import create_other_files
+
+from constant import PLAYER_BASE_PATH, PLAYER_DICT
 
 
 # helper functions
 def create_game_log_profile(player_id, player_dict):
-    """Creates a file storing game logs of a player given the ID
+    """Creates a file storing game logs of a player given the ID.
 
     :param player_dict: self explanatory
     :param player_id: the ID of the player
     """
-    new_path = join(PLAYER_BASE_PATH, player_dict[player_id] + '.json')
-    if not exists(new_path):
+    new_path = os.path.join(PLAYER_BASE_PATH, f'{player_dict[player_id]}.json')
+    if not os.path.exists(new_path):
         print("Retrieving player game log ... Please wait.")
         game_log = player.PlayerGameLogs(player_id).json
         with open(new_path, 'w') as player_file:
-            dump(game_log, player_file)
+            json.dump(game_log, player_file)
 
 
-def create_player_profile(player_id, player_dict):
-    """Creates a file storing various player information such as season
-    performances, etc
+def create_player_profile(player_id: str, player_dict) -> None:
+    """Creates a file storing various player information.
 
     :param player_dict: self explanatory
     :param player_id: the ID of the player
     """
-    new_path = join(PLAYER_BASE_PATH,
-                    'season_stats/' + player_dict[player_id] + '.json')
-    if not exists(new_path):
+    new_path = os.path.join(PLAYER_BASE_PATH,
+                            f'season_stats/{player_dict[player_id]}.json')
+    if not os.path.exists(new_path):
         print("Retrieving player season stats ... Please wait.")
         season_stats = player.PlayerCareer(player_id).regular_season_totals()
         with open(new_path, 'w') as season_file:
-            dump(season_stats, season_file)
+            json.dump(season_stats, season_file)
 
 
-def init():
+def init() -> None:
     """Loop through every single player ID and create a file for game log and a
     file for his profile
     """
-    # create preliminary files for players
-    create_other_files.init()
-    with open(PLAYER_DICT_PATH, 'r') as player_dict_file:
-        player_dict = load(player_dict_file)
-
-    for player_id in player_dict.keys():
-        create_game_log_profile(player_id, player_dict)
-        create_player_profile(player_id, player_dict)
+    for player_id in PLAYER_DICT.keys():
+        create_game_log_profile(player_id, PLAYER_DICT)
+        create_player_profile(player_id, PLAYER_DICT)

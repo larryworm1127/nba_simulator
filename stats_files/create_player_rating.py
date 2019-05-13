@@ -2,41 +2,35 @@
 This module creates player ratings and sort the ratings into the appropriate
 team files
 """
-
-# general imports
-from stats_files import PLAYER_DICT_PATH, TEAM_DICT_PATH, PLAYER_RATING_PATH, \
-    PLAYER_SEASON_PATH
-from simulator import rate_player
-from os.path import join, exists
+import os.path
 import json
 
+from simulator import rate_player
+from constant import PLAYER_RATING_PATH
+from constant import PLAYER_SEASON_PATH
+from constant import TEAM_DICT
+from constant import PLAYER_DICT
 
-# main functions
+
+# Main functions
 def sort_player_into_team():
     """Create directories and files and sort data into appropriate folders.
     """
-    # retrieve preliminary data
-    with open(PLAYER_DICT_PATH, 'r') as player_dict_file:
-        player_dict = json.load(player_dict_file)
-
     # calculate the player ratings
     player_ratings = {}
-    for player_id in player_dict.keys():
+    for player_id in PLAYER_DICT.keys():
         rating = rate_player.SinglePlayerRating(player_id)
-        player_ratings[player_dict[player_id]] = rating.get_rating()
+        player_ratings[PLAYER_DICT[player_id]] = rating.get_rating()
 
-    # create team folders if they don't exist
-    with open(TEAM_DICT_PATH, 'r') as team_dict_file:
-        team_dict = json.load(team_dict_file)
-
-    for team_abb in team_dict.values():
-        sorted_dir = join(PLAYER_RATING_PATH, team_abb + '.json')
-        if not exists(sorted_dir):
+    for team_abb in TEAM_DICT.values():
+        sorted_dir = os.path.join(PLAYER_RATING_PATH, f'{team_abb}.json')
+        if not os.path.exists(sorted_dir):
             # sort player ratings into teams directories
             sorted_player_ratings = []
-            for index in player_dict.keys():
-                player_name = player_dict[index]
-                player_path = join(PLAYER_SEASON_PATH, player_name + '.json')
+            for index in PLAYER_DICT.keys():
+                player_name = PLAYER_DICT[index]
+                player_path = os.path.join(PLAYER_SEASON_PATH,
+                                           f'{player_name}.json')
                 with open(player_path, 'r') as player_file:
                     file = json.load(player_file)
 

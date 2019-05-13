@@ -7,8 +7,10 @@ season game pages
 from os.path import join
 from json import load
 
-from stats_files import TEAM_SEASON_PATH, TEAM_DICT_PATH, TEAM_BASE_PATH, \
-    SIMULATE_RESULT_PATH
+from constant import TEAM_SEASON_PATH
+from constant import TEAM_DICT
+from constant import TEAM_BASE_PATH
+from constant import SIM_RESULT_PATH
 
 
 # main functions
@@ -34,10 +36,7 @@ def get_other_teams(team_abb):
     :param team_abb: the team abbreviation of a team
     :return: a list containing all teams in the league except the given one
     """
-    with open(TEAM_DICT_PATH) as team_dict_file:
-        team_dict = dict(load(team_dict_file))
-
-    team_list = list(team_dict.values())
+    team_list = list(TEAM_DICT.values())
     team_list.remove(team_abb)
     return team_list
 
@@ -102,7 +101,7 @@ def get_simulated_games(team_abb):
     :param team_abb: the team abbreviation of the team
     :return: the data to be displayed on the web page
     """
-    with open(join(SIMULATE_RESULT_PATH, team_abb + '.json')) as data_file:
+    with open(join(SIM_RESULT_PATH, team_abb + '.json')) as data_file:
         team_data = load(data_file)
 
     other_teams = get_other_teams(team_abb)

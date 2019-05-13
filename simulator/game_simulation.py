@@ -3,11 +3,11 @@ This module simulate a single NBA games given two teams
 """
 
 # general import
-from json import load
+import json
 import random
 from os.path import join
 
-from stats_files import TEAM_DICT_PATH, TEAM_BASE_PATH, PLAYER_RATING_PATH
+from constant import TEAM_DICT, TEAM_BASE_PATH, PLAYER_RATING_PATH
 
 
 class GameSimulation:
@@ -16,6 +16,7 @@ class GameSimulation:
     will be determined using random but the chance of winning will be affected
     by the score difference between the two teams
     """
+
     def __init__(self, team_one_id, team_two_id):
         # create variables
         self.team_one = team_one_id
@@ -29,10 +30,6 @@ class GameSimulation:
         self.team1_ratings = {}
         self.team2_ratings = {}
         self.winner = None
-
-        # set up team dict data
-        with open(TEAM_DICT_PATH, 'r') as team_dict_file:
-            self.team_dict = load(team_dict_file)
 
         # prepare data for simulation
         self.prepare_game_log_data()
@@ -63,22 +60,27 @@ class GameSimulation:
 
     def prepare_game_log_data(self):
         # initialize data files
-        team1_path = join(TEAM_BASE_PATH, self.team_dict[self.team_one] + '.json')
-        team2_path = join(TEAM_BASE_PATH, self.team_dict[self.team_two] + '.json')
+        team1_path = join(TEAM_BASE_PATH, TEAM_DICT[self.team_one] + '.json')
+        team2_path = join(TEAM_BASE_PATH, TEAM_DICT[self.team_two] + '.json')
         with open(team1_path, 'r') as team1_file:
-            data1 = load(team1_file)['resultSets'][0]['rowSet']
+            data1 = json.load(team1_file)['resultSets'][0]['rowSet']
         with open(team2_path, 'r') as team2_file:
-            data2 = load(team2_file)['resultSets'][0]['rowSet']
+            data2 = json.load(team2_file)['resultSets'][0]['rowSet']
 
         # run a loop 82 times (82 games in a season for a single team)
         for num in range(82):
             # determine the two teams
-            data1_teams = [data1[num][3][:3], data1[num][3][-3:], data1[num][3][4:-4]]
-            data2_teams = [data2[num][3][:3], data2[num][3][-3:], data2[num][3][4:-4]]
+            data1_teams = [
+                data1[num][3][:3], data1[num][3][-3:], data1[num][3][4:-4]
+            ]
+            data2_teams = [
+                data2[num][3][:3], data2[num][3][-3:], data2[num][3][4:-4]
+            ]
 
-            # find the corresponding game results and add them to either home game list
+            # find the corresponding game results and add them to home game list
             # or away game list depending on the result of the condition
-            if data1_teams[0] == self.team_dict[self.team_one] and data1_teams[1] == self.team_dict[self.team_two]:
+            if data1_teams[0] == TEAM_DICT[self.team_one] and \
+                    data1_teams[1] == TEAM_DICT[self.team_two]:
                 self.team1_games.append(data1[num])
                 if data1_teams[2] == 'vs.':
                     self.home_games[1].append(data1[num])
@@ -86,7 +88,8 @@ class GameSimulation:
                     self.away_games[1].append(data1[num])
 
             # do the same for team 2
-            if data2_teams[0] == self.team_dict[self.team_two] and data2_teams[1] == self.team_dict[self.team_one]:
+            if data2_teams[0] == TEAM_DICT[self.team_two] and \
+                    data2_teams[1] == TEAM_DICT[self.team_one]:
                 self.team2_games.append(data2[num])
                 if data2_teams[2] == 'vs.':
                     self.home_games[2].append(data2[num])
@@ -95,15 +98,15 @@ class GameSimulation:
 
     def prepare_player_rating_data(self):
         # load files and put data in global variables
-        team1_abb = self.team_dict[self.team_one]
-        team2_abb = self.team_dict[self.team_two]
+        team1_abb = TEAM_DICT[self.team_one]
+        team2_abb = TEAM_DICT[self.team_two]
         team1_path = join(PLAYER_RATING_PATH, team1_abb + '.json')
         team2_path = join(PLAYER_RATING_PATH, team2_abb + '.json')
         with open(team1_path, 'r') as team1_file:
-            self.team1_ratings = load(team1_file)
+            self.team1_ratings = json.load(team1_file)
 
         with open(team2_path, 'r') as team2_file:
-            self.team2_ratings = load(team2_file)
+            self.team2_ratings = json.load(team2_file)
 
     def team_match_up(self):
         """
@@ -129,8 +132,8 @@ class GameSimulation:
         return score1, score2
 
     def point_difference(self):
-        """
-        Scores the two teams based on how many points a team won against the other
+        """Scores the two teams based on how many points a team won against the
+        other.
 
         :return: a tuple containing the scores for both teams
         """
@@ -140,29 +143,28 @@ class GameSimulation:
         # iterate through every single games played between the two teams
         num_iter = (len(self.team1_games))
         for game in range(num_iter):
-            team_one_points = self.team1_games[game][-1]
-            team_two_points = 0
+            team1_points = self.team1_games[game][-1]
+            team2_points = 0
             for num in range(len(self.team2_games)):
                 if self.team1_games[num][2] == self.team2_games[game][2]:
-                    team_two_points = self.team2_games[num][-1]
+                    team2_points = self.team2_games[num][-1]
                     break
 
-            # call helper function to score the teams after getting the points each team scored
-            scores = point_difference_scoring_machine(team_one_points, team_two_points)
+            # call helper to score the teams
+            scores = point_difference_scoring(team1_points, team2_points)
             score1 += scores[0]
             score2 += scores[1]
 
         return score1, score2
 
     def player_rating(self):
-        """
-        Scores the teams based on the rating of the players in the team
+        """Scores the teams based on the rating of the players in the team.
 
         :return: a tuple containing scores for both teams
         """
         team1_total = sum([rating for rating in self.team1_ratings])
         team2_total = sum([rating for rating in self.team2_ratings])
-        difference = point_difference_scoring_machine(team1_total, team2_total)
+        difference = point_difference_scoring(team1_total, team2_total)
         score1 = difference[0]
         score2 = difference[1]
 
@@ -175,12 +177,12 @@ class GameSimulation:
         """
         # initialize variables by calling the scoring functions
         team_match_up = self.team_match_up()
-        point_difference = self.point_difference()
+        point_diff = self.point_difference()
         player_rating = self.player_rating()
-        self.team1_score += team_match_up[0] + point_difference[0] + player_rating[0]
-        self.team2_score += team_match_up[1] + point_difference[1] + player_rating[1]
+        self.team1_score += team_match_up[0] + point_diff[0] + player_rating[0]
+        self.team2_score += team_match_up[1] + point_diff[1] + player_rating[1]
 
-        # calculate the difference between the scores and adjust the random factor
+        # calculate the difference between scores and adjust the random factor
         difference = abs(self.team1_score - self.team2_score)
         random_num = random.randint(0, 10)
 
@@ -235,19 +237,19 @@ class GameSimulation:
                 self.winner = self.team_two
 
 
-def point_difference_scoring_machine(team_one_points, team_two_points):
+def point_difference_scoring(team1_points, team2_points):
     """
     A helper function for scoring points for teams based on their
     points secondary points rated through their points per game
 
-    :param team_one_points: the points team one scored through its point per game
-    :param team_two_points: the points team two scored through its point per game
+    :param team1_points: the points team one scored through its point per game
+    :param team2_points: the points team two scored through its point per game
     :return: a tuple containing the score of the two teams
     """
     # calculate the difference between the points both team have
-    difference = abs(team_one_points - team_two_points)
+    difference = abs(team1_points - team2_points)
 
-    if team_one_points > team_two_points:
+    if team1_points > team2_points:
         if difference < 10:
             return 1, 0
         elif 20 > difference >= 10:
@@ -257,7 +259,7 @@ def point_difference_scoring_machine(team_one_points, team_two_points):
         elif difference >= 30:
             return 4, 0
 
-    if team_two_points > team_one_points:
+    elif team2_points > team1_points:
         if difference < 10:
             return 0, 1
         elif 20 > difference >= 10:
@@ -267,5 +269,5 @@ def point_difference_scoring_machine(team_one_points, team_two_points):
         elif difference >= 30:
             return 0, 4
 
-    if team_one_points == team_two_points:
+    else:
         return 1, 1

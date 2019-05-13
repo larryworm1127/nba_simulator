@@ -8,8 +8,8 @@ from os.path import join
 from os import listdir
 
 from simulator.rank_teams import rank_team_all
-from stats_files import get_abb_from_name, TEAM_DICT_PATH, TEAM_SEASON_PATH, \
-    SIMULATE_RESULT_PATH
+from constant import TEAM_DICT, TEAM_SEASON_PATH, SIM_RESULT_PATH
+from stats_files import get_abb_from_name
 
 
 # main functions
@@ -23,8 +23,7 @@ def create_standing_data(season):
 
 
 def rank_teams(season):
-    with open(TEAM_DICT_PATH) as team_dict_file:
-        team_list = load(team_dict_file).values()
+    team_list = TEAM_DICT.values()
 
     team_win_list = []
     for team_abb in team_list:
@@ -115,10 +114,10 @@ def get_data(season, ranking=None):
 
 
 def create_simulated_wl_data():
-    with open(join(SIMULATE_RESULT_PATH, 'win_count.json')) as win_file:
+    with open(join(SIM_RESULT_PATH, 'win_count.json')) as win_file:
         win_list = load(win_file)
 
-    with open(join(SIMULATE_RESULT_PATH, 'loss_count.json')) as loss_file:
+    with open(join(SIM_RESULT_PATH, 'loss_count.json')) as loss_file:
         loss_list = load(loss_file)
 
     with open(join(TEAM_SEASON_PATH, 'ATL.json')) as data_file:

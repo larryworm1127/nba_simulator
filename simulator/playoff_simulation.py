@@ -5,28 +5,22 @@ This module runs the playoff simulation by running series and rounds separately
 # general imports
 from json import dump, load
 
-from stats_files import create_other_files, TEAM_DICT_PATH, get_id_from_abb, SIMULATE_PLAYOFF_PATH, \
-    SIMULATE_RANKING_PATH
+from constant import TEAM_DICT, SIM_PLAYOFF_PATH, SIM_RANKING_PATH
+from stats_files import get_id_from_abb
 from simulator import game_simulation
 
 # constants
 TEAM_MATCH_LIST = [[1, 8, 4, 5], [3, 6, 2, 7]]
 TEAM_OPPONENT = {1: 8, 2: 7, 3: 6, 4: 5, 5: 4, 6: 3, 7: 2, 8: 1}
 
-# loads data and check if the file exists before loading it
-create_other_files.init()
-with open(TEAM_DICT_PATH) as team_dict_file:
-    team_dict = load(team_dict_file)
-
 
 # main functions
 def run_single_series(team1, team2):
-    """
-    Takes two team IDs and run the 7 games playoff series
+    """Takes two team IDs and run the 7 games playoff series.
 
     :param team1: the team ID of team one
     :param team2: the team ID of team two
-    :return: A list containing two tuples, each tuple contains the team ID and its score
+    :return: A list containing two tuples, each contains the team ID and score
     """
     # create variables
     series_complete = False
@@ -53,15 +47,14 @@ def run_single_series(team1, team2):
 
 
 def run_round_simulation(teams, round_num, single_simulation, index=None):
-    """
-    Takes a list of teams and run a round of
-    series depending on the round number
+    """Takes a list of teams and run a round of series depending on the round
+    number.
 
     :param single_simulation: a function that runs the single series
     :param teams: a list of teams in format of {1: 'GSW', 2: 'SAS', etc}
     :param round_num: the round number
     :param index: index used for first round simulation
-    :return: the result of the simulation and the teams that made into next round
+    :return: the result of simulation and the teams that made into next round
     """
     # create variables
     result = []
@@ -78,13 +71,14 @@ def run_round_simulation(teams, round_num, single_simulation, index=None):
         result.append(series_result)
 
         if series_result[1][1] > series_result[0][1]:
-            next_round_teams.append(team_dict[team2_id])
+            next_round_teams.append(TEAM_DICT[team2_id])
         else:
-            next_round_teams.append(team_dict[team1_id])
+            next_round_teams.append(TEAM_DICT[team1_id])
 
     # other round numbers will commit same actions
     else:
         loop = []
+        team_check_list = []
         if round_num == 1:
             team_check_list = TEAM_MATCH_LIST[index].copy()
             loop = TEAM_MATCH_LIST[index]
@@ -97,7 +91,8 @@ def run_round_simulation(teams, round_num, single_simulation, index=None):
             if team_rank in team_check_list:
                 # create pre-simulation variables
                 team_abb = teams[team_rank]
-                opponent_rank = TEAM_OPPONENT[team_rank] if round_num == 1 else loop[loop.index(team_rank) + 1]
+                opponent_rank = TEAM_OPPONENT[team_rank] if round_num == 1 \
+                    else loop[loop.index(team_rank) + 1]
                 opponent = teams[opponent_rank]
                 team_id = get_id_from_abb(team_abb)
                 opponent_id = get_id_from_abb(opponent)
@@ -119,14 +114,13 @@ def run_round_simulation(teams, round_num, single_simulation, index=None):
 
 
 def run_whole_simulation():
-    """
-    Controls the whole playoff simulation
+    """Controls the whole playoff simulation.
 
-    :return: a test case use result in the format that can be accepted by Bracket.js
+    :return: a test use result in the format that can be accepted by Bracket.js
     """
     # create variables
     playoff_teams = get_playoff_teams()
-    with open(SIMULATE_PLAYOFF_PATH) as data_file:
+    with open(SIM_PLAYOFF_PATH) as data_file:
         final_result = load(data_file)
 
     final_teams = []
@@ -144,7 +138,8 @@ def run_whole_simulation():
             result = round_one[0]
             next_round_teams.extend(round_one[1])
             for idx in range(2):
-                final_result[division]['results'][0].append([result[idx][0][1], result[idx][1][1]])
+                final_result[division]['results'][0].append([result[idx][0][1],
+                                                             result[idx][1][1]])
 
         # second round simulation
         teams = {}
@@ -153,8 +148,10 @@ def run_whole_simulation():
         round_two = run_round_simulation(teams, 2, run_single_series)
         result = round_two[0]
         next_round_teams = round_two[1]
-        final_result[division]['results'][1].append([result[0][0][1], result[0][1][1]])
-        final_result[division]['results'][1].append([result[1][0][1], result[1][1][1]])
+        final_result[division]['results'][1].append([result[0][0][1],
+                                                     result[0][1][1]])
+        final_result[division]['results'][1].append([result[1][0][1],
+                                                     result[1][1][1]])
 
         # conference final simulation
         teams = {}
@@ -163,7 +160,8 @@ def run_whole_simulation():
         round_three = run_round_simulation(teams, 3, run_single_series)
         result = round_three[0]
         final_teams.append(round_three[1][0])
-        final_result[division]['results'][2].append([result[0][0][1], result[0][1][1]])
+        final_result[division]['results'][2].append([result[0][0][1],
+                                                     result[0][1][1]])
 
     # final simulation
     final_round = run_round_simulation(final_teams, 4, run_single_series)
@@ -174,7 +172,7 @@ def run_whole_simulation():
     final_result['final']['results'].append([result[0][0][1], result[0][1][1]])
 
     # put the simulated results into file
-    with open(SIMULATE_PLAYOFF_PATH, 'w') as playoff_file:
+    with open(SIM_PLAYOFF_PATH, 'w') as playoff_file:
         dump(final_result, playoff_file)
 
     return final_result  # test cases use only
@@ -186,7 +184,7 @@ def get_playoff_teams():
 
     :return: a dictionary containing the teams who made into the playoff
     """
-    with open(SIMULATE_RANKING_PATH) as ranking_file:
+    with open(SIM_RANKING_PATH) as ranking_file:
         ranking_data = dict(load(ranking_file))
 
     result = {'east': {}, 'west': {}}

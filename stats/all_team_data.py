@@ -8,7 +8,7 @@ from json import load
 from os.path import join
 from os import listdir
 
-from stats_files import TEAM_SEASON_PATH
+from constant import TEAM_SEASON_PATH
 
 
 # main functions
@@ -48,7 +48,7 @@ def create_team_data(sort: str) -> Dict[str, List]:
 
 
 def find_indexes(result_sets: Dict[str, List], headers: List[str]) -> List[int]:
-    """Find the index of a list of headers within the result sets
+    """Find the index of a list of headers within the result sets.
 
     :param result_sets: the data set that contains all headers
     :param headers: the list of headers that will be used to find the indexes
@@ -64,7 +64,7 @@ def find_indexes(result_sets: Dict[str, List], headers: List[str]) -> List[int]:
 
 
 def get_data() -> List:
-    """Create a list containing all the team season stats
+    """Create a list containing all the team season stats.
 
     :return: A list containing the data to be sorted and modified
     """
@@ -82,8 +82,7 @@ def get_data() -> List:
 
 
 def sort_data_by_header(header, result_rows, headers):
-    """
-    A helper function for sorting the display data
+    """A helper function for sorting the display data.
 
     :param header: the category of stats that will be used for sorting
     :param result_rows: the current data

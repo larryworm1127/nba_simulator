@@ -2,9 +2,10 @@
 
 # general imports
 from os.path import join
-from stats_files import TEAM_SEASON_PATH
 from os import listdir
 from json import load
+
+from constant import TEAM_SEASON_PATH
 
 # create variables
 team_list = listdir(TEAM_SEASON_PATH)
@@ -36,8 +37,7 @@ def top_ten_assists():
 
 
 def get_graph_data():
-    """
-    Extract the specific data from files and put them in lists
+    """Extract the specific data from files and put them in lists.
 
     :return: four lists containing stats for different category
     """

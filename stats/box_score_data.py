@@ -2,8 +2,9 @@
 
 # general imports
 from os.path import join
-from stats_files import GAME_BASE_PATH
 from json import load
+
+from constant import GAME_BASE_PATH
 
 
 # main functions
