@@ -36,8 +36,8 @@ def create_boxscore_data(game_id):
     player_stats = result_sets[PLAYER_STAT_INDEX]['rowSet']
     team_stats = result_sets[TEAM_STAT_INDEX]['rowSet']
 
-    team1_abb = TEAM_DICT[team_stats[0][TEAM_ID_INDEX]]
-    team2_abb = TEAM_DICT[team_stats[1][TEAM_ID_INDEX]]
+    team1_abb = TEAM_DICT[str(team_stats[0][TEAM_ID_INDEX])]
+    team2_abb = TEAM_DICT[str(team_stats[1][TEAM_ID_INDEX])]
     team1_name = ' '.join(TEAM_NAME_DICT[team1_abb])
     team2_name = ' '.join(TEAM_NAME_DICT[team2_abb])
     player_boxscore = {team1_abb: [], team2_abb: []}
@@ -52,7 +52,7 @@ def create_boxscore_data(game_id):
             else:
                 player_data.append(data)
 
-        team_abb = TEAM_DICT[player[TEAM_ID_INDEX]]
+        team_abb = TEAM_DICT[str(player[TEAM_ID_INDEX])]
         player_boxscore[team_abb].append(player_data)
 
     # Collect team boxscore data
@@ -63,7 +63,7 @@ def create_boxscore_data(game_id):
         team_data.insert(0, 'TOTAL:')
         team_data.insert(1, '')
 
-        team_abb = TEAM_DICT[team[TEAM_ID_INDEX]]
+        team_abb = TEAM_DICT[str(team[TEAM_ID_INDEX])]
         player_boxscore[team_abb].append(team_data)
 
     return (
