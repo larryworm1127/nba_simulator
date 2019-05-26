@@ -6,13 +6,15 @@
 {% block content %}
   <div class="container-fluid">
     <div class="col-sm-12">
-      <div style="text-align: center; font-family: Calibri, serif"><h1>{{ team1_name }} @ {{ team2_name }}</h1></div>
+      <div style="text-align: center; font-family: Calibri, serif">
+        <h1>{{ team1_name }} @ {{ team2_name }}</h1></div>
     </div>
   </div>
 
   <div align="right">
     <span style="font-family: impact, serif;">
-      <a href="#" data-toggle="popover" data-trigger="hover" data-placement="left" title="Glossary"
+      <a href="#" data-toggle="popover" data-trigger="hover"
+         data-placement="left" title="Glossary"
          data-content="P: Start Position <br /> MIN: Minutes <br /> PTS: Points Per Game
           <br /> OREB: Offensive Rebounds <br /> DREB: Defensive Rebounds
           <br /> REB: Total Rebounds <br /> AST: Assists <br /> STL: Steals <br /> BLK: Blocks
@@ -25,32 +27,33 @@
     </span>
   </div>
 
-  <input class="form-control" id="table_search" type="text" placeholder="Search..">
+  <input class="form-control" id="table_search" type="text"
+         placeholder="Search..">
   <br>
 
   <ul class="nav nav-pills" style="margin: auto; padding: 0; width: 147px;">
-    <li class="active"><a data-toggle="pill" href="#team1">{{ team1 }}</a></li>
-    <li><a data-toggle="pill" href="#team2">{{ team2 }}</a></li>
+    <li class="active"><a data-toggle="pill" href="#team1">{{ team1_abb }}</a></li>
+    <li><a data-toggle="pill" href="#team2">{{ team2_abb }}</a></li>
   </ul>
 
   <div class="tab-content">
     <div id="team1" class="tab-pane fade in active">
       <table class="table table-hover">
         <thead>
-        <tr>
-          {% for header in headers %}
-            <th align="center">{{ header }}</th>
-          {% endfor %}
-        </tr>
-        </thead>
-        <tbody id="data_table1">
-        {% for row in rows1 %}
           <tr>
-            {% for column in row %}
-              <td>{{ column }}</td>
+            {% for header in headers %}
+              <th class="text-center">{{ header }}</th>
             {% endfor %}
           </tr>
-        {% endfor %}
+        </thead>
+        <tbody id="data_table1">
+          {% for row in team1_player_stats %}
+            <tr>
+              {% for column in row %}
+                <td>{{ column }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
@@ -58,20 +61,20 @@
     <div id="team2" class="tab-pane fade">
       <table class="table table-hover">
         <thead>
-        <tr>
-          {% for header in headers %}
-            <th>{{ header }}</th>
-          {% endfor %}
-        </tr>
-        </thead>
-        <tbody id="data_table2">
-        {% for row in rows2 %}
           <tr>
-            {% for column in row %}
-              <td>{{ column }}</td>
+            {% for header in headers %}
+              <th>{{ header }}</th>
             {% endfor %}
           </tr>
-        {% endfor %}
+        </thead>
+        <tbody id="data_table2">
+          {% for row in team2_player_stats %}
+            <tr>
+              {% for column in row %}
+                <td>{{ column }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
