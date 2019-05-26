@@ -9,7 +9,7 @@ from json import load
 
 from stats.graph_data import top_ten_wlr, top_ten_points, top_ten_rebounds, \
     top_ten_assists
-from stats.box_score_data import create_data
+from stats.box_score_data import create_boxscore_data
 from stats.all_team_data import create_team_data
 from stats.standing_data import create_standing_data
 from stats.comparison_data import create_divisions_data
@@ -27,23 +27,23 @@ def index(request):
 
 def box_score(request):
     game_id = request.GET['gameID']
-    data = create_data(game_id)
+    data = create_boxscore_data(game_id)
     headers = data[0]
-    rows1 = data[1]
-    rows2 = data[2]
+    team1_pstats = data[1]
+    team2_pstats = data[2]
     team1_name = data[3]
     team2_name = data[4]
-    team1 = data[5]
-    team2 = data[6]
+    team1_abb = data[5]
+    team2_abb = data[6]
 
     context = {
         'headers': headers,
-        'rows1': rows1,
-        'rows2': rows2,
+        'team1_player_stats': team1_pstats,
+        'team2_player_stats': team2_pstats,
         'team1_name': team1_name,
         'team2_name': team2_name,
-        'team1': team1,
-        'team2': team2
+        'team1_abb': team1_abb,
+        'team2_abb': team2_abb
     }
 
     return render(request, 'stats/box_score.html', context)
