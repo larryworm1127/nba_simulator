@@ -41,7 +41,9 @@ jobs:
       # run tests!
       - run:
           name: run tests
-          command: python manage.py test
+          command: |
+            pipenv shell
+            python manage.py test
 
       - store_artifacts:
           path: test-reports
