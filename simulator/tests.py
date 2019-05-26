@@ -46,11 +46,11 @@ class TestOneGameSimulation(unittest.TestCase):
         simulator2 = GameSimulation('1610612761', '1610612737')  # TOR vs ATL
         simulator3 = GameSimulation('1610612744', '1610612737')  # GSW vs ATL
         simulator4 = GameSimulation('1610612748', '1610612754')
-        self.assertTrue(simulator.get_winner())
-        self.assertTrue(simulator2.get_winner())
-        self.assertTrue(simulator3.get_winner())
-        self.assertEqual((simulator.get_team_one_score(), simulator.get_team_two_score()), (10, 7))
-        self.assertTrue(simulator4.get_winner())
+        self.assertTrue(simulator.winner)
+        self.assertTrue(simulator2.winner)
+        self.assertTrue(simulator3.winner)
+        self.assertTrue((simulator.team1_score, simulator.team1_score))
+        self.assertTrue(simulator4.winner)
 
     def test_point_difference(self):
         simulator = GameSimulation('1610612751', '1610612737')

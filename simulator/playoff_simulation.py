@@ -30,7 +30,7 @@ def run_single_series(team1, team2):
     # simulate single series
     while not series_complete:
         simulate = game_simulation.GameSimulation(team1, team2)
-        winner = simulate.get_winner()
+        winner = simulate.winner
 
         if winner == team1:
             team1_points += 1

@@ -47,9 +47,9 @@ def create_data(game_id):
             for row in v:
                 for index in player_stats_index:
                     new_row.append(row[index])
-                for i in range(len(new_row)):
-                    if new_row[i] is None:
-                        new_row[i] = 'DNP'
+                for index, item in enumerate(new_row):
+                    if item is None:
+                        new_row[index] = 'DNP'
                 rows1.append(new_row)
                 rows2.append(new_row)
                 new_row = []

@@ -11,8 +11,7 @@ from constant import TEAM_DICT, TEAM_BASE_PATH, PLAYER_RATING_PATH
 
 
 class GameSimulation:
-    """
-    This class will rate two teams and give each of them a score. A winner
+    """This class will rate two teams and give each of them a score. A winner
     will be determined using random but the chance of winning will be affected
     by the score difference between the two teams
     """
@@ -40,28 +39,22 @@ class GameSimulation:
 
     def __str__(self):
         result = ''
-        result += "Home games: " + str(self.home_games) + '\n'
-        result += "Away games: " + str(self.away_games) + '\n'
-        result += "Team 1 games: " + str(self.team1_games) + '\n'
-        result += "Team 2 games: " + str(self.team1_games) + '\n'
-        result += "Team 1 score: " + str(self.team1_score) + '\n'
-        result += "Team 2 score: " + str(self.team2_score) + '\n'
-        result += "Winner: " + str(self.winner)
+        result += f"Home games: {str(self.home_games)} \n"
+        result += f"Away games: {str(self.away_games)} \n"
+        result += f"Team 1 games: {str(self.team1_games)} \n"
+        result += f"Team 2 games: {str(self.team1_games)} \n"
+        result += f"Team 1 score: {str(self.team1_score)} \n"
+        result += f"Team 2 score: {str(self.team2_score)} \n"
+        result += f"Winner: {str(self.winner)}"
         return result
-
-    def get_team_one_score(self):
-        return self.team1_score
-
-    def get_team_two_score(self):
-        return self.team2_score
 
     def get_winner(self):
         return self.winner
 
     def prepare_game_log_data(self):
         # initialize data files
-        team1_path = join(TEAM_BASE_PATH, TEAM_DICT[self.team_one] + '.json')
-        team2_path = join(TEAM_BASE_PATH, TEAM_DICT[self.team_two] + '.json')
+        team1_path = join(TEAM_BASE_PATH, f'{TEAM_DICT[self.team_one]}.json')
+        team2_path = join(TEAM_BASE_PATH, f'{TEAM_DICT[self.team_two]}.json')
         with open(team1_path, 'r') as team1_file:
             data1 = json.load(team1_file)['resultSets'][0]['rowSet']
         with open(team2_path, 'r') as team2_file:
@@ -100,8 +93,8 @@ class GameSimulation:
         # load files and put data in global variables
         team1_abb = TEAM_DICT[self.team_one]
         team2_abb = TEAM_DICT[self.team_two]
-        team1_path = join(PLAYER_RATING_PATH, team1_abb + '.json')
-        team2_path = join(PLAYER_RATING_PATH, team2_abb + '.json')
+        team1_path = join(PLAYER_RATING_PATH, f'{team1_abb}.json')
+        team2_path = join(PLAYER_RATING_PATH, f'{team2_abb}.json')
         with open(team1_path, 'r') as team1_file:
             self.team1_ratings = json.load(team1_file)
 
@@ -109,8 +102,7 @@ class GameSimulation:
             self.team2_ratings = json.load(team2_file)
 
     def team_match_up(self):
-        """
-        Scores the two teams based on their match up from last season
+        """Scores the two teams based on their match up from last season.
 
         :return: a tuple containing the score for team 1 and team 2
         """
@@ -171,9 +163,8 @@ class GameSimulation:
         return score1, score2
 
     def run_simulation(self):
-        """
-        Run the single game simulation by calling all the scoring team functions
-        and determine the winner through different random factors
+        """Run the single game simulation by calling all the scoring team
+        functions and determine the winner through different random factors.
         """
         # initialize variables by calling the scoring functions
         team_match_up = self.team_match_up()
@@ -238,8 +229,7 @@ class GameSimulation:
 
 
 def point_difference_scoring(team1_points, team2_points):
-    """
-    A helper function for scoring points for teams based on their
+    """A helper function for scoring points for teams based on their
     points secondary points rated through their points per game
 
     :param team1_points: the points team one scored through its point per game

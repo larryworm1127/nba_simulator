@@ -45,12 +45,12 @@ def run_simulation():
             counter += 1
 
             # check which team won the game
-            if simulator.get_winner() == team1_id:
+            if simulator.winner == team1_id:
                 results[team1_abb][team2_abb].append('W')
                 results[team2_abb][team1_abb].append('L')
                 win_count[team1_abb] += 1
                 loss_count[team2_abb] += 1
-            elif simulator.get_winner() == team2_id:
+            elif simulator.winner == team2_id:
                 results[team2_abb][team1_abb].append('W')
                 results[team1_abb][team2_abb].append('L')
                 win_count[team2_abb] += 1
