@@ -3,6 +3,7 @@
 # General imports
 from os.path import join
 from json import load
+from typing import Tuple, List
 
 from constant import GAME_BASE_PATH, TEAM_NAME_DICT, TEAM_DICT
 from constant import BoxScorePlayerHeaders, BoxScoreTeamHeaders
@@ -15,27 +16,26 @@ HEADER = ['Player Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB',
           'AST', 'STL', 'BLK', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%',
           'FTM', 'FTA', 'FT%', 'TOV', 'PF', '+/-']
 
-team_headers = ['MIN', 'PTS',
-                'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK', 'FGM', 'FGA',
-                'FG_PCT', 'FG3M', 'FG3A', 'FG3_PCT', 'FTM', 'FTA', 'FT_PCT',
-                'TO', 'PF', 'PLUS_MINUS']
-
-TEAM_HEADERS = ["GAME_ID", "TEAM_ID", "TEAM_NAME", "TEAM_ABBREVIATION",
-                "TEAM_CITY", "MIN", "FGM", "FGA", "FG_PCT", "FG3M", "FG3A",
-                "FG3_PCT", "FTM", "FTA", "FT_PCT", "OREB", "DREB", "REB", "AST",
-                "STL", "BLK", "TO", "PF", "PTS", "PLUS_MINUS"]
-
 
 # main functions
-def create_boxscore_data(game_id):
+def create_boxscore_data(game_id: str
+                         ) -> Tuple[List[str], List, List, str, str, str, str]:
+    """Format boxscore data to be used in front-end HTML from JSON data files.
+
+    :param game_id: the ID of the game to be displayed.
+    :return: a tuple containing all information needed in front-end
+    """
+    # Load raw JSON data from file
     path = join(GAME_BASE_PATH, f"{str(game_id)}.json")
     with open(path) as boxscore_file:
         parsed_json = load(boxscore_file)
 
+    # Index out the data to be used
     result_sets = parsed_json['resultSets']
     player_stats = result_sets[PLAYER_STAT_INDEX]['rowSet']
     team_stats = result_sets[TEAM_STAT_INDEX]['rowSet']
 
+    # Collect team infos
     team1_abb = TEAM_DICT[str(team_stats[0][TEAM_ID_INDEX])]
     team2_abb = TEAM_DICT[str(team_stats[1][TEAM_ID_INDEX])]
     team1_name = ' '.join(TEAM_NAME_DICT[team1_abb])
@@ -52,6 +52,7 @@ def create_boxscore_data(game_id):
             else:
                 player_data.append(data)
 
+        # add to display data
         team_abb = TEAM_DICT[str(player[TEAM_ID_INDEX])]
         player_boxscore[team_abb].append(player_data)
 

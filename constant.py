@@ -54,6 +54,8 @@ with open(os.path.join(ASSET_BASE_PATH, 'game_list.json')) as f:
 # Header Constants
 # ======================================================
 class BoxScorePlayerHeaders(enum.IntEnum):
+    """Boxscore Player Data Index Enum.
+    """
     PLAYER_NAME = 5
     START_POSITION = 6
     MIN = 8
@@ -79,6 +81,8 @@ class BoxScorePlayerHeaders(enum.IntEnum):
 
 
 class BoxScoreTeamHeaders(enum.IntEnum):
+    """Boxscore Team Data Index Enum.
+    """
     MIN = 5
     PTS = 23
     OREB = 15
