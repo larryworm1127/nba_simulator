@@ -119,7 +119,7 @@ class BoxScoreTeamHeaders(enum.IntEnum):
 # Team Season Data Constants
 # ======================================================
 class TeamSeasonDataIndices(enum.IntEnum):
-    """Comparison Data Index Enum.
+    """Team Season Data Index Enum.
     """
     SEASON = 3
     WLR = 7
@@ -128,3 +128,27 @@ class TeamSeasonDataIndices(enum.IntEnum):
     FG3_PCT = 20
     REB = 26
     AST = 27
+
+
+# ======================================================
+# Team Game Log Data Constants
+# ======================================================
+MATCHUP_INDEX = 3
+DATE_INDEX = 2
+
+
+class TeamGameLogDataIndices(enum.IntEnum):
+    """Team Game Log Data Index Enum.
+    """
+    WL = 4
+    W = 5
+    L = 6
+    OREB = 18
+    DREB = 19
+    REB = 20
+    AST = 21
+    STL = 22
+    BLK = 23
+    TOV = 24
+    PF = 25
+    PTS = 26
