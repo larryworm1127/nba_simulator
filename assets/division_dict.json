@@ -1,0 +1,48 @@
+{
+  "west": {
+    "Northwest": [
+      "DEN",
+      "MIN",
+      "OKC",
+      "POR",
+      "UTA"
+    ],
+    "Pacific": [
+      "GSW",
+      "LAC",
+      "LAL",
+      "PHX",
+      "SAC"
+    ],
+    "Southwest": [
+      "DAL",
+      "HOU",
+      "MEM",
+      "NOP",
+      "SAS"
+    ]
+  },
+  "east": {
+    "Atlantic": [
+      "BOS",
+      "BKN",
+      "NYK",
+      "PHI",
+      "TOR"
+    ],
+    "Central": [
+      "CHI",
+      "CLE",
+      "DET",
+      "IND",
+      "MIL"
+    ],
+    "Southeast": [
+      "ATL",
+      "CHA",
+      "MIA",
+      "ORL",
+      "WAS"
+    ]
+  }
+}

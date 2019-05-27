@@ -12,11 +12,11 @@ from stats.graph_data import top_ten_wlr, top_ten_points, top_ten_rebounds, \
 from stats.box_score_data import create_boxscore_data
 from stats.all_team_data import create_team_data
 from stats.standing_data import create_standing_data
-from stats.comparison_data import create_divisions_data
+from stats.comparison_data import create_comparison_data
 from stats.team_page_data import get_team_from_abb, get_other_teams, \
     get_simulated_games, get_games
 from stats.bracket_data import BracketData
-from constant import DIVISION_LIST, SIM_PLAYOFF_PATH
+from constant import CONF_LIST, SIM_PLAYOFF_PATH, HEADER, TEAM_DICT
 from simulator.playoff_simulation import run_whole_simulation
 from simulator.season_simulation import init
 
@@ -28,7 +28,6 @@ def index(request):
 def box_score(request):
     game_id = request.GET['gameID']
     data = create_boxscore_data(game_id)
-    headers = data[0]
     team1_pstats = data[1]
     team2_pstats = data[2]
     team1_name = data[3]
@@ -37,7 +36,7 @@ def box_score(request):
     team2_abb = data[6]
 
     context = {
-        'headers': headers,
+        'headers': HEADER,
         'team1_player_stats': team1_pstats,
         'team2_player_stats': team2_pstats,
         'team1_name': team1_name,
@@ -176,15 +175,14 @@ bar_assists_chart = AssistsChart.as_view()
 
 def team_comparisons(request):
     compare = request.GET.get('compare')
-    data = create_divisions_data(compare)
+    data = create_comparison_data(compare)
     west_divisions = data[0]
     east_divisions = data[1]
     all_teams = data[2]
     categories1 = data[3]
     categories2 = data[4]
-    abbreviations = data[5]
-    team1 = {data[6]: f'images/{data[6]}.png'}
-    team2 = {data[7]: f'images/{data[7]}.png'}
+    team1 = {data[5]: f'images/{data[5]}.png'}
+    team2 = {data[6]: f'images/{data[6]}.png'}
 
     context = {
         'west_divisions': west_divisions,
@@ -192,7 +190,6 @@ def team_comparisons(request):
         'all_teams': all_teams,
         'categories1': categories1,
         'categories2': categories2,
-        'abbreviations': abbreviations,
         'team1': team1,
         'team2': team2
     }
@@ -253,14 +250,14 @@ def tournament(request, season):
         bracket_data = BracketData()
 
         bracket_data.create_playoff_data()
-        data = bracket_data.get_final_data()
+        data = bracket_data.final_data
 
     return JsonResponse(data)
 
 
 def bracket(request, season):
-    east_teams = {team: f'images/{team}.png' for team in DIVISION_LIST['east']}
-    west_teams = {team: f'images/{team}.png' for team in DIVISION_LIST['west']}
+    east_teams = {team: f'images/{team}.png' for team in CONF_LIST['east']}
+    west_teams = {team: f'images/{team}.png' for team in CONF_LIST['west']}
 
     context = {
         'season': season,
