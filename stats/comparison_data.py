@@ -3,8 +3,9 @@
 # General imports
 from typing import Tuple, Dict, List
 
-from constant import TEAM_DICT, DIVISION_DICT
-from constant import TeamSeasonDataIndices
+from constant import DIVISION_DICT
+from constant import TeamSeasonDataIndices as Indices
+from stats_files import get_id_from_abb
 from .all_team_data import get_data
 
 
@@ -35,7 +36,6 @@ def create_comparison_data(teams: str
         "team2": {"W-L R": '', "PPG": '', "FG%": '', "3P%": '', "REB": '',
                   "AST": ''}
     }
-    team_abb = list(TEAM_DICT.values())
     team1, team2 = '', ''
 
     # enum does not allow storing special characters so this dict maps enum
@@ -46,17 +46,19 @@ def create_comparison_data(teams: str
     # only gather data if request inputs team names
     if teams:
         team1, team2 = teams[:3], teams[3:]
-        all_team_stats = get_data()
-        team1_index = team_abb.index(team1)
-        team2_index = team_abb.index(team2)
+        team_stats = get_data()
+        team1_index = [str(item[0]) for item in team_stats
+                       ].index(get_id_from_abb(team1))
+        team2_index = [str(item[0]) for item in team_stats
+                       ].index(get_id_from_abb(team2))
 
         # populate result dict from file data
-        for category in TeamSeasonDataIndices:
-            team1_data = all_team_stats[team1_index][category.value]
-            result["team1"][cat_ref[category.name]] = team1_data
+        for cat, display_cat in cat_ref.items():
+            team1_data = team_stats[team1_index][Indices.__members__[cat].value]
+            result["team1"][display_cat] = team1_data
 
-            team2_data = all_team_stats[team2_index][category.value]
-            result["team2"][cat_ref[category.name]] = team2_data
+            team2_data = team_stats[team2_index][Indices.__members__[cat].value]
+            result["team2"][display_cat] = team2_data
 
     return (
         team_img_path["west"],
