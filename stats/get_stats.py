@@ -12,7 +12,7 @@ from json import load
 from os import listdir
 from os.path import join
 from re import search
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Any
 
 from constant import MATCHUP_INDEX, DATE_INDEX, TEAM_ID_INDEX, PLAYER_STAT_INDEX
 from constant import TEAM_STAT_INDEX, TEAM_NAME_DICT, TEAM_DICT, DIVISION_DICT
@@ -247,7 +247,7 @@ def get_team_page_data(team_abb: str) -> Dict[str, List]:
     return game_dict
 
 
-def get_simulated_games(team_abb: str) -> Dict[str, List]:
+def get_simulated_games(team_abb: str) -> Dict[str, Any]:
     """Creates the data set for simulated games.
 
     :param team_abb: the team abbreviation of the team
