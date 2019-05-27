@@ -12,7 +12,7 @@ from constant import TeamSeasonDataIndices as Indices
 
 
 # main functions
-def create_team_data(sort: str) -> Dict[str, List]:
+def get_all_team_data(sort: str) -> Dict[str, List]:
     """Creates and sorts data from files so that the web page can read them
 
     :param sort: the type of sorting the web page requested

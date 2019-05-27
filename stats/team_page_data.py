@@ -13,7 +13,7 @@ from constant import TeamGameLogDataIndices as Indices
 
 
 # main functions
-def get_games(team_abb):
+def get_team_page_data(team_abb):
     """Creates the data set from the team game log stats.
 
     :param team_abb: the team abbreviation of the team

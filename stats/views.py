@@ -8,11 +8,11 @@ from rest_framework.views import APIView
 from json import load
 
 from .graph_data import get_graph_data
-from .box_score_data import create_boxscore_data
-from .all_team_data import create_team_data
+from .box_score_data import get_boxscore_data
+from .all_team_data import get_all_team_data
 from .standing_data import create_standing_data
-from .comparison_data import create_comparison_data
-from .team_page_data import get_simulated_games, get_games
+from .comparison_data import get_comparison_data
+from .team_page_data import get_simulated_games, get_team_page_data
 from .bracket_data import BracketData
 from constant import CONF_LIST, SIM_PLAYOFF_PATH, HEADER, TEAM_NAME_DICT, \
     TEAM_DICT
@@ -26,7 +26,7 @@ def index(request):
 
 def box_score(request):
     game_id = request.GET['gameID']
-    data = create_boxscore_data(game_id)
+    data = get_boxscore_data(game_id)
     team1_pstats = data[0]
     team2_pstats = data[1]
     team1_name = data[2]
@@ -49,7 +49,7 @@ def box_score(request):
 
 def all_team_stats(request):
     sort = request.GET.get('sort')
-    data = create_team_data(sort)
+    data = get_all_team_data(sort)
     headers = data['headers']
     rows = data['rows']
 
@@ -171,7 +171,7 @@ bar_assists_chart = AssistsChart.as_view()
 
 def team_comparisons(request):
     compare = request.GET.get('compare')
-    data = create_comparison_data(compare)
+    data = get_comparison_data(compare)
     west_divisions = data[0]
     east_divisions = data[1]
     all_teams = data[2]
@@ -215,7 +215,7 @@ def season_games(request, team, season):
         game_dict = get_simulated_games(team)
     else:
         template = 'stats_team_pages/team_page.html'
-        game_dict = get_games(team)
+        game_dict = get_team_page_data(team)
 
     context = {
         'team': team,

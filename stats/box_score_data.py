@@ -10,7 +10,7 @@ from constant import PLAYER_STAT_INDEX, TEAM_STAT_INDEX, TEAM_ID_INDEX
 
 
 # main functions
-def create_boxscore_data(game_id: str) -> Tuple[List, List, str, str, str, str]:
+def get_boxscore_data(game_id: str) -> Tuple[List, List, str, str, str, str]:
     """Format boxscore data to be used in front-end HTML from JSON data files.
 
     :param game_id: the ID of the game to be displayed.

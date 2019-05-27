@@ -9,8 +9,8 @@ from stats_files import get_id_from_abb
 from .all_team_data import load_team_season_data
 
 
-def create_comparison_data(teams: str
-                           ) -> Tuple[Dict, Dict, List, Dict, Dict, str, str]:
+def get_comparison_data(teams: str
+                        ) -> Tuple[Dict, Dict, List, Dict, Dict, str, str]:
     """Format comparison data to be used in front-end HTML from JSON data files.
 
     :param teams: the teams string requested from front-end
