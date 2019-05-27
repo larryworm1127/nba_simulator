@@ -19,7 +19,7 @@ def get_graph_data() -> Tuple[List, List, List, List]:
     assists_data = []
 
     for team in TEAM_DICT.values():
-        with open(join(TEAM_SEASON_PATH, team)) as team_season_file:
+        with open(join(TEAM_SEASON_PATH, f"{team}.json")) as team_season_file:
             data = load(team_season_file)['resultSets'][0]['rowSet'][-2]
 
         wlr_data.append((team, data[TeamSeasonDataIndices.WLR.value]))
