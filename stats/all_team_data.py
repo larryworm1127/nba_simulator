@@ -8,6 +8,7 @@ from os.path import join
 from typing import Dict, List
 
 from constant import TEAM_SEASON_PATH
+from constant import TeamSeasonDataIndices as Indices
 
 
 # main functions
@@ -17,52 +18,31 @@ def create_team_data(sort: str) -> Dict[str, List]:
     :param sort: the type of sorting the web page requested
     :return: the data to be displayed on the web page
     """
-    with open(join(TEAM_SEASON_PATH, 'ATL.json')) as data_file:
-        parsed_json = load(data_file)
+    all_team_data = load_team_season_data()
+    data_headers = [
+        'TEAM_LOC', 'TEAM_NAME', 'WINS', 'LOSSES', 'PPG', 'FG_PCT', 'FG3_PCT',
+        'DREB', 'OREB', 'REB', 'AST', 'TOV', 'STL', 'BLK', 'PF'
+    ]
+    result_headers = [
+        'Team City', 'Team Name', 'W', 'L', 'PPG', 'FG%', '3P%',
+        'DREB', 'OREB', 'REB', 'AST', 'TOV', 'STL', 'BLK', 'PF'
+    ]
 
-    result_sets = parsed_json['resultSets']
+    reduced_data = [[row[Indices.__members__[header].value]
+                     for header in data_headers] for row in all_team_data]
 
-    data = get_data()
-    data_headers = ['TEAM_CITY', 'TEAM_NAME', 'WINS', 'LOSSES', 'PTS', 'FG_PCT',
-                    'FG3_PCT', 'DREB', 'OREB', 'AST', 'TOV', 'STL', 'BLK', 'PF']
-
-    result_row = []
-    single_row = []
-    for row in data:
-        indexes = find_indexes(result_sets, data_headers)
-        for index in indexes:
-            single_row.append(row[index])
-        result_row.append(single_row)
-        single_row = []
-
-    result_headers = ['Team City', 'Team Name', 'W', 'L', 'PPG', 'FG%', '3P%',
-                      'DREB', 'OREB', 'AST', 'TOV', 'STL', 'BLK', 'PF']
-
+    # sort the data by the requested stats category
     if sort is not None and sort in result_headers:
-        result_row = sort_data_by_header(sort, result_row, result_headers)
+        index = result_headers.index(sort)
+        reverse = False if sort in ['Team City', 'Team Name'] else True
+        reduced_data.sort(key=lambda data: data[index], reverse=reverse)
 
-    display_data = {'headers': result_headers, 'rows': result_row}
+    display_data = {'headers': result_headers, 'rows': reduced_data}
 
     return display_data
 
 
-def find_indexes(result_sets: Dict[str, List], headers: List[str]) -> List[int]:
-    """Find the index of a list of headers within the result sets.
-
-    :param result_sets: the data set that contains all headers
-    :param headers: the list of headers that will be used to find the indexes
-    :return: a list of index for the given headers
-    """
-    index = []
-    header_data = result_sets[0]['headers']
-
-    for header in headers:
-        index.append(header_data.index(header))
-
-    return index
-
-
-def get_data() -> List:
+def load_team_season_data() -> List:
     """Create a list containing all the team season stats.
 
     :return: A list containing the data to be sorted and modified
@@ -78,21 +58,3 @@ def get_data() -> List:
                 all_team_lists.append(row)
 
     return all_team_lists
-
-
-def sort_data_by_header(header, result_rows, headers):
-    """A helper function for sorting the display data.
-
-    :param header: the category of stats that will be used for sorting
-    :param result_rows: the current data
-    :param headers: the list of headers
-    :return:
-    """
-    tuple_data = [tuple(row) for row in result_rows]
-    header_index = headers.index(header)
-
-    reverse = True
-    if header == 'Team City' or header == 'Team Name':
-        reverse = False
-    tuple_data.sort(key=lambda data: data[header_index], reverse=reverse)
-    return [list(row) for row in tuple_data]

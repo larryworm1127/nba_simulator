@@ -6,7 +6,7 @@ from typing import Tuple, Dict, List
 from constant import DIVISION_DICT
 from constant import TeamSeasonDataIndices as Indices
 from stats_files import get_id_from_abb
-from .all_team_data import get_data
+from .all_team_data import load_team_season_data
 
 
 def create_comparison_data(teams: str
@@ -46,7 +46,7 @@ def create_comparison_data(teams: str
     # only gather data if request inputs team names
     if teams:
         team1, team2 = teams[:3], teams[3:]
-        team_stats = get_data()
+        team_stats = load_team_season_data()
         team1_index = [str(item[0]) for item in team_stats
                        ].index(get_id_from_abb(team1))
         team2_index = [str(item[0]) for item in team_stats
