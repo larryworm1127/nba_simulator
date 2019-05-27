@@ -3,9 +3,9 @@
 # General imports
 from typing import Tuple, Dict, List
 
-from .all_team_data import get_data
 from constant import TEAM_DICT, DIVISION_DICT
-from constant import ComparisonDataIndices
+from constant import TeamSeasonDataIndices
+from .all_team_data import get_data
 
 
 def create_comparison_data(teams: str
@@ -47,12 +47,11 @@ def create_comparison_data(teams: str
     if teams:
         team1, team2 = teams[:3], teams[3:]
         all_team_stats = get_data()
-        print(all_team_stats)
         team1_index = team_abb.index(team1)
         team2_index = team_abb.index(team2)
 
         # populate result dict from file data
-        for category in ComparisonDataIndices:
+        for category in TeamSeasonDataIndices:
             team1_data = all_team_stats[team1_index][category.value]
             result["team1"][cat_ref[category.name]] = team1_data
 

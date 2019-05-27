@@ -2,13 +2,12 @@
 This module creates data for standing pages
 """
 
-# general imports
 from json import load
-from os.path import join
 from os import listdir
+from os.path import join
 
-from simulator.rank_teams import rank_team_all
 from constant import TEAM_DICT, TEAM_SEASON_PATH, SIM_RESULT_PATH
+from simulator.rank_teams import rank_team_all
 from stats_files import get_abb_from_name
 
 

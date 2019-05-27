@@ -116,11 +116,12 @@ class BoxScoreTeamHeaders(enum.IntEnum):
 
 
 # ======================================================
-# Comparison Data Constants
+# Team Season Data Constants
 # ======================================================
-class ComparisonDataIndices(enum.IntEnum):
+class TeamSeasonDataIndices(enum.IntEnum):
     """Comparison Data Index Enum.
     """
+    SEASON = 3
     WLR = 7
     PPG = 32
     FG_PCT = 17

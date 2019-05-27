@@ -1,12 +1,11 @@
 """This module creates box score page data"""
 
-# General imports
-from os.path import join
 from json import load
+from os.path import join
 from typing import Tuple, List
 
-from constant import GAME_BASE_PATH, TEAM_NAME_DICT, TEAM_DICT
 from constant import BoxScorePlayerHeaders, BoxScoreTeamHeaders
+from constant import GAME_BASE_PATH, TEAM_NAME_DICT, TEAM_DICT
 from constant import PLAYER_STAT_INDEX, TEAM_STAT_INDEX, TEAM_ID_INDEX
 
 
