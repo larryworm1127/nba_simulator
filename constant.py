@@ -5,10 +5,10 @@ This module contains all constants used by this project.
 @date: 05/12/2019
 @author: Larry Shi
 """
-import sys
-import os.path
-import json
 import enum
+import json
+import os.path
+import sys
 
 # ======================================================
 # File/Directory Paths Constants
@@ -58,9 +58,9 @@ with open(os.path.join(ASSET_BASE_PATH, 'division_dict.json')) as f:
 TEAM_ID_INDEX = 1
 PLAYER_STAT_INDEX = 0
 TEAM_STAT_INDEX = 1
-HEADER = ['Player Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB',
-          'AST', 'STL', 'BLK', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%',
-          'FTM', 'FTA', 'FT%', 'TOV', 'PF', '+/-']
+BOXSCORE_HEADER = ['Player Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB',
+                   'AST', 'STL', 'BLK', 'FGM', 'FGA', 'FG%', '3PM', '3PA',
+                   '3P%', 'FTM', 'FTA', 'FT%', 'TOV', 'PF', '+/-']
 
 
 class BoxScorePlayerHeaders(enum.IntEnum):
@@ -121,13 +121,22 @@ class BoxScoreTeamHeaders(enum.IntEnum):
 class TeamSeasonDataIndices(enum.IntEnum):
     """Team Season Data Index Enum.
     """
-    SEASON = 3
+    TEAM_LOC = 1
+    TEAM_NAME = 2
+    WINS = 5
+    LOSSES = 6
     WLR = 7
     PPG = 32
     FG_PCT = 17
     FG3_PCT = 20
+    DREB = 25
+    OREB = 24
     REB = 26
     AST = 27
+    TOV = 30
+    STL = 29
+    BLK = 31
+    PF = 28
 
 
 # ======================================================
