@@ -12,10 +12,10 @@ from stats.box_score_data import create_boxscore_data
 from stats.all_team_data import create_team_data
 from stats.standing_data import create_standing_data
 from stats.comparison_data import create_comparison_data
-from stats.team_page_data import get_team_from_abb, get_other_teams, \
-    get_simulated_games, get_games
+from stats.team_page_data import get_simulated_games, get_games
 from stats.bracket_data import BracketData
-from constant import CONF_LIST, SIM_PLAYOFF_PATH, HEADER, TEAM_DICT
+from constant import CONF_LIST, SIM_PLAYOFF_PATH, HEADER, TEAM_NAME_DICT, \
+    TEAM_DICT
 from simulator.playoff_simulation import run_whole_simulation
 from simulator.season_simulation import init
 
@@ -27,12 +27,12 @@ def index(request):
 def box_score(request):
     game_id = request.GET['gameID']
     data = create_boxscore_data(game_id)
-    team1_pstats = data[1]
-    team2_pstats = data[2]
-    team1_name = data[3]
-    team2_name = data[4]
-    team1_abb = data[5]
-    team2_abb = data[6]
+    team1_pstats = data[0]
+    team2_pstats = data[1]
+    team1_name = data[2]
+    team2_name = data[3]
+    team1_abb = data[4]
+    team2_abb = data[5]
 
     context = {
         'headers': HEADER,
@@ -206,8 +206,9 @@ def stats_graph(request):
 
 def season_games(request, team, season):
     team_logo = f"images/{team}.png"
-    team_name = get_team_from_abb(team)
-    team_list = get_other_teams(team)
+    team_name = ' '.join(TEAM_NAME_DICT[team])
+    team_list = [item for item in TEAM_DICT.values()]
+    team_list.remove(team)
 
     if season == '2017-18':
         template = 'stats_team_pages/simulated_team_page.html'
