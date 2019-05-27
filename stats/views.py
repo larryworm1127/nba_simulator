@@ -7,13 +7,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from json import load
 
-from stats.graph_data import get_graph_data
-from stats.box_score_data import create_boxscore_data
-from stats.all_team_data import create_team_data
-from stats.standing_data import create_standing_data
-from stats.comparison_data import create_comparison_data
-from stats.team_page_data import get_simulated_games, get_games
-from stats.bracket_data import BracketData
+from .graph_data import get_graph_data
+from .box_score_data import create_boxscore_data
+from .all_team_data import create_team_data
+from .standing_data import create_standing_data
+from .comparison_data import create_comparison_data
+from .team_page_data import get_simulated_games, get_games
+from .bracket_data import BracketData
 from constant import CONF_LIST, SIM_PLAYOFF_PATH, HEADER, TEAM_NAME_DICT, \
     TEAM_DICT
 from simulator.playoff_simulation import run_whole_simulation
