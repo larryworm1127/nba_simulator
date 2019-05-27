@@ -3,14 +3,13 @@ This module creates data sets that will be displayed onto the team regular
 season game pages
 """
 
-# general imports
-from os.path import join
 from json import load
+from os.path import join
 
-from constant import TEAM_SEASON_PATH
-from constant import TEAM_DICT
-from constant import TEAM_BASE_PATH
 from constant import SIM_RESULT_PATH
+from constant import TEAM_BASE_PATH
+from constant import TEAM_DICT
+from constant import TEAM_SEASON_PATH
 
 
 # main functions

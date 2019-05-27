@@ -1,65 +1,33 @@
 """This module creates data for the stats graphs"""
 
-# general imports
-from os.path import join
-from os import listdir
 from json import load
+from os.path import join
+from typing import Tuple, List
 
-from constant import TEAM_SEASON_PATH
-
-# create variables
-team_list = listdir(TEAM_SEASON_PATH)
-
-
-# main functions
-def top_ten_wlr():
-    wlr_list = get_graph_data()[0]
-    wlr_list.sort(key=lambda ratio: ratio[1], reverse=True)
-    return wlr_list
+from constant import TEAM_SEASON_PATH, TEAM_DICT
+from constant import TeamSeasonDataIndices
 
 
-def top_ten_points():
-    points_list = get_graph_data()[1]
-    points_list.sort(key=lambda ratio: ratio[1], reverse=True)
-    return points_list
-
-
-def top_ten_rebounds():
-    rebounds_list = get_graph_data()[2]
-    rebounds_list.sort(key=lambda ratio: ratio[1], reverse=True)
-    return rebounds_list
-
-
-def top_ten_assists():
-    assists_list = get_graph_data()[3]
-    assists_list.sort(key=lambda ratio: ratio[1], reverse=True)
-    return assists_list
-
-
-def get_graph_data():
+def get_graph_data() -> Tuple[List, List, List, List]:
     """Extract the specific data from files and put them in lists.
 
     :return: four lists containing stats for different category
     """
-    wlr_list = []
-    points_list = []
-    rebounds_list = []
-    assists_list = []
+    wlr_data = []
+    points_data = []
+    rebounds_data = []
+    assists_data = []
 
-    for team_dir in team_list:
-        with open(join(TEAM_SEASON_PATH, team_dir)) as team_season_file:
-            data = load(team_season_file)['resultSets'][0]['rowSet']
+    for team in TEAM_DICT.values():
+        with open(join(TEAM_SEASON_PATH, f"{team}.json")) as team_season_file:
+            data = load(team_season_file)['resultSets'][0]['rowSet'][-2]
 
-        win_loss_ratios = data[-2][7]
-        wlr_list.append((team_dir[:3], win_loss_ratios))
+        wlr_data.append((team, data[TeamSeasonDataIndices.WLR.value]))
+        points_data.append((team, data[TeamSeasonDataIndices.PPG.value]))
+        rebounds_data.append((team, data[TeamSeasonDataIndices.REB.value]))
+        assists_data.append((team, data[TeamSeasonDataIndices.AST.value]))
 
-        points_per_game = data[-2][-2]
-        points_list.append((team_dir[:3], points_per_game))
+    for data in (wlr_data, points_data, rebounds_data, assists_data):
+        data.sort(key=lambda ratio: ratio[1], reverse=True)
 
-        rebounds_per_game = round(data[-2][-9] + data[-2][-10], 2)
-        rebounds_list.append((team_dir[:3], rebounds_per_game))
-
-        assists_per_game = data[-2][-7]
-        assists_list.append((team_dir[:3], assists_per_game))
-
-    return wlr_list, points_list, rebounds_list, assists_list
+    return wlr_data, points_data, rebounds_data, assists_data

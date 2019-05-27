@@ -2,11 +2,10 @@
 This module creates table data for all team statistic page
 """
 
-# general imports
-from typing import Dict, List
 from json import load
-from os.path import join
 from os import listdir
+from os.path import join
+from typing import Dict, List
 
 from constant import TEAM_SEASON_PATH
 

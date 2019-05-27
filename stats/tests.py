@@ -5,8 +5,7 @@ from os.path import join
 
 from stats.standing_data import get_data, find_indexes, rank_teams, \
     create_standing_data
-from stats.graph_data import TEAM_SEASON_PATH, get_graph_data, \
-    top_ten_rebounds, top_ten_wlr, top_ten_assists, top_ten_points
+from stats.graph_data import TEAM_SEASON_PATH, get_graph_data
 from stats.team_page_data import get_games, data_cleanup, get_simulated_games
 
 
@@ -39,12 +38,6 @@ class TestCreateStatsData(unittest.TestCase):
     def test_get_data(self):
         actual_result = get_graph_data()
         self.assertTrue(actual_result)
-
-    def test_top_ten(self):
-        self.assertTrue(top_ten_rebounds())
-        self.assertTrue(top_ten_wlr())
-        self.assertTrue(top_ten_assists())
-        self.assertTrue(top_ten_points())
 
 
 class TestCreateTeamPageData(unittest.TestCase):

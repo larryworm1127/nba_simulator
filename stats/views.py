@@ -7,8 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from json import load
 
-from stats.graph_data import top_ten_wlr, top_ten_points, top_ten_rebounds, \
-    top_ten_assists
+from stats.graph_data import get_graph_data
 from stats.box_score_data import create_boxscore_data
 from stats.all_team_data import create_team_data
 from stats.standing_data import create_standing_data
@@ -79,22 +78,19 @@ def standing(request, season):
 
 
 class GetData:
-    def __init__(self):
-        data = top_ten_wlr()
-        self.labels = [single_team[0] for single_team in data]
-        self.wlr = [single_team[1] for single_team in data]
+    data = get_graph_data()
 
-        data2 = top_ten_points()
-        self.names = [single_team[0] for single_team in data2]
-        self.points = [single_team[1] for single_team in data2]
+    labels = [single_team[0] for single_team in data[0]]
+    wlr = [single_team[1] for single_team in data[0]]
 
-        data3 = top_ten_rebounds()
-        self.teams = [single_team[0] for single_team in data3]
-        self.rebounds = [single_team[1] for single_team in data3]
+    names = [single_team[0] for single_team in data[1]]
+    points = [single_team[1] for single_team in data[1]]
 
-        data4 = top_ten_assists()
-        self.abb = [single_team[0] for single_team in data4]
-        self.assists = [single_team[1] for single_team in data4]
+    teams = [single_team[0] for single_team in data[2]]
+    rebounds = [single_team[1] for single_team in data[2]]
+
+    abb = [single_team[0] for single_team in data[3]]
+    assists = [single_team[1] for single_team in data[3]]
 
 
 class WlrChart(BaseLineChartView, GetData):
