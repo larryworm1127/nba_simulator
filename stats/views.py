@@ -1,23 +1,24 @@
-from chartjs.views.lines import BaseLineChartView
-from django.shortcuts import render
-from django.views.generic import TemplateView
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.response import Response
-from rest_framework.views import APIView
 from json import load
 
-from .graph_data import get_graph_data
-from .box_score_data import get_boxscore_data
-from .all_team_data import get_all_team_data
-from .standing_data import create_standing_data
-from .comparison_data import get_comparison_data
-from .team_page_data import get_simulated_games, get_team_page_data
-from .bracket_data import BracketData
-from constant import CONF_LIST, SIM_PLAYOFF_PATH, HEADER, TEAM_NAME_DICT, \
-    TEAM_DICT
+from chartjs.views.lines import BaseLineChartView
+from django.http import JsonResponse
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from constant import SIM_PLAYOFF_PATH, BOXSCORE_HEADER
+from constant import TEAM_NAME_DICT, TEAM_DICT, CONF_LIST
 from simulator.playoff_simulation import run_whole_simulation
 from simulator.season_simulation import init
+from .bracket_data import BracketData
+from .get_stats import get_all_team_data
+from .get_stats import get_boxscore_data
+from .get_stats import get_comparison_data
+from .get_stats import get_graph_data
+from .get_stats import get_team_page_data, get_simulated_games
+from .standing_data import create_standing_data
 
 
 def index(request):
@@ -35,7 +36,7 @@ def box_score(request):
     team2_abb = data[5]
 
     context = {
-        'headers': HEADER,
+        'headers': BOXSCORE_HEADER,
         'team1_player_stats': team1_pstats,
         'team2_player_stats': team2_pstats,
         'team1_name': team1_name,

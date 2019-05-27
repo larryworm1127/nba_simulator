@@ -5,10 +5,10 @@ This module contains all constants used by this project.
 @date: 05/12/2019
 @author: Larry Shi
 """
-import sys
-import os.path
-import json
 import enum
+import json
+import os.path
+import sys
 
 # ======================================================
 # File/Directory Paths Constants
@@ -58,9 +58,9 @@ with open(os.path.join(ASSET_BASE_PATH, 'division_dict.json')) as f:
 TEAM_ID_INDEX = 1
 PLAYER_STAT_INDEX = 0
 TEAM_STAT_INDEX = 1
-HEADER = ['Player Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB',
-          'AST', 'STL', 'BLK', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%',
-          'FTM', 'FTA', 'FT%', 'TOV', 'PF', '+/-']
+BOXSCORE_HEADER = ['Player Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB',
+                   'AST', 'STL', 'BLK', 'FGM', 'FGA', 'FG%', '3PM', '3PA',
+                   '3P%', 'FTM', 'FTA', 'FT%', 'TOV', 'PF', '+/-']
 
 
 class BoxScorePlayerHeaders(enum.IntEnum):

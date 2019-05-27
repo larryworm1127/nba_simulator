@@ -3,10 +3,11 @@ import unittest
 from json import load
 from os.path import join
 
-from stats.graph_data import TEAM_SEASON_PATH, get_graph_data
-from stats.standing_data import get_data, find_indexes, rank_teams, \
+from constant import TEAM_SEASON_PATH
+from .get_stats import get_graph_data
+from .get_stats import get_team_page_data, get_simulated_games
+from .standing_data import get_data, find_indexes, rank_teams, \
     create_standing_data
-from stats.team_page_data import get_team_page_data, get_simulated_games
 
 
 class TestWinsLosses(unittest.TestCase):
