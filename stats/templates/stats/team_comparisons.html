@@ -24,7 +24,7 @@
     <div style="text-align: center;">
       <div class="col-sm-3">
         {% for divisions, teams in west_divisions.items %}
-          <h4 class="Heading" style="font-family: Arial Black, serif">{{ divisions }}</h4>
+          <h4 class="Heading" style="font-family: Arial Black, serif">{{ divisions }} Division</h4>
           {% for team in teams %}
             {% for team, image in team.items %}
               <h4 class="Team">
@@ -41,7 +41,7 @@
     <div style="text-align: center;">
       <div class="col-sm-3">
         {% for divisions, teams in east_divisions.items %}
-          <h4 class="Heading" style="font-family: Arial Black, serif">{{ divisions }}</h4>
+          <h4 class="Heading" style="font-family: Arial Black, serif">{{ divisions }} Division</h4>
           {% for team in teams %}
             {% for team, image in team.items %}
               <h4 class="Team">
@@ -134,7 +134,7 @@
       });
 
       function team1() {
-          var team1 = document.getElementById("team1").value;
+          let team1 = document.getElementById("team1").value;
           if (team1.length < 4) {
               document.getElementById("name1").innerHTML = team1;
               document.getElementById("logo1").src = "";
@@ -142,7 +142,7 @@
       }
 
       function team2() {
-          var team2 = document.getElementById("team2").value;
+          let team2 = document.getElementById("team2").value;
           if (team2.length < 4) {
               document.getElementById("name2").innerHTML = team2;
               document.getElementById("logo2").src = "";
@@ -150,8 +150,8 @@
       }
 
       function compare() {
-          var team1 = document.getElementById("name1").innerHTML;
-          var team2 = document.getElementById("name2").innerHTML;
+          let team1 = document.getElementById("name1").innerHTML;
+          let team2 = document.getElementById("name2").innerHTML;
           document.getElementById("my_compare").href = "?compare=" + team1 + team2;
       }
   </script>

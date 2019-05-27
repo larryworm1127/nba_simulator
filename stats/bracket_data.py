@@ -8,7 +8,7 @@ from json import load
 from os import listdir
 from os.path import join
 
-from constant import DIVISION_LIST, TEAM_PLAYOFF_PATH, TEAM_SEASON_PATH
+from constant import CONF_LIST, TEAM_PLAYOFF_PATH, TEAM_SEASON_PATH
 
 # constant
 TEAM_MATCH_LIST = [[1, 8, 4, 5], [3, 6, 2, 7]]
@@ -28,15 +28,12 @@ class BracketData:
 
         div_list = {}
         for name in teams:
-            with open(join(TEAM_SEASON_PATH, name + '.json')) as f:
+            with open(join(TEAM_SEASON_PATH, f"{name}.json")) as f:
                 data = load(f)['resultSets'][0]['rowSet']
-                division = 'east' if name in DIVISION_LIST['east'] else 'west'
+                division = 'east' if name in CONF_LIST['east'] else 'west'
                 div_list[name] = division
 
             self.playoff_dict[division][data[-2][8]] = name
-
-    def get_final_data(self):
-        return self.final_data
 
     def set_final_data(self, new_data):
         self.final_data = new_data.copy()

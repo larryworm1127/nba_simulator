@@ -37,8 +37,8 @@ SIM_PLAYOFF_PATH = os.path.join(SIM_RESULT_PATH, 'playoff_result.json')
 with open(os.path.join(ASSET_BASE_PATH, 'team_dict.json')) as f:
     TEAM_DICT = json.load(f)
 
-with open(os.path.join(ASSET_BASE_PATH, 'division_list.json')) as f:
-    DIVISION_LIST = json.load(f)
+with open(os.path.join(ASSET_BASE_PATH, 'conf_list.json')) as f:
+    CONF_LIST = json.load(f)
 
 with open(os.path.join(ASSET_BASE_PATH, 'team_name_dict.json')) as f:
     TEAM_NAME_DICT = json.load(f)
@@ -49,10 +49,20 @@ with open(os.path.join(ASSET_BASE_PATH, 'player_dict.json')) as f:
 with open(os.path.join(ASSET_BASE_PATH, 'game_list.json')) as f:
     GAME_LIST = json.load(f)
 
+with open(os.path.join(ASSET_BASE_PATH, 'division_dict.json')) as f:
+    DIVISION_DICT = json.load(f)
 
 # ======================================================
-# Header Constants
+# Boxscore Data Constants
 # ======================================================
+TEAM_ID_INDEX = 1
+PLAYER_STAT_INDEX = 0
+TEAM_STAT_INDEX = 1
+HEADER = ['Player Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB',
+          'AST', 'STL', 'BLK', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%',
+          'FTM', 'FTA', 'FT%', 'TOV', 'PF', '+/-']
+
+
 class BoxScorePlayerHeaders(enum.IntEnum):
     """Boxscore Player Data Index Enum.
     """
@@ -103,3 +113,17 @@ class BoxScoreTeamHeaders(enum.IntEnum):
     TO = 21
     PF = 22
     PLUS_MINUS = 24
+
+
+# ======================================================
+# Comparison Data Constants
+# ======================================================
+class ComparisonDataIndices(enum.IntEnum):
+    """Comparison Data Index Enum.
+    """
+    WLR = 7
+    PPG = 32
+    FG_PCT = 17
+    FG3_PCT = 20
+    REB = 26
+    AST = 27

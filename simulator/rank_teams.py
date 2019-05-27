@@ -6,7 +6,7 @@ import json
 import os.path
 from typing import List, Tuple, Dict
 
-from constant import DIVISION_LIST, SIM_RANKING_PATH, SIM_RESULT_PATH
+from constant import CONF_LIST, SIM_RANKING_PATH, SIM_RESULT_PATH
 
 
 def ranking_teams() -> Dict[str, Dict]:
@@ -25,7 +25,7 @@ def ranking_teams() -> Dict[str, Dict]:
     # sort each team in the sorted win list into specific conference
     for item in win_data_list:
         team_abb = item[0]
-        if team_abb in DIVISION_LIST['east']:
+        if team_abb in CONF_LIST['east']:
             result['east'][east_counter] = team_abb
             east_counter += 1
         else:

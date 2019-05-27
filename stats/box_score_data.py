@@ -7,19 +7,11 @@ from typing import Tuple, List
 
 from constant import GAME_BASE_PATH, TEAM_NAME_DICT, TEAM_DICT
 from constant import BoxScorePlayerHeaders, BoxScoreTeamHeaders
-
-# Constants
-TEAM_ID_INDEX = 1
-PLAYER_STAT_INDEX = 0
-TEAM_STAT_INDEX = 1
-HEADER = ['Player Names', 'P', 'MIN', 'PTS', 'OREB', 'DREB', 'REB',
-          'AST', 'STL', 'BLK', 'FGM', 'FGA', 'FG%', '3PM', '3PA', '3P%',
-          'FTM', 'FTA', 'FT%', 'TOV', 'PF', '+/-']
+from constant import PLAYER_STAT_INDEX, TEAM_STAT_INDEX, TEAM_ID_INDEX
 
 
 # main functions
-def create_boxscore_data(game_id: str
-                         ) -> Tuple[List[str], List, List, str, str, str, str]:
+def create_boxscore_data(game_id: str) -> Tuple[List, List, str, str, str, str]:
     """Format boxscore data to be used in front-end HTML from JSON data files.
 
     :param game_id: the ID of the game to be displayed.
@@ -68,7 +60,6 @@ def create_boxscore_data(game_id: str
         player_boxscore[team_abb].append(team_data)
 
     return (
-        HEADER,
         player_boxscore[team1_abb],
         player_boxscore[team2_abb],
         team1_name,

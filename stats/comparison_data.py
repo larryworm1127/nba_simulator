@@ -1,94 +1,70 @@
 """This module formats data needed for team comparison page"""
 
-# general imports
-from stats.all_team_data import get_data
-from constant import TEAM_DICT
+# General imports
+from typing import Tuple, Dict, List
+
+from .all_team_data import get_data
+from constant import TEAM_DICT, DIVISION_DICT
+from constant import ComparisonDataIndices
 
 
-def create_divisions_data(compare):
-    # initialize west conference logo path dictionary
-    west_div = {
-        "Northwest Division": [
-            {"DEN": "images/DEN.png"},
-            {"MIN": "images/MIN.png"},
-            {"OKC": "images/OKC.png"},
-            {"POR": "images/POR.png"},
-            {"UTA": "images/UTA.png"}
-        ],
-        "Pacific Division": [
-            {"GSW": "images/GSW.png"},
-            {"LAC": "images/LAC.png"},
-            {"LAL": "images/LAL.png"},
-            {"PHX": "images/PHX.png"},
-            {"SAC": "images/SAC.png"}
-        ],
-        "Southwest Division": [
-            {"DAL": "images/DAL.png"},
-            {"HOU": "images/HOU.png"},
-            {"MEM": "images/MEM.png"},
-            {"NOP": "images/NOP.png"},
-            {"SAS": "images/SAS.png"}
-        ]
-    }
+def create_comparison_data(teams: str
+                           ) -> Tuple[Dict, Dict, List, Dict, Dict, str, str]:
+    """Format comparison data to be used in front-end HTML from JSON data files.
 
-    # initialize east conference logo path dictionary
-    east_div = {
-        "Atlantic Division": [
-            {"BOS": "images/BOS.png"},
-            {"BKN": "images/BKN.png"},
-            {"NYK": "images/NYK.png"},
-            {"PHI": "images/PHI.png"},
-            {"TOR": "images/TOR.png"}
-        ],
-        "Central Division": [
-            {"CHI": "images/CHI.png"},
-            {"CLE": "images/CLE.png"},
-            {"DET": "images/DET.png"},
-            {"IND": "images/IND.png"},
-            {"MIL": "images/MIL.png"}
-        ],
-        "Southeast Division": [
-            {"ATL": "images/ATL.png"},
-            {"CHA": "images/CHA.png"},
-            {"MIA": "images/MIA.png"},
-            {"ORL": "images/ORL.png"},
-            {"WAS": "images/WAS.png"}
-        ]
-    }
+    :param teams: the teams string requested from front-end
+    :return: a tuple containing all information needed in front-end
+    """
+    # initialize west conference logo path dictionary and division list
+    team_img_path = {"west": {}, "east": {}}
+    all_teams = []
+    for conf in ["west", "east"]:
 
-    # initialize division list
-    all_teams = ["Northwest -", "DEN", "MIN", "OKC", "POR", "UTA",
-                 "Pacific -", "GSW", "LAC", "LAL", "PHX", "SAC",
-                 "Southwest -", "DAL", "HOU", "MEM", "NOP", "SAS",
-                 "Atlantic -", "BOS", "BKN", "NYK", "PHI", "TOR",
-                 "Central -", "CHI", "CLE", "DET", "IND", "MIL",
-                 "Southeast -", "ATL", "CHA", "MIA", "ORL", "WAS"]
-    abb = list(TEAM_DICT.values())
+        for div in DIVISION_DICT[conf].keys():
+            team_img_path[conf][div] = []
+            all_teams.append(f"{div} -")
+
+            for team in DIVISION_DICT[conf][div]:
+                team_img_path[conf][div].append({team: f"images/{team}.png"})
+                all_teams.append(team)
 
     # the stats comparing dictionaries
-    cat1 = {"W-L R": '', "PPG": '', "FG%": '', "3P%": '', "REB": '', "AST": ''}
-    cat2 = {"W-L R": '', "PPG": '', "FG%": '', "3P%": '', "REB": '', "AST": ''}
-    categories_index = [7, 32, 17, 20, 26, 27]
+    result = {
+        "team1": {"W-L R": '', "PPG": '', "FG%": '', "3P%": '', "REB": '',
+                  "AST": ''},
+        "team2": {"W-L R": '', "PPG": '', "FG%": '', "3P%": '', "REB": '',
+                  "AST": ''}
+    }
+    team_abb = list(TEAM_DICT.values())
+    team1, team2 = '', ''
 
-    stats = get_data()
-    stats1 = []
-    stats2 = []
-    team1 = ''
-    team2 = ''
-    counter = 0
+    # enum does not allow storing special characters so this dict maps enum
+    # variables to result display variables
+    cat_ref = {"WLR": "W-L R", "PPG": "PPG", "FG_PCT": "FG%",
+               "FG3_PCT": "3P%", "REB": "REB", "AST": "AST"}
 
-    # if user selected the two teams and pressed the compare button
-    if compare is not None:
-        team1 = compare[0:3]
-        team2 = compare[3:6]
-        temp1 = stats[abb.index(team1)]
-        temp2 = stats[abb.index(team2)]
-        for each in categories_index:
-            stats1.append(temp1[each])
-            stats2.append(temp2[each])
-        for key in cat1.keys():
-            cat2[key] = stats1[counter]
-            cat2[key] = stats2[counter]
-            counter += 1
+    # only gather data if request inputs team names
+    if teams:
+        team1, team2 = teams[:3], teams[3:]
+        all_team_stats = get_data()
+        print(all_team_stats)
+        team1_index = team_abb.index(team1)
+        team2_index = team_abb.index(team2)
 
-    return west_div, east_div, all_teams, cat1, cat2, abb, team1, team2
+        # populate result dict from file data
+        for category in ComparisonDataIndices:
+            team1_data = all_team_stats[team1_index][category.value]
+            result["team1"][cat_ref[category.name]] = team1_data
+
+            team2_data = all_team_stats[team2_index][category.value]
+            result["team2"][cat_ref[category.name]] = team2_data
+
+    return (
+        team_img_path["west"],
+        team_img_path["east"],
+        all_teams,
+        result["team1"],
+        result["team2"],
+        team1,
+        team2
+    )
