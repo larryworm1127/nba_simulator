@@ -11,14 +11,6 @@
     <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
-
-    <style type="text/css">
-      body {
-        background-image: url("{% static 'stats/images/background.png' %}");
-        overflow: auto;
-        z-index: 1
-      }
-    </style>
   </head>
 
   <body>
@@ -92,8 +84,6 @@
       <a href="{% url 'tournament_bracket' '2016-17' %}">
         <button class="button view_button"><strong>View Stats</strong></button>
       </a>
-
-      <img src="{% static 'images/logo.png' %}" alt="Project Team Logo" class="team_logo">
     </div>
 
     <script>
